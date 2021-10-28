@@ -186,6 +186,30 @@ def plot_vehkamaki2002_fig11(prefix):
     plt.savefig(prefix + fig_name + '.png')
     plt.clf()
 
+def plot_merikanto2007_fig2(prefix):
+    fig_name = 'merikanto2007_fig2'
+    data = importlib.import_module('%s%s'%(prefix, fig_name))
+    T, xi_nh3, c_h2so4, J = data.input.user.relative_humidity, \
+                            data.input.user.xi_nh3, \
+                            data.input.user.c_h2so4, \
+                            data.output.metrics.nucleation_rate
+
+    for Ti in [235.15, 273.15]:
+        for xi_nh3i in [0.1, 10, 1000]:
+            if (Ti == 235.15 and xi_nh3i == 1000) or \
+               (Ti == 273.15 and xi_nh3i == 0.1):
+                continue
+            x = [c_h2so4[i] for i in range(len(J)) if abs(T[i]-Ti) < 1e-6 and abs(xi_nh3[i]-xi_nh3i) < 1e-6]
+            y = [J[i] for i in range(len(J)) if abs(T[i]-Ti) < 1e-6 and abs(xi_nh3[i]-xi_nh3і) < 1e-6]
+            plt.loglog(x, y, label = 'T = %g K, xi = %g'%(Ti, xi_nh3i))
+    plt.legend()
+    plt.xlabel('H2SO4 concentration [#/cc]')
+    plt.ylabel('J[1/cc/s]')
+    plt.xlim(1e5, 1e9)
+    plt.ylim(1e-5, 1e8)
+    plt.savefig(prefix + fig_name + '.png')
+    plt.clf()
+
 if __name__ == '__main__':
     if len(sys.argv) < 2:
         prefix = ''
@@ -197,4 +221,5 @@ if __name__ == '__main__':
     plot_vehkamaki2002_fig9(prefix)
     plot_vehkamaki2002_fig10(prefix)
     plot_vehkamaki2002_fig11(prefix)
+    plot_merikanto2007_fig2(prefix)
 
