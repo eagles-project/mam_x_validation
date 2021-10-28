@@ -51,7 +51,7 @@ and relative humidity."""
 #    ax.set_title('(H2SO4 conc = 5e8/cc)')
     fig.colorbar(fills)
 #    plt.show()
-    plt.savefig(prefix + fig_name + 'png')
+    plt.savefig(prefix + fig_name + '.png')
 
 def plot_vehkamaki2002_fig7(prefix):
     fig_name = 'vehkamaki2002_fig7'
