@@ -50,19 +50,91 @@ and relative humidity."""
 #    plt.show()
     plt.savefig(prefix + plot_file)
 
+def plot_vehkamaki2002_fig7(prefix, plot_file):
+    # Fetch scatter data from skywalker.
+    data = importlib.import_module('%svehkamaki2002_fig7'%prefix)
+    RH, T, c_h2so4 = data.input.user.relative_humidity, \
+                     data.input.user.temperature, \
+                     data.output.metrics.nucleation_threshold
+
+    # We are going to plot a whole bunch of concentrations at different
+    # temperatures!
+    xs = []
+    ys = []
+    Ts = [190.15 + 5.0*i for i in range(20)]
+    for Ti in Ts:
+        x, y = [RH[i], c_h2so4[i] for i in range(len(RH)) if abs(T[i]-Ti)<1e-6]
+        plt.plot(x, y, label = 'T [K] = %g'%Ti)
+    plt.legend()
+    plt.xlabel('Relative humidity [-]')
+    plt.ylabel('Threshold concentration of H2SO4 [1/cc]')
+    plt.savefig(prefix + plot_file)
+
 def plot_vehkamaki2002_fig9(prefix, plot_file):
     # Fetch scatter data from skywalker.
     data = importlib.import_module('%svehkamaki2002_fig9'%prefix)
-    RH, T, J = data.input.user.relative_humidity, \
-               data.input.user.temperature, \
-               data.output.metrics.nucleation_rate
+    RH, c_h2so4, T, J = data.input.user.relative_humidity, \
+                        data.input.user.c_h2so4, \
+                        data.input.user.temperature, \
+                        data.output.metrics.nucleation_rate
 
     # Convert relative humidity to percent.
     RH = [100*rh for rh in RH]
 
-    ax.set_xlabel('Relative humidity [%]')
-    ax.set_ylabel('Temperature [K]')
-    ax.set_title('Temperature [K]')
+    fig, axs = plt.subplots(2, 1)
+
+    # Fig 9a
+    c_h2so4a, Ja = [c_h2so4[i], J[i] for i in range(len(J)) if abs(RH[i]-38.2)<1e-6]
+    axs[0].plot(c_h2so4a, Ja)
+    axs[0].set(xlabel = 'H2SO4 concentration [#/cc]', xscale='linear',
+               ylabel = 'Nucleation rate [#/cc/s]', yscale='log',
+               title = '298K, RH=38.2%')
+    axs[0].set_xlim(0, 4e+10)
+    axs[0].set_ylim(0.001, 1e+06)
+    axs[0].grid()
+
+    # Fig 9b
+    c_h2so4b, Jb = [c_h2so4[i], J[i] for i in range(len(J)) if abs(RH[i]-52.3)<1e-6]
+    axs[1].plot(c_h2so4b, Jb)
+    axs[1].set(xlabel = 'H2SO4 concentration [#/cc]', xscale='linear',
+               ylabel = 'Nucleation rate [#/cc/s]', yscale='log',
+               title = '298K, RH=52.3%')
+    axs[1].set_xlim(0, 4e+10)
+    axs[1].set_ylim(0.001, 1e+06)
+    axs[1].grid()
+
+    plt.savefig(prefix + plot_file)
+
+def plot_vehkamaki2002_fig10(prefix, plot_file):
+    # Fetch scatter data from skywalker.
+    data = importlib.import_module('%svehkamaki2002_fig10'%prefix)
+    RH, c_h2so4, T, J = data.input.user.relative_humidity, \
+                        data.input.user.c_h2so4, \
+                        data.input.user.temperature, \
+                        data.output.metrics.nucleation_rate
+
+    fig, axs = plt.subplots(2, 1)
+
+    # Fig 10a
+    c_h2so4a, Ja = [c_h2so4[i], J[i] for i in range(len(J)) if abs(RH[i]-0.075)<1e-6]
+    axs[0].plot(c_h2so4a, Ja)
+    axs[0].set(xlabel = 'H2SO4 concentration [#/cc]', xscale='linear',
+               ylabel = 'Nucleation rate [#/cc/s]', yscale='log',
+               title = 'T=298K, RH=7.5%')
+    axs[0].set_xlim(1e+10, 1e+12)
+    axs[0].set_ylim(0.001, 1e+05)
+    axs[0].grid()
+
+    # Fig 10b
+    c_h2so4b, Jb = [c_h2so4[i], J[i] for i in range(len(J)) if abs(RH[i]-15.3)<1e-6]
+    axs[1].plot(c_h2so4b, Jb)
+    axs[1].set(xlabel = 'H2SO4 concentration [#/cc]', xscale='linear',
+               ylabel = 'Nucleation rate [#/cc/s]', yscale='log',
+               title='298K, RH=15.3%')
+    axs[1].set_xlim(1e+10, 1e+12)
+    axs[1].set_ylim(0.001, 1e+05)
+    axs[1].grid()
+
     plt.savefig(prefix + plot_file)
 
 if __name__ == '__main__':
@@ -71,4 +143,7 @@ if __name__ == '__main__':
     else:
         prefix = sys.argv[1] + '_'
     plot_vehkamaki2002_contour(prefix, 'vehkamaki2002_contour.png')
+    plot_vehkamaki2002_contour(prefix, 'vehkamaki2002_fig7.png')
+    plot_vehkamaki2002_contour(prefix, 'vehkamaki2002_fig9.png')
+    plot_vehkamaki2002_contour(prefix, 'vehkamaki2002_fig10.png')
 
