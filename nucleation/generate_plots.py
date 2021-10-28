@@ -3,11 +3,14 @@
 # current directory, using nucleation.yaml as input. This writes a file called
 # haero_skywalker.py to the directory, which is then imported as a module.
 
-import sys, importlib
+import os, sys, importlib
 import matplotlib.pyplot as plt
 from matplotlib import colors
 import matplotlib.tri as tri
 import numpy as np
+
+# Look for data in whatever directory we're running in.
+sys.path.append(os.getcwd())
 
 def plot_vehkamaki2002_contour(prefix):
     """Plot the contours of the rate of nucleation as a function of temperature
