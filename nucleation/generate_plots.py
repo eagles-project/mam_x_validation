@@ -75,7 +75,7 @@ def plot_vehkamaki2002_fig8(prefix):
 
     fig, ax = plt.subplots()
 
-    ax.plot(c_h2so4a, Ja)
+    ax.plot(c_h2so4, J)
     ax.set(xlabel = 'total H2SO4 [#/cc]', xscale='log',
            ylabel = 'Nucleation rate [#/cc/s]', yscale='log',
            title = '236K, RH=55%')
