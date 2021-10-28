@@ -52,6 +52,7 @@ and relative humidity."""
     fig.colorbar(fills)
 #    plt.show()
     plt.savefig(prefix + fig_name + '.png')
+    plt.clf()
 
 def plot_vehkamaki2002_fig7(prefix):
     fig_name = 'vehkamaki2002_fig7'
@@ -65,11 +66,12 @@ def plot_vehkamaki2002_fig7(prefix):
     for Ti in Ts:
         x = [RH[i] for i in range(len(RH)) if abs(T[i]-Ti) < 1e-6]
         y = [c_h2so4[i] for i in range(len(RH)) if abs(T[i]-Ti) < 1e-6]
-        plt.plot(x, y, label = 'T [K] = %g'%Ti)
-    plt.legend()
+        plt.semilogy(x, y, label = 'T [K] = %g'%Ti)
+    plt.legend(fontsize='x-small')
     plt.xlabel('Relative humidity [-]')
     plt.ylabel('Threshold concentration of H2SO4 [1/cc]')
     plt.savefig(prefix + fig_name + '.png')
+    plt.clf()
 
 def plot_vehkamaki2002_fig8(prefix):
     fig_name = 'vehkamaki2002_fig8'
@@ -87,6 +89,7 @@ def plot_vehkamaki2002_fig8(prefix):
     ax.grid()
 
     plt.savefig(prefix + fig_name + '.png')
+    plt.clf()
 
 def plot_vehkamaki2002_fig9(prefix):
     fig_name = 'vehkamaki2002_fig9'
@@ -100,6 +103,7 @@ def plot_vehkamaki2002_fig9(prefix):
     RH = [100*rh for rh in RH]
 
     fig, axs = plt.subplots(2, 1)
+    fig.subplots_adjust(hspace = 0.6)
 
     # Fig 9a
     c_h2so4a = [c_h2so4[i] for i in range(len(J)) if abs(RH[i]-38.2)<1e-6]
@@ -124,6 +128,7 @@ def plot_vehkamaki2002_fig9(prefix):
     axs[1].grid()
 
     plt.savefig(prefix + fig_name + '.png')
+    plt.clf()
 
 def plot_vehkamaki2002_fig10(prefix):
     fig_name = 'vehkamaki2002_fig10'
@@ -133,12 +138,13 @@ def plot_vehkamaki2002_fig10(prefix):
                      data.output.metrics.nucleation_rate
 
     fig, axs = plt.subplots(2, 1)
+    fig.subplots_adjust(hspace = 0.6)
 
     # Fig 10a
     c_h2so4a = [c_h2so4[i] for i in range(len(J)) if abs(RH[i]-0.075) < 1e-6]
     Ja = [J[i] for i in range(len(J)) if abs(RH[i]-0.075) < 1e-6]
     axs[0].plot(c_h2so4a, Ja)
-    axs[0].set(xlabel = 'H2SO4 concentration [#/cc]', xscale='linear',
+    axs[0].set(xlabel = 'H2SO4 concentration [#/cc]', xscale='log',
                ylabel = 'Nucleation rate [#/cc/s]', yscale='log',
                title = 'T=298K, RH=7.5%')
     axs[0].set_xlim(1e+10, 1e+12)
@@ -146,10 +152,10 @@ def plot_vehkamaki2002_fig10(prefix):
     axs[0].grid()
 
     # Fig 10b
-    c_h2so4b = [c_h2so4[i] for i in range(len(J)) if abs(RH[i]-15.3) < 1e-6]
-    Jb = [J[i] for i in range(len(J)) if abs(RH[i]-15.3) < 1e-6]
+    c_h2so4b = [c_h2so4[i] for i in range(len(J)) if abs(RH[i]-0.153) < 1e-6]
+    Jb = [J[i] for i in range(len(J)) if abs(RH[i]-0.153) < 1e-6]
     axs[1].plot(c_h2so4b, Jb)
-    axs[1].set(xlabel = 'H2SO4 concentration [#/cc]', xscale='linear',
+    axs[1].set(xlabel = 'H2SO4 concentration [#/cc]', xscale='log',
                ylabel = 'Nucleation rate [#/cc/s]', yscale='log',
                title='298K, RH=15.3%')
     axs[1].set_xlim(1e+10, 1e+12)
@@ -157,6 +163,7 @@ def plot_vehkamaki2002_fig10(prefix):
     axs[1].grid()
 
     plt.savefig(prefix + fig_name + '.png')
+    plt.clf()
 
 def plot_vehkamaki2002_fig11(prefix):
     fig_name = 'vehkamaki2002_fig11'
@@ -170,13 +177,14 @@ def plot_vehkamaki2002_fig11(prefix):
     c_h2so4s = [5e5, 5e8]
     for RHi in RHs:
         for ci in c_h2so4s:
-            x = T
+            x = [T[i] for i in range(len(J)) if abs(RH[i]-RHi) < 1e-6 and abs(c_h2so4[i]-ci) < 1e-6]
             y = [J[i] for i in range(len(J)) if abs(RH[i]-RHi) < 1e-6 and abs(c_h2so4[i]-ci) < 1e-6]
-            plt.plot(x, y, label = 'RH = %g, c = %g'%(100*RHi, ci))
+            plt.semilogy(x, y, label = 'RH = %g%%, c = %g'%(100*RHi, ci))
     plt.legend()
     plt.xlabel('Temperature [K]')
     plt.ylabel('J[1/cc/s]')
     plt.savefig(prefix + fig_name + '.png')
+    plt.clf()
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
@@ -188,4 +196,5 @@ if __name__ == '__main__':
     plot_vehkamaki2002_fig8(prefix)
     plot_vehkamaki2002_fig9(prefix)
     plot_vehkamaki2002_fig10(prefix)
+    plot_vehkamaki2002_fig11(prefix)
 
