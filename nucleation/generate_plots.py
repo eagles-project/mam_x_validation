@@ -9,12 +9,12 @@ from matplotlib import colors
 import matplotlib.tri as tri
 import numpy as np
 
-def plot_vehkamaki2002_contour(prefix, plot_file):
+def plot_vehkamaki2002_contour(prefix):
     """Plot the contours of the rate of nucleation as a function of temperature
 and relative humidity."""
 
-    # Fetch scatter data from skywalker.
-    data = importlib.import_module('%svehkamaki2002_contour'%prefix)
+    fig_name = 'vehkamaki2002_contour'
+    data = importlib.import_module('%s%s'%(prefix, fig_name))
     RH, T, J = data.input.user.relative_humidity, \
                data.input.user.temperature, \
                data.output.metrics.nucleation_rate
@@ -34,7 +34,7 @@ and relative humidity."""
 
     # Plot contours. We get a little fancy in order to explicitly set log levels
     # because the ticker.LogLocator doesn't "get it."
-#    plt.suptitle('Nucleation rate [#/cc/sec]')
+#    plt.suptitle('Nucleation rate [#/cc/s]')
     fig, ax = plt.subplots()
     lev_exp = np.arange(-3, 11)
     levels = np.power(10., lev_exp)
@@ -44,35 +44,50 @@ and relative humidity."""
 
     ax.set_xlabel('Relative humidity [%]')
     ax.set_ylabel('Temperature [K]')
-    ax.set_title('Nucleation rate [#/cc/sec]')
+    ax.set_title('Nucleation rate [#/cc/s]')
 #    ax.set_title('(H2SO4 conc = 5e8/cc)')
     fig.colorbar(fills)
 #    plt.show()
-    plt.savefig(prefix + plot_file)
+    plt.savefig(prefix + fig_name + 'png')
 
-def plot_vehkamaki2002_fig7(prefix, plot_file):
-    # Fetch scatter data from skywalker.
-    data = importlib.import_module('%svehkamaki2002_fig7'%prefix)
+def plot_vehkamaki2002_fig7(prefix):
+    fig_name = 'vehkamaki2002_fig7'
+    data = importlib.import_module('%s%s'%(prefix, fig_name))
     RH, T, c_h2so4 = data.input.user.relative_humidity, \
                      data.input.user.temperature, \
                      data.output.metrics.nucleation_threshold
 
-    # We are going to plot a whole bunch of concentrations at different
-    # temperatures!
-    xs = []
-    ys = []
+    # We plot a whole bunch of concentrations at different temperatures!
     Ts = [190.15 + 5.0*i for i in range(20)]
     for Ti in Ts:
-        x, y = [RH[i], c_h2so4[i] for i in range(len(RH)) if abs(T[i]-Ti)<1e-6]
+        x = [RH[i] for i in range(len(RH)) if abs(T[i]-Ti) < 1e-6]
+        y = [c_h2so4[i] for i in range(len(RH)) if abs(T[i]-Ti) < 1e-6]
         plt.plot(x, y, label = 'T [K] = %g'%Ti)
     plt.legend()
     plt.xlabel('Relative humidity [-]')
     plt.ylabel('Threshold concentration of H2SO4 [1/cc]')
-    plt.savefig(prefix + plot_file)
+    plt.savefig(prefix + fig_name + '.png')
 
-def plot_vehkamaki2002_fig9(prefix, plot_file):
-    # Fetch scatter data from skywalker.
-    data = importlib.import_module('%svehkamaki2002_fig9'%prefix)
+def plot_vehkamaki2002_fig8(prefix):
+    fig_name = 'vehkamaki2002_fig8'
+    data = importlib.import_module('%s%s'%(prefix, fig_name))
+    c_h2so4, J = data.input.user.c_h2so4, data.output.metrics.nucleation_rate
+
+    fig, ax = plt.subplots()
+
+    ax.plot(c_h2so4a, Ja)
+    ax.set(xlabel = 'total H2SO4 [#/cc]', xscale='log',
+           ylabel = 'Nucleation rate [#/cc/s]', yscale='log',
+           title = '236K, RH=55%')
+    ax.set_xlim(1e+06, 2e+09)
+    ax.set_ylim(0.001, 1e+10)
+    ax.grid()
+
+    plt.savefig(prefix + fig_name + '.png')
+
+def plot_vehkamaki2002_fig9(prefix):
+    fig_name = 'vehkamaki2002_fig9'
+    data = importlib.import_module('%s%s'%(prefix, fig_name))
     RH, c_h2so4, T, J = data.input.user.relative_humidity, \
                         data.input.user.c_h2so4, \
                         data.input.user.temperature, \
@@ -84,7 +99,8 @@ def plot_vehkamaki2002_fig9(prefix, plot_file):
     fig, axs = plt.subplots(2, 1)
 
     # Fig 9a
-    c_h2so4a, Ja = [c_h2so4[i], J[i] for i in range(len(J)) if abs(RH[i]-38.2)<1e-6]
+    c_h2so4a = [c_h2so4[i] for i in range(len(J)) if abs(RH[i]-38.2)<1e-6]
+    Ja = [J[i] for i in range(len(J)) if abs(RH[i]-38.2)<1e-6]
     axs[0].plot(c_h2so4a, Ja)
     axs[0].set(xlabel = 'H2SO4 concentration [#/cc]', xscale='linear',
                ylabel = 'Nucleation rate [#/cc/s]', yscale='log',
@@ -94,7 +110,8 @@ def plot_vehkamaki2002_fig9(prefix, plot_file):
     axs[0].grid()
 
     # Fig 9b
-    c_h2so4b, Jb = [c_h2so4[i], J[i] for i in range(len(J)) if abs(RH[i]-52.3)<1e-6]
+    c_h2so4b = [c_h2so4[i] for i in range(len(J)) if abs(RH[i]-52.3) < 1e-6]
+    Jb = [J[i] for i in range(len(J)) if abs(RH[i]-52.3) < 1e-6]
     axs[1].plot(c_h2so4b, Jb)
     axs[1].set(xlabel = 'H2SO4 concentration [#/cc]', xscale='linear',
                ylabel = 'Nucleation rate [#/cc/s]', yscale='log',
@@ -103,20 +120,20 @@ def plot_vehkamaki2002_fig9(prefix, plot_file):
     axs[1].set_ylim(0.001, 1e+06)
     axs[1].grid()
 
-    plt.savefig(prefix + plot_file)
+    plt.savefig(prefix + fig_name + '.png')
 
-def plot_vehkamaki2002_fig10(prefix, plot_file):
-    # Fetch scatter data from skywalker.
-    data = importlib.import_module('%svehkamaki2002_fig10'%prefix)
-    RH, c_h2so4, T, J = data.input.user.relative_humidity, \
-                        data.input.user.c_h2so4, \
-                        data.input.user.temperature, \
-                        data.output.metrics.nucleation_rate
+def plot_vehkamaki2002_fig10(prefix):
+    fig_name = 'vehkamaki2002_fig10'
+    data = importlib.import_module('%s%s'%(prefix, fig_name))
+    RH, c_h2so4, J = data.input.user.relative_humidity, \
+                     data.input.user.c_h2so4, \
+                     data.output.metrics.nucleation_rate
 
     fig, axs = plt.subplots(2, 1)
 
     # Fig 10a
-    c_h2so4a, Ja = [c_h2so4[i], J[i] for i in range(len(J)) if abs(RH[i]-0.075)<1e-6]
+    c_h2so4a = [c_h2so4[i] for i in range(len(J)) if abs(RH[i]-0.075) < 1e-6]
+    Ja = [J[i] for i in range(len(J)) if abs(RH[i]-0.075) < 1e-6]
     axs[0].plot(c_h2so4a, Ja)
     axs[0].set(xlabel = 'H2SO4 concentration [#/cc]', xscale='linear',
                ylabel = 'Nucleation rate [#/cc/s]', yscale='log',
@@ -126,7 +143,8 @@ def plot_vehkamaki2002_fig10(prefix, plot_file):
     axs[0].grid()
 
     # Fig 10b
-    c_h2so4b, Jb = [c_h2so4[i], J[i] for i in range(len(J)) if abs(RH[i]-15.3)<1e-6]
+    c_h2so4b = [c_h2so4[i] for i in range(len(J)) if abs(RH[i]-15.3) < 1e-6]
+    Jb = [J[i] for i in range(len(J)) if abs(RH[i]-15.3) < 1e-6]
     axs[1].plot(c_h2so4b, Jb)
     axs[1].set(xlabel = 'H2SO4 concentration [#/cc]', xscale='linear',
                ylabel = 'Nucleation rate [#/cc/s]', yscale='log',
@@ -135,15 +153,36 @@ def plot_vehkamaki2002_fig10(prefix, plot_file):
     axs[1].set_ylim(0.001, 1e+05)
     axs[1].grid()
 
-    plt.savefig(prefix + plot_file)
+    plt.savefig(prefix + fig_name + '.png')
+
+def plot_vehkamaki2002_fig11(prefix):
+    fig_name = 'vehkamaki2002_fig11'
+    data = importlib.import_module('%s%s'%(prefix, fig_name))
+    RH, c_h2so4, T, J = data.input.user.relative_humidity, \
+                        data.input.user.c_h2so4, \
+                        data.input.user.temperature, \
+                        data.output.metrics.nucleation_rate
+
+    RHs = [0.0001, 0.01, 1]
+    c_h2so4s = [5e5, 5e8]
+    for RHi in RHs:
+        for ci in c_h2so4s:
+            x = T
+            y = [J[i] for i in range(len(J)) if abs(RH[i]-RHi) < 1e-6 and abs(c_h2so4[i]-ci) < 1e-6]
+            plt.plot(x, y, label = 'RH = %g, c = %g'%(100*RHi, ci))
+    plt.legend()
+    plt.xlabel('Temperature [K]')
+    plt.ylabel('J[1/cc/s]')
+    plt.savefig(prefix + fig_name + '.png')
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
         prefix = ''
     else:
         prefix = sys.argv[1] + '_'
-    plot_vehkamaki2002_contour(prefix, 'vehkamaki2002_contour.png')
-    plot_vehkamaki2002_contour(prefix, 'vehkamaki2002_fig7.png')
-    plot_vehkamaki2002_contour(prefix, 'vehkamaki2002_fig9.png')
-    plot_vehkamaki2002_contour(prefix, 'vehkamaki2002_fig10.png')
+    plot_vehkamaki2002_contour(prefix)
+    plot_vehkamaki2002_fig7(prefix)
+    plot_vehkamaki2002_fig8(prefix)
+    plot_vehkamaki2002_fig9(prefix)
+    plot_vehkamaki2002_fig10(prefix)
 
