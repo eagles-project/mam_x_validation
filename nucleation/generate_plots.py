@@ -12,6 +12,15 @@ import numpy as np
 # Look for data in whatever directory we're running in.
 sys.path.append(os.getcwd())
 
+# This function returns true if x and y are "equal" for plotting purposes,
+# false if not
+def equal(x, y):
+    return abs(x - y) < 1e-6
+
+#-------------------------------------------
+# Binary nucleation (Vehkamaki et al (2002)
+#-------------------------------------------
+
 def plot_vehkamaki2002_contour(prefix):
     """Plot the contours of the rate of nucleation as a function of temperature
 and relative humidity."""
@@ -64,9 +73,9 @@ def plot_vehkamaki2002_fig7(prefix):
     # We plot a whole bunch of concentrations at different temperatures!
     Ts = [190.15 + 5.0*i for i in range(20)]
     for Ti in Ts:
-        x = [RH[i] for i in range(len(RH)) if abs(T[i]-Ti) < 1e-6]
-        y = [c_h2so4[i] for i in range(len(RH)) if abs(T[i]-Ti) < 1e-6]
-        plt.semilogy(x, y, label = 'T [K] = %g'%Ti)
+        x = [RH[i] for i in range(len(RH)) if equal(T[i], Ti)]
+        y = [c_h2so4[i] for i in range(len(RH)) if equal(T[i], Ti)]
+        plt.semilogy(x, y, '.', label = 'T [K] = %g'%Ti)
     plt.legend(fontsize='x-small')
     plt.xlabel('Relative humidity [-]')
     plt.ylabel('Threshold concentration of H2SO4 [1/cc]')
@@ -80,7 +89,7 @@ def plot_vehkamaki2002_fig8(prefix):
 
     fig, ax = plt.subplots()
 
-    ax.plot(c_h2so4, J)
+    ax.plot(c_h2so4, J, '.')
     ax.set(xlabel = 'total H2SO4 [#/cc]', xscale='log',
            ylabel = 'Nucleation rate [#/cc/s]', yscale='log',
            title = '236K, RH=55%')
@@ -106,9 +115,9 @@ def plot_vehkamaki2002_fig9(prefix):
     fig.subplots_adjust(hspace = 0.6)
 
     # Fig 9a
-    c_h2so4a = [c_h2so4[i] for i in range(len(J)) if abs(RH[i]-38.2)<1e-6]
-    Ja = [J[i] for i in range(len(J)) if abs(RH[i]-38.2)<1e-6]
-    axs[0].plot(c_h2so4a, Ja)
+    c_h2so4a = [c_h2so4[i] for i in range(len(J)) if equal(RH[i], 38.2)]
+    Ja = [J[i] for i in range(len(J)) if equal(RH[i], 38.2)]
+    axs[0].plot(c_h2so4a, Ja, '.')
     axs[0].set(xlabel = 'H2SO4 concentration [#/cc]', xscale='linear',
                ylabel = 'Nucleation rate [#/cc/s]', yscale='log',
                title = '298K, RH=38.2%')
@@ -117,9 +126,9 @@ def plot_vehkamaki2002_fig9(prefix):
     axs[0].grid()
 
     # Fig 9b
-    c_h2so4b = [c_h2so4[i] for i in range(len(J)) if abs(RH[i]-52.3) < 1e-6]
-    Jb = [J[i] for i in range(len(J)) if abs(RH[i]-52.3) < 1e-6]
-    axs[1].plot(c_h2so4b, Jb)
+    c_h2so4b = [c_h2so4[i] for i in range(len(J)) if equal(RH[i], 52.3)]
+    Jb = [J[i] for i in range(len(J)) if equal(RH[i], 52.3)]
+    axs[1].plot(c_h2so4b, Jb, '.')
     axs[1].set(xlabel = 'H2SO4 concentration [#/cc]', xscale='linear',
                ylabel = 'Nucleation rate [#/cc/s]', yscale='log',
                title = '298K, RH=52.3%')
@@ -141,9 +150,9 @@ def plot_vehkamaki2002_fig10(prefix):
     fig.subplots_adjust(hspace = 0.6)
 
     # Fig 10a
-    c_h2so4a = [c_h2so4[i] for i in range(len(J)) if abs(RH[i]-0.075) < 1e-6]
-    Ja = [J[i] for i in range(len(J)) if abs(RH[i]-0.075) < 1e-6]
-    axs[0].plot(c_h2so4a, Ja)
+    c_h2so4a = [c_h2so4[i] for i in range(len(J)) if equal(RH[i], 0.075)]
+    Ja = [J[i] for i in range(len(J)) if equal(RH[i], 0.075)]
+    axs[0].plot(c_h2so4a, Ja, '.')
     axs[0].set(xlabel = 'H2SO4 concentration [#/cc]', xscale='log',
                ylabel = 'Nucleation rate [#/cc/s]', yscale='log',
                title = 'T=298K, RH=7.5%')
@@ -152,9 +161,9 @@ def plot_vehkamaki2002_fig10(prefix):
     axs[0].grid()
 
     # Fig 10b
-    c_h2so4b = [c_h2so4[i] for i in range(len(J)) if abs(RH[i]-0.153) < 1e-6]
-    Jb = [J[i] for i in range(len(J)) if abs(RH[i]-0.153) < 1e-6]
-    axs[1].plot(c_h2so4b, Jb)
+    c_h2so4b = [c_h2so4[i] for i in range(len(J)) if equal(RH[i], 0.153)]
+    Jb = [J[i] for i in range(len(J)) if equal(RH[i], 0.153)]
+    axs[1].plot(c_h2so4b, Jb, '.')
     axs[1].set(xlabel = 'H2SO4 concentration [#/cc]', xscale='log',
                ylabel = 'Nucleation rate [#/cc/s]', yscale='log',
                title='298K, RH=15.3%')
@@ -177,19 +186,23 @@ def plot_vehkamaki2002_fig11(prefix):
     c_h2so4s = [5e5, 5e8]
     for RHi in RHs:
         for ci in c_h2so4s:
-            x = [T[i] for i in range(len(J)) if abs(RH[i]-RHi) < 1e-6 and abs(c_h2so4[i]-ci) < 1e-6]
-            y = [J[i] for i in range(len(J)) if abs(RH[i]-RHi) < 1e-6 and abs(c_h2so4[i]-ci) < 1e-6]
-            plt.semilogy(x, y, label = 'RH = %g%%, c = %g'%(100*RHi, ci))
-    plt.legend()
+            x = [T[i] for i in range(len(J)) if equal(RH[i], RHi) and equal(c_h2so4[i], ci)]
+            y = [J[i] for i in range(len(J)) if equal(RH[i], RHi) and equal(c_h2so4[i], ci)]
+            plt.semilogy(x, y, '.', label = 'RH = %g%%, c = %g'%(100*RHi, ci))
+    plt.legend(fontsize='x-small')
     plt.xlabel('Temperature [K]')
     plt.ylabel('J[1/cc/s]')
     plt.savefig(prefix + fig_name + '.png')
     plt.clf()
 
+#--------------------------------------------
+# Ternary nucleation (Merikanto et al (2007)
+#--------------------------------------------
+
 def plot_merikanto2007_fig2(prefix):
     fig_name = 'merikanto2007_fig2'
     data = importlib.import_module('%s%s'%(prefix, fig_name))
-    T, xi_nh3, c_h2so4, J = data.input.user.relative_humidity, \
+    T, xi_nh3, c_h2so4, J = data.input.user.temperature, \
                             data.input.user.xi_nh3, \
                             data.input.user.c_h2so4, \
                             data.output.metrics.nucleation_rate
@@ -198,11 +211,13 @@ def plot_merikanto2007_fig2(prefix):
         for xi_nh3i in [0.1, 10, 1000]:
             if (Ti == 235.15 and xi_nh3i == 1000) or \
                (Ti == 273.15 and xi_nh3i == 0.1):
+                # Skip thermodynamically irrelevant regions
                 continue
-            x = [c_h2so4[i] for i in range(len(J)) if abs(T[i]-Ti) < 1e-6 and abs(xi_nh3[i]-xi_nh3i) < 1e-6]
-            y = [J[i] for i in range(len(J)) if abs(T[i]-Ti) < 1e-6 and abs(xi_nh3[i]-xi_nh3і) < 1e-6]
-            plt.loglog(x, y, label = 'T = %g K, xi = %g'%(Ti, xi_nh3i))
-    plt.legend()
+
+            x = [c_h2so4[i] for i in range(len(J)) if equal(T[i], Ti) and equal(xi_nh3[i], xi_nh3i)]
+            y = [J[i] for i in range(len(J)) if equal(T[i], Ti) and equal(xi_nh3[i], xi_nh3i)]
+            plt.loglog(x, y, '.', label = 'T = %g K, xi = %g'%(Ti, xi_nh3i))
+    plt.legend(fontsize='x-small')
     plt.xlabel('H2SO4 concentration [#/cc]')
     plt.ylabel('J[1/cc/s]')
     plt.xlim(1e5, 1e9)
@@ -210,9 +225,70 @@ def plot_merikanto2007_fig2(prefix):
     plt.savefig(prefix + fig_name + '.png')
     plt.clf()
 
+def plot_merikanto2007_fig3(prefix):
+    fig_name = 'merikanto2007_fig3'
+    data = importlib.import_module('%s%s'%(prefix, fig_name))
+    T, xi_nh3, c_h2so4, RH, J = data.input.user.temperature, \
+                                data.input.user.xi_nh3, \
+                                data.input.user.c_h2so4, \
+                                data.input.user.relative_humidity, \
+                                data.output.metrics.nucleation_rate
+
+    for Ti, ci in [(235.15, 1e6), (273.15, 1e9)]:
+        for xi_nh3i in [0.1, 10, 1000]:
+            if (Ti == 235.15 and xi_nh3i == 1000) or \
+               (Ti == 273.15 and xi_nh3i == 0.1):
+                # Skip thermodynamically irrelevant regions
+                continue
+
+            x = [RH[i] for i in range(len(J)) if equal(T[i], Ti) and equal(c_h2so4[i], ci) and equal(xi_nh3[i], xi_nh3i)]
+            y = [J[i] for i in range(len(J)) if equal(T[i], Ti) and equal(c_h2so4[i], ci) and equal(xi_nh3[i], xi_nh3i)]
+            plt.semilogy(x, y, '.', label = 'T = %g K, c = %g, xi = %g'%(Ti, ci, xi_nh3i))
+    plt.legend(fontsize='x-small')
+    plt.xlabel('RH')
+    plt.ylabel('J[1/cc/s]')
+    plt.ylim(1e-5, 1e8)
+    plt.savefig(prefix + fig_name + '.png')
+    plt.clf()
+
+def plot_merikanto2007_fig4(prefix):
+    fig_name = 'merikanto2007_fig4'
+    data = importlib.import_module('%s%s'%(prefix, fig_name))
+    T, xi_nh3, c_h2so4, J = data.input.user.temperature, \
+                        data.input.user.xi_nh3, \
+                        data.input.user.c_h2so4, \
+                        data.output.metrics.nucleation_rate
+
+    for Ti in [235.15, 273.15]:
+        for ci in [1e7, 1e8, 1e9]:
+            if (Ti == 235.15 and ci == 1e8) or \
+               (Ti == 273.15 and ci == 1e7):
+                # Skip thermodynamically irrelevant regions
+                continue
+
+            x = [xi_nh3[i] for i in range(len(J)) if equal(T[i], Ti) and equal(c_h2so4[i], ci)]
+            y = [J[i] for i in range(len(J)) if equal(T[i], Ti) and equal(c_h2so4[i], ci)]
+            plt.loglog(x, y, '.', label = 'T = %g K, c_H2SO4 = %g'%(Ti, ci))
+    plt.legend(fontsize='x-small')
+    plt.xlabel('NH3 mixing ratio [ppt]')
+    plt.ylabel('J[1/cc/s]')
+    plt.xlim(1e-1, 1e3)
+    plt.ylim(1e-5, 1e8)
+    plt.savefig(prefix + fig_name + '.png')
+    plt.clf()
+
+def usage():
+    print('generate_plots.py: generates plots for MAM nucleation parameterizations.')
+    print('usage: python3 generate_plots.py <prefix>')
+    print('Here, <prefix> is prepended to each Python module containing data')
+    print('computed using a Skywalker-powered driver program. The Python modules')
+    print('should be named <prefix>_<figure_name>.py, where <figure_name> is')
+    print('the name of a figure as represented by the YAML files in this directory.')
+    print('(e.g. haero_vehkamaki2002_contour.py, for vehkamaki2002_contour.yaml)')
+
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        prefix = ''
+        usage()
     else:
         prefix = sys.argv[1] + '_'
     plot_vehkamaki2002_contour(prefix)
@@ -222,4 +298,6 @@ if __name__ == '__main__':
     plot_vehkamaki2002_fig10(prefix)
     plot_vehkamaki2002_fig11(prefix)
     plot_merikanto2007_fig2(prefix)
+    plot_merikanto2007_fig3(prefix)
+    plot_merikanto2007_fig4(prefix)
 
