@@ -2,13 +2,14 @@
 # concentrations and relative humidities. Output can be compared with Figure 11
 # of Vehkamaki et al (2002).
 
-haero:
-  nucleation_method: 2
+type: lattice
 
-ensemble:
-  type: lattice
-  user:
-    relative_humidity: [0.0001, 0.01, 1]
-    c_h2so4: [5e5, 5e8]
-    temperature: [180, 300, 1]
+settings:
+  nucleation_method: 2
+  pbl_method: 0
+
+input:
+  relative_humidity: [0.0001, 0.01, 1]
+  c_h2so4: [5e5, 5e8]
+  temperature: [180, 300, 1]
 
