@@ -27,9 +27,9 @@ and relative humidity."""
 
     fig_name = 'vehkamaki2002_contour'
     data = importlib.import_module('%s%s'%(prefix, fig_name))
-    RH, T, J = data.input.user.relative_humidity, \
-               data.input.user.temperature, \
-               data.output.metrics.nucleation_rate
+    RH, T, J = data.input.relative_humidity, \
+               data.input.temperature, \
+               data.output.nucleation_rate
 
     # Convert relative humidity to percent.
     RH = [100*rh for rh in RH]
@@ -66,9 +66,9 @@ and relative humidity."""
 def plot_vehkamaki2002_fig7(prefix):
     fig_name = 'vehkamaki2002_fig7'
     data = importlib.import_module('%s%s'%(prefix, fig_name))
-    RH, T, c_h2so4 = data.input.user.relative_humidity, \
-                     data.input.user.temperature, \
-                     data.output.metrics.nucleation_threshold
+    RH, T, c_h2so4 = data.input.relative_humidity, \
+                     data.input.temperature, \
+                     data.output.nucleation_threshold
 
     # We plot a whole bunch of concentrations at different temperatures!
     Ts = [190.15 + 5.0*i for i in range(20)]
@@ -85,7 +85,7 @@ def plot_vehkamaki2002_fig7(prefix):
 def plot_vehkamaki2002_fig8(prefix):
     fig_name = 'vehkamaki2002_fig8'
     data = importlib.import_module('%s%s'%(prefix, fig_name))
-    c_h2so4, J = data.input.user.c_h2so4, data.output.metrics.nucleation_rate
+    c_h2so4, J = data.input.c_h2so4, data.output.nucleation_rate
 
     fig, ax = plt.subplots()
 
@@ -103,10 +103,10 @@ def plot_vehkamaki2002_fig8(prefix):
 def plot_vehkamaki2002_fig9(prefix):
     fig_name = 'vehkamaki2002_fig9'
     data = importlib.import_module('%s%s'%(prefix, fig_name))
-    RH, c_h2so4, T, J = data.input.user.relative_humidity, \
-                        data.input.user.c_h2so4, \
-                        data.input.user.temperature, \
-                        data.output.metrics.nucleation_rate
+    RH, c_h2so4, T, J = data.input.relative_humidity, \
+                        data.input.c_h2so4, \
+                        data.input.temperature, \
+                        data.output.nucleation_rate
 
     # Convert relative humidity to percent.
     RH = [100*rh for rh in RH]
@@ -142,9 +142,9 @@ def plot_vehkamaki2002_fig9(prefix):
 def plot_vehkamaki2002_fig10(prefix):
     fig_name = 'vehkamaki2002_fig10'
     data = importlib.import_module('%s%s'%(prefix, fig_name))
-    RH, c_h2so4, J = data.input.user.relative_humidity, \
-                     data.input.user.c_h2so4, \
-                     data.output.metrics.nucleation_rate
+    RH, c_h2so4, J = data.input.relative_humidity, \
+                     data.input.c_h2so4, \
+                     data.output.nucleation_rate
 
     fig, axs = plt.subplots(2, 1)
     fig.subplots_adjust(hspace = 0.6)
@@ -177,10 +177,10 @@ def plot_vehkamaki2002_fig10(prefix):
 def plot_vehkamaki2002_fig11(prefix):
     fig_name = 'vehkamaki2002_fig11'
     data = importlib.import_module('%s%s'%(prefix, fig_name))
-    RH, c_h2so4, T, J = data.input.user.relative_humidity, \
-                        data.input.user.c_h2so4, \
-                        data.input.user.temperature, \
-                        data.output.metrics.nucleation_rate
+    RH, c_h2so4, T, J = data.input.relative_humidity, \
+                        data.input.c_h2so4, \
+                        data.input.temperature, \
+                        data.output.nucleation_rate
 
     RHs = [0.0001, 0.01, 1]
     c_h2so4s = [5e5, 5e8]
@@ -202,10 +202,10 @@ def plot_vehkamaki2002_fig11(prefix):
 def plot_merikanto2007_fig2(prefix):
     fig_name = 'merikanto2007_fig2'
     data = importlib.import_module('%s%s'%(prefix, fig_name))
-    T, xi_nh3, c_h2so4, J = data.input.user.temperature, \
-                            data.input.user.xi_nh3, \
-                            data.input.user.c_h2so4, \
-                            data.output.metrics.nucleation_rate
+    T, xi_nh3, c_h2so4, J = data.input.temperature, \
+                            data.input.xi_nh3, \
+                            data.input.c_h2so4, \
+                            data.output.nucleation_rate
 
     for Ti in [235.15, 273.15]:
         for xi_nh3i in [0.1, 10, 1000]:
@@ -228,11 +228,11 @@ def plot_merikanto2007_fig2(prefix):
 def plot_merikanto2007_fig3(prefix):
     fig_name = 'merikanto2007_fig3'
     data = importlib.import_module('%s%s'%(prefix, fig_name))
-    T, xi_nh3, c_h2so4, RH, J = data.input.user.temperature, \
-                                data.input.user.xi_nh3, \
-                                data.input.user.c_h2so4, \
-                                data.input.user.relative_humidity, \
-                                data.output.metrics.nucleation_rate
+    T, xi_nh3, c_h2so4, RH, J = data.input.temperature, \
+                                data.input.xi_nh3, \
+                                data.input.c_h2so4, \
+                                data.input.relative_humidity, \
+                                data.output.nucleation_rate
 
     for Ti, ci in [(235.15, 1e6), (273.15, 1e9)]:
         for xi_nh3i in [0.1, 10, 1000]:
@@ -254,10 +254,10 @@ def plot_merikanto2007_fig3(prefix):
 def plot_merikanto2007_fig4(prefix):
     fig_name = 'merikanto2007_fig4'
     data = importlib.import_module('%s%s'%(prefix, fig_name))
-    T, xi_nh3, c_h2so4, J = data.input.user.temperature, \
-                        data.input.user.xi_nh3, \
-                        data.input.user.c_h2so4, \
-                        data.output.metrics.nucleation_rate
+    T, xi_nh3, c_h2so4, J = data.input.temperature, \
+                        data.input.xi_nh3, \
+                        data.input.c_h2so4, \
+                        data.output.nucleation_rate
 
     for Ti in [235.15, 273.15]:
         for ci in [1e7, 1e8, 1e9]:
