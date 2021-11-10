@@ -2,14 +2,14 @@
 # concentration [molecules/cc] at T = 295.15K and at two different relative
 # humidities. Output can be compared with Figure 10 of Vehkamaki et al (2002).
 
-haero:
+type: lattice
+
+settings:
   nucleation_method: 2
+  pbl_method: 0
 
-ensemble:
-  user:
-    relative_humidity: [0.075, 0.153]
-    log10(c_h2so4): [10, 12, 0.05]
-
-user:
+input:
+  relative_humidity: [0.075, 0.153]
+  log10(c_h2so4): [10, 12, 0.05]
   temperature: 295.15
 
