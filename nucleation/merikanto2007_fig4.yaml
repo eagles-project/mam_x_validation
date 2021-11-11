@@ -2,13 +2,20 @@
 
 type: lattice
 
-settings:
+haero: # settings for Haero
   nucleation_method: 3
   pbl_method: 0
+
+box_model: # settings for the MAM box model
+  name: mer07_veh02_wang08_nuc_1box
+  newnuc_method_user_choice: 3
+  pbl_nuc_wang2008_user_choice: 0
 
 input:
   temperature: [235.15, 273.15]
   c_h2so4: [1e7, 1e8, 1e9]
   log10(xi_nh3): [-1, 3, 0.05]
   relative_humidity: 0.5
+  planetary_boundary_layer_height: 1100
+  height: 500
 

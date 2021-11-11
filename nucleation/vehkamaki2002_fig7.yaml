@@ -2,7 +2,7 @@
 #
 type: lattice
 
-settings:
+haero: # settings for Haero
   nucleation_method: 2
 
 input:
