@@ -16,7 +16,7 @@ mam_box: # settings for the MAM box model
 input:
   relative_humidity: [0.0001, 0.01, 1]
   c_h2so4: [5e5, 5e8]
-  temperature: [180, 300, 1]
+  temperature: [190, 300, 1]
   planetary_boundary_layer_height: 1100
   height: 500
   xi_nh3: 0

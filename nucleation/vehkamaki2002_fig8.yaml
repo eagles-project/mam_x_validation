@@ -19,4 +19,4 @@ input:
   relative_humidity: 0.55
   planetary_boundary_layer_height: 1100
   height: 500
-
+  xi_nh3: 0
