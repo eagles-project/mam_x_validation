@@ -6,7 +6,7 @@ haero: # settings for Haero
   nucleation_method: 3
   pbl_method: 0
 
-box_model: # settings for the MAM box model
+mam_box: # settings for the MAM box model
   name: mer07_veh02_wang08_nuc_1box
   newnuc_method_user_choice: 3
   pbl_nuc_wang2008_user_choice: 0
