@@ -14,10 +14,7 @@ in this repository.
 Many of the input files are written in a YAML format used by Skywalker, a
 parameter study tool written for the HAERO modal aerosol code. The file format
 sets input parameters for various quantities, and lists a set of parameters to
-study in an `ensemble` block.
+study in an `input` block.
 
-Many of the Skywalker YAML files here are "user tests", which list specific
-parameters in `user` and `ensemble:user` blocks. These user tests require you
-to write a program that uses Skywalker to read input and generate corresponding
-output. Skywalker programs can easily emit Python modules or NCL data files that
+Skywalker programs can easily emit Python modules or NCL data files that
 can be used to plot figures or perform quantitative comparisons.
