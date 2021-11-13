@@ -292,7 +292,7 @@ if __name__ == '__main__':
     else:
         prefix = sys.argv[1] + '_'
     plot_vehkamaki2002_contour(prefix)
-    plot_vehkamaki2002_fig7(prefix)
+#    plot_vehkamaki2002_fig7(prefix)
     plot_vehkamaki2002_fig8(prefix)
     plot_vehkamaki2002_fig9(prefix)
     plot_vehkamaki2002_fig10(prefix)
