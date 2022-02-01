@@ -1,7 +1,5 @@
 # Output can be compared with Figure 3 of Merikanto et al (2007).
 
-type: lattice
-
 haero: # settings for Haero
   nucleation_method: 3
   pbl_method: 0
@@ -12,10 +10,12 @@ mam_box: # settings for the MAM box model
   pbl_nuc_wang2008_user_choice: 0
 
 input:
-  temperature: [235.15, 273.15]
-  c_h2so4: [1e6, 1e9]
-  xi_nh3: [0.1, 10, 100, 1000]
-  relative_humidity: [0.05, 1, 0.05]
-  planetary_boundary_layer_height: 1100
-  height: 500
+  lattice:
+    temperature: [235.15, 273.15]
+    c_h2so4: [1e6, 1e9]
+    xi_nh3: [0.1, 10, 100, 1000]
+    relative_humidity: [0.05, 1, 0.05]
+  fixed:
+    planetary_boundary_layer_height: 1100
+    height: 500
 

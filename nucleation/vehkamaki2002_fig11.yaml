@@ -2,8 +2,6 @@
 # concentrations and relative humidities. Output can be compared with Figure 11
 # of Vehkamaki et al (2002).
 
-type: lattice
-
 haero: # settings for Haero
   nucleation_method: 2
   pbl_method: 0
@@ -14,10 +12,12 @@ mam_box: # settings for the MAM box model
   pbl_nuc_wang2008_user_choice: 0
 
 input:
-  relative_humidity: [0.0001, 0.01, 1]
-  c_h2so4: [5e5, 5e8]
-  temperature: [190, 300, 1]
-  planetary_boundary_layer_height: 1100
-  height: 500
-  xi_nh3: 0
+  lattice:
+    relative_humidity: [0.0001, 0.01, 1]
+    c_h2so4: [5e5, 5e8]
+    temperature: [190, 300, 1]
+  fixed:
+    planetary_boundary_layer_height: 1100
+    height: 500
+    xi_nh3: 0
 

@@ -1,8 +1,6 @@
 # Computes the rate of binary nucleation as a function of relative humidity [-]
 # and temperature [K]
 
-type: lattice
-
 haero: # settings for Haero
   nucleation_method: 2
   pbl_method: 0
@@ -13,10 +11,12 @@ mam_box: # settings for the MAM box model
   pbl_nuc_wang2008_user_choice: 0
 
 input:
-  relative_humidity: [0.01, 1.00, 0.01]
-  temperature: [230.15, 300.15, 1]
-  c_h2so4: 5e8 # [#/cc]
-  planetary_boundary_layer_height: 1100
-  height: 500
-  xi_nh3: 0
+  lattice:
+    relative_humidity: [0.01, 1.00, 0.01]
+    temperature: [230.15, 300.15, 1]
+  fixed:
+    c_h2so4: 5e8 # [#/cc]
+    planetary_boundary_layer_height: 1100
+    height: 500
+    xi_nh3: 0
 
