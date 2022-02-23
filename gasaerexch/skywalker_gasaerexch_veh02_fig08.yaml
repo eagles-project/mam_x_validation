@@ -1,0 +1,25 @@
+# Computes the rate of binary nucleation as a function of H2SO4 number
+# concentration [molecules/cc] at fixed T and RH. 
+# Output can be compared with Figure 8 of Vehkamaki et al (2002).
+
+settings:
+  name: mer07_veh02_wang08_nuc_1box
+  nucleation_method: 2
+  newnuc_method_user_choice: 2
+  pbl_nuc_wang2008_user_choice: 0
+
+input:
+  fixed:
+    current_gas_mix_ratios: [0.023, 0.033]
+    average_gas_mix_ratios: [0.013, 0.023]
+    gas_net_production_rate: [0.010, 0.020]
+    current_aerosol_number_mix_ratios: [1234, 2345, 1234, 3421, 1234]
+    wet_geo_mean_diameter: [0.001, 0.002, 0.003, 0.004, 0.005]
+    temperature: 236
+    dt_substep: 1
+    midpoint_pressure: 0.55
+    c_nh3: .001
+    uptake_rate: .12
+  lattice:
+    log10(c_h2so4): [6, 9, 1]
+
