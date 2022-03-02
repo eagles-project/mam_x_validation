@@ -1,0 +1,13 @@
+mam_box:
+  name: gas_aer_uptkrates_1box1gas
+
+input:
+ lattice:
+  temp: [180., 233., 273., 298.]
+  pmid: [1000, 100000.]
+  nghq: [2, 4, 10, 20]
+
+ fixed:
+  beta_inp: 0.
+  dgncur_awet:   [2.4E-7, 4.8E-8, 2.4E-6,9.6E-8]
+  lnsg: [1.8,1.6,1.8,1.6]
