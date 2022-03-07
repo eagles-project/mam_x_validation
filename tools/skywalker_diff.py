@@ -1,8 +1,10 @@
 # This script generates norms for cross-validating the particle nucleation
-# process. To generate the data needed by the script, run skywalker in the
+# process. To generate the data needed by the script, run Skywalker in the
 # current directory, using nucleation.yaml as input. This writes a file called
 # haero_skywalker.py to the directory, which is then imported as a module.
-# Have another haero_skywalker.py created previously.  This script
+# Have another Skywalker file created previously.  If one of the
+# Skywalker files in in a different directory, the -p option can
+# be used to specify the directory to search in.  This script
 # will compare the two and produce difference norms for all of the 
 # output values.
 
@@ -56,7 +58,7 @@ def intersect_vars(f, data1, data2, check_vals) :
           
 def parse_args () :
     description = ('Skywalker output difference tool: '+
-        'Generates L1, L2, Linf diff norms for two skywalker files.')
+        'Generates L1, L2, Linf diff norms for two Skywalker files.')
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument('-p', metavar='path1:path2:...', 
         help='Search paths for the input module files seperated by ":".')
