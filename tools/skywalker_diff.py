@@ -2,14 +2,13 @@
 # process. To generate the data needed by the script, run skywalker in the
 # current directory, using nucleation.yaml as input. This writes a file called
 # haero_skywalker.py to the directory, which is then imported as a module.
+# Have another haero_skywalker.py created previously.  This script
+# will compare the two and produce difference norms for all of the 
+# output values.
 
-import os, sys, importlib
+import os, sys, importlib, argparse
 import numpy as np
 import numpy.linalg as lin
-import math 
-
-# Look for data in whatever directory we're running in.
-sys.path.append(os.getcwd())
 
 def norms(vals) :
     L1 = lin.norm(vals,1)
@@ -17,58 +16,74 @@ def norms(vals) :
     Linf = lin.norm(vals,np.inf)            
     return (L1,L2,Linf)
 
-def check_lens(vals1, vals2) :
+def check_lens(f, key, vals1, vals2) :
+    warning = ("Warning: Lengths of {} are not equal:"+
+       " {} vs {}. Using shorter of the two.\n")
     len1 = len(vals1)
     len2 = len(vals2)
     if len1 != len2 :
-       print ("Lengths of values are not equal: %s vs %s. Using shorter of the two"%(len1,len2))
+       f.write (warning.format(key, len1, len2))
     N = min(len1, len2)
     return (vals1[:N], vals2[:N])
 
-def usage():
-    print('skywalker_diff.py: generates L1, L2, Linf diff norms for two skywalker output files.')
-    print('usage: python3 skywalker_diff.py filename1 filename2')
-    print('where filename1.py and filename2.py are skywalker files')
+def check_input(f, key, vals1, vals2) :
+    dvals = np.subtract(vals1, vals2)
+    (L1, L2, Linf) = norms(dvals)
+    if .0000001 < L2 :
+        f.write ("Warning: Norm for difference of input.{} is:{}\n".format(key,L2))
+        f.write ("     It appears that the input parameters are NOT the same for the two files.\n")
 
-if __name__ == '__main__':
-    if len(sys.argv) < 3:
-        usage()
+def check_output(f, key, vals1, vals2) :
+    dvals = np.subtract(vals1, vals2)
+    (L1, L2, Linf) = norms(dvals)
+    (N1, N2, Ninf) = norms(vals1)
+    f.write ("Norms for difference of output.{}:\n".format(key))
+    f.write ("     Absolute:  L1:{:12.6g}  L2:{:12.6g}  Linf:{:12.6g}\n".format(L1, L2, Linf))
+    f.write ("     Relative:  L1:{:12.6g}  L2:{:12.6g}  Linf:{:12.6g}\n".format(L1/N1, L2/N2, Linf/Ninf))
 
-    file1 = sys.argv[1];
-    file2 = sys.argv[2];
-
-    # Should we append a remote file path to the system path so the module
-    # is found?  Or make the user copy or link the file into the current dir?
-    base1 = os.path.basename(file1)
-    dir1  = os.path.dirname(file1)
-    base2 = os.path.basename(file2)
-    dir2  = os.path.dirname(file2)
-    if dir1 : 
-      sys.path.append(dir1)
-      file1 = base1
-    if dir2 : 
-      sys.path.append(dir2)
-      file2 = base2
-
-    data1 = importlib.import_module(file1) 
-    data2 = importlib.import_module(file2) 
-   
-    vars1 = vars(data1.output)
-    vars2 = vars(data2.output)
- 
+def intersect_vars(f, data1, data2, check_vals) :
+    vars1 = vars(data1)
+    vars2 = vars(data2)
     keys1 = list(vars1)
     keys2 = list(vars2)
-
-    for key1 in keys1 :
-        for key2 in keys2 :
-           if key1 == key2 :
-              vals1 = np.array(vars1[key1])
-              vals2 = np.array(vars2[key2])
-              (vals1, vals2) = check_lens(vals1, vals2)
-              dvals = np.subtract(vals1, vals2)
-              (L1, L2, Linf) = norms(dvals)
-              (N1, N2, Ninf) = norms(vals1)
-              print ("Norms for difference of output.{}:".format(key1))
-              print ("     Absolute:  L1:{:12.6g}  L2:{:12.6g}  Linf:{:12.6g}".format(L1, L2, Linf))
-              print ("     Relative:  L1:{:12.6g}  L2:{:12.6g}  Linf:{:12.6g}".format(L1/N1, L2/N2, Linf/Ninf))
+    keys = [key for key in keys1 if key in keys2]
+    for key in keys :
+        vals1 = np.array(vars1[key])
+        vals2 = np.array(vars2[key])
+        (vals1, vals2) = check_lens(f, key, vals1, vals2)
+        # check_vals is either the check_input or check_output function
+        check_vals(f, key, vals1, vals2)
           
+def parse_args () :
+    description = ('Skywalker output difference tool: '+
+        'Generates L1, L2, Linf diff norms for two skywalker files.')
+    parser = argparse.ArgumentParser(description=description)
+    parser.add_argument('-p', metavar='path1:path2:...', 
+        help='Search paths for the input module files seperated by ":".')
+    parser.add_argument('-o', metavar='file.txt', 
+        help='Output file to write results to. Default:stdout')
+    parser.add_argument('file1')
+    parser.add_argument('file2')
+    return parser.parse_args()
+
+if __name__ == '__main__':
+    args = parse_args()
+
+    # Look for data in whatever directory we're running in.
+    sys.path.append(os.getcwd())
+    if args.p :
+        for p in args.p.split(':') :
+            sys.path.append(p)
+
+    f = sys.stdout
+    if args.o :
+       f = open(args.o, "w")
+
+    data1 = importlib.import_module(args.file1) 
+    data2 = importlib.import_module(args.file2) 
+   
+    intersect_vars(f, data1.input,  data2.input,  check_input)
+    intersect_vars(f, data1.output, data2.output, check_output)
+
+    f.close()
+
