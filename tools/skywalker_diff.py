@@ -13,9 +13,13 @@ import numpy as np
 import numpy.linalg as lin
 
 def norms(vals) :
-    L1 = lin.norm(vals,1)
-    L2 = lin.norm(vals)            
-    Linf = lin.norm(vals,np.inf)            
+    if 1 == vals.ndim :
+      axis=None
+    else :
+      axis=0
+    L1 = lin.norm(vals,1,axis)
+    L2 = lin.norm(vals,2,axis)
+    Linf = lin.norm(vals,np.inf,axis)
     return (L1,L2,Linf)
 
 def check_lens(f, key, vals1, vals2) :
@@ -31,7 +35,7 @@ def check_lens(f, key, vals1, vals2) :
 def check_input(f, key, vals1, vals2) :
     dvals = np.subtract(vals1, vals2)
     (L1, L2, Linf) = norms(dvals)
-    if .0000001 < L2 :
+    if .0000001 < L2.any() :
         f.write ("Warning: Norm for difference of input.{} is:{}\n".format(key,L2))
         f.write ("     It appears that the input parameters are NOT the same for the two files.\n")
 
@@ -39,9 +43,18 @@ def check_output(f, key, vals1, vals2) :
     dvals = np.subtract(vals1, vals2)
     (L1, L2, Linf) = norms(dvals)
     (N1, N2, Ninf) = norms(vals1)
-    f.write ("Norms for difference of output.{}:\n".format(key))
-    f.write ("     Absolute:  L1:{:12.6g}  L2:{:12.6g}  Linf:{:12.6g}\n".format(L1, L2, Linf))
-    f.write ("     Relative:  L1:{:12.6g}  L2:{:12.6g}  Linf:{:12.6g}\n".format(L1/N1, L2/N2, Linf/Ninf))
+    if isinstance(L1,(list,np.ndarray)) :
+        i = 0
+        for (l1,l2,linf, n1,n2,ninf) in zip(L1,L2,Linf, N1,N2,Ninf) :
+            ind = "["+str(i)+"]"
+            f.write ("Norms for difference of output.{}{}:\n".format(key, ind))
+            f.write ("     Absolute:  L1:{:12.6g}  L2:{:12.6g}  Linf:{:12.6g}\n".format(l1, l2, linf))
+            f.write ("     Relative:  L1:{:12.6g}  L2:{:12.6g}  Linf:{:12.6g}\n".format(l1/n1, l2/n2, linf/ninf))
+            i = i + 1
+    else :
+        f.write ("Norms for difference of output.{}:\n".format(key))
+        f.write ("     Absolute:  L1:{:12.6g}  L2:{:12.6g}  Linf:{:12.6g}\n".format(L1, L2, Linf))
+        f.write ("     Relative:  L1:{:12.6g}  L2:{:12.6g}  Linf:{:12.6g}\n".format(L1/N1, L2/N2, Linf/Ninf))
 
 def intersect_vars(f, data1, data2, check_vals) :
     vars1 = vars(data1)
