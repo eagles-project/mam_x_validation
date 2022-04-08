@@ -1,0 +1,15 @@
+mam_box:
+  name: modal_aero_coag_kernel
+
+input:
+ fixed:
+  wetdens: [1000.0, 1000.0]
+  temp: 293.15
+  pmid: 101325.0
+
+ lattice:
+#  temp: [180., 298., 1]
+#  pmid: [1000, 100000., 100]
+  dpwet1: [1E-9,1e-6,18e-8]
+# 7.74897733874104e-11]
+  dpwet2: [1E-9,1e-6,18e-8]
