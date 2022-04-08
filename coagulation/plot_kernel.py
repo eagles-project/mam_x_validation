@@ -38,8 +38,7 @@ def plot_kernel_contour(prefix):
     plt.clf()
 
 def usage():
-    print('generate_plots.py: generates plots for MAM nucleation parameterizations.')
-    print('usage: python3 generate_plots.py <prefix>')
+    print('usage: python3 plot_*.py <prefix>')
     print('Here, <prefix> is prepended to each Python module containing data')
     print('computed using a Skywalker-powered driver program. The Python modules')
     print('should be named <prefix>_<figure_name>.py, where <figure_name> is')
