@@ -35,7 +35,7 @@ def plot_kernel_contour(prefix,k,opt):
         else:
             RERR = data.output.rel_B0ii_whitby_fuchs_rect
 
-    # Convert relative humidity to percent.
+    # Convert relative error to percent.
     RERR = [100*abs(er) for er in RERR]
     nx, ny = 100, 100
     d1 = np.linspace(min(D1), max(D1), nx)
