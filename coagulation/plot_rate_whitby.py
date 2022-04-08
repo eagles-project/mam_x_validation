@@ -7,8 +7,8 @@ import numpy as np
 
 sys.path.append(os.getcwd())
 
-def plot_kernel_contour(prefix,k,opt):
-    """Plot the contours of the kernel of coagulation as a function of different Diameter pairs"""
+def plot_rate_contour(prefix,k,opt):
+    """Plot the contours of the rate of coagulation as a function of different Diameter pairs"""
 
     fig_name = 'coag_rate'
     data = importlib.import_module('%s%s'%(prefix, fig_name))
@@ -50,7 +50,7 @@ def plot_kernel_contour(prefix,k,opt):
     plt.yscale('log')
     plt.xlabel('D1 [m]')
     plt.ylabel('D2 [m]')
-    plt.title('relerror of '+k+' between '+opt+' and rect Whitby kernel \n @T=293.15K, P=101325Pa')
+    plt.title('relerror of '+k+' between '+opt+' and rect Whitby rate \n @T=293.15K, P=101325Pa')
     cbar = plt.colorbar()
     cbar.set_label('%')
     plt.savefig(prefix + fig_name +'_'+k+'_'+opt+ '.png')
@@ -69,11 +69,11 @@ if __name__ == '__main__':
         usage()
     else:
         prefix = sys.argv[1] + '_'
-    plot_kernel_contour(prefix,'ghq','B0ii');
-    plot_kernel_contour(prefix,'mam','B0ii');
-    plot_kernel_contour(prefix,'ghq','B0jj');
-    plot_kernel_contour(prefix,'mam','B0jj');
-    plot_kernel_contour(prefix,'ghq','B0ij');
-    plot_kernel_contour(prefix,'mam','B0ij');
-    plot_kernel_contour(prefix,'ghq','B3ij');
-    plot_kernel_contour(prefix,'mam','B3ij');
+    plot_rate_contour(prefix,'ghq','B0ii');
+    plot_rate_contour(prefix,'mam','B0ii');
+    plot_rate_contour(prefix,'ghq','B0jj');
+    plot_rate_contour(prefix,'mam','B0jj');
+    plot_rate_contour(prefix,'ghq','B0ij');
+    plot_rate_contour(prefix,'mam','B0ij');
+    plot_rate_contour(prefix,'ghq','B3ij');
+    plot_rate_contour(prefix,'mam','B3ij');
