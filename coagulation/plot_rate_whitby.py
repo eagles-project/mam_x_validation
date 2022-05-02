@@ -50,7 +50,7 @@ def plot_rate_contour(prefix,k,opt):
     plt.yscale('log')
     plt.xlabel('D1 [m]')
     plt.ylabel('D2 [m]')
-    plt.title('relerror of '+k+' between '+opt+' and rect Whitby rate \n @T=293.15K, P=101325Pa')
+#    plt.title('relerror of '+k+' between '+opt+' and rect Whitby rate \n @T=293.15K, P=101325Pa')
     cbar = plt.colorbar()
     cbar.set_label('%')
     plt.savefig(prefix + fig_name +'_'+k+'_'+opt+ '.png')

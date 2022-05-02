@@ -31,7 +31,7 @@ def plot_kernel_contour(prefix):
     plt.yscale('log')
     plt.xlabel('D1 [m]')
     plt.ylabel('D2 [m]')
-    plt.title('relerror abs(W-F)/F between Fuchs and Whitby kernel @T=293.15K, P=101325Pa')
+#    plt.title('relerror abs(W-F)/F between Fuchs and Whitby kernel @T=293.15K, P=101325Pa')
     cbar = plt.colorbar()
     cbar.set_label('%')
     plt.savefig(prefix + fig_name + '.png')
