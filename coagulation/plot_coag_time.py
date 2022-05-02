@@ -14,7 +14,7 @@ sys.path.append(os.getcwd())
 def plot_coag_time(prefix):
     """Plot the errors of the time convergence of coagulation as a function of timesteps"""
 
-    fig_name = 'coag_time_2'
+    fig_name = 'coag_time'
     data = importlib.import_module('%s%s'%(prefix, fig_name))
     selferrornumRK4 = data.output.rel_self_num_RK4
     selferrornumcur = data.output.rel_self_num_cur
