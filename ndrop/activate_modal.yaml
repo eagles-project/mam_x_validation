@@ -1,0 +1,17 @@
+mam_box:
+  name: activate_modal
+
+  input:
+    fixed:
+      nmodes: 4
+      modal_hygroscopicity: [ 1.0E-10, 0.01, 0.1, 1] # unitless
+      modal_number_concs :  [ 2.0E6, 3.0E6, 4.0E6, 5.0E6] # 1/m3
+      modal_densities :     [ 1234, 2341, 3412, 4123] # kg aerosol per m3 aerosol
+      modal_mass_mixing_ratios : [1E-6, 2E-6, 3E-6, 4E-6] # mass aerosol / mass air
+      modal_particle_diameter : [5e-7, 1e-7, 2e-6, 5e-8] # m
+
+    lattice:
+      temperature: [273.15, 323.15, 1] # K
+      log10(pressure): [4, 5, 0.025] # Pa
+      vertical_velocity: [0, 10, 0.5] # m/s
+
