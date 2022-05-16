@@ -1,0 +1,14 @@
+settings:
+  name: agr98_fig4
+
+  input:
+    fixed:
+      temperature: 283.15 # K
+      pressure: 80000 # Pa
+      std_dev: 2.5 # unitless
+      aerosol_number: 200 # 1/cc
+      radius: 0.01 # micron
+
+    lattice:
+      log10(vertical_velocity): [-1, 2, 0.05] # micron
+
