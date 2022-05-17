@@ -1,5 +1,5 @@
 settings:
-  name: agr00_2mode_fig2
+  name: agr00_2mode_fig3
 
 input:
   fixed:
@@ -11,8 +11,8 @@ input:
     mode1_radius: 0.05 # micron
     mode2_radius: 0.05 # micron
     mode1_number_conc: 100 # 1/cc
+    mode2_number_conc: 100 # 1/cc
     mode1_solubility: 1 # unitless
-    mode2_solubility: 0.1 # unitless
 
   enumerated:
-    mode2_number_conc: [1, 5001, 50]
+    mode2_solubility: [0, 1, 0.05]
