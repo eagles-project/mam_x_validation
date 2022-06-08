@@ -121,7 +121,7 @@ def plot_fig5(ifname=None, ofname=None):
   ax2.grid()
   ax2.set_xlabel("mode 2 radius (micron)")
 
-  fig.suptitle("number activation fraction")
+  fig.suptitle("updraft velocity (m/s)")
   plt.savefig(ofname)
   plt.close(fig)
 
