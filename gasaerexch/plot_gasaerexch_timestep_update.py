@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from matplotlib import colors
 import matplotlib.tri as tri
 from matplotlib.backends.backend_pdf import PdfPages
+import math
 import numpy as np
 from scipy import stats
 from matplotlib.ticker import ScalarFormatter
@@ -14,7 +15,7 @@ sys.path.append(os.getcwd())
 class generate_plot:
     def __init__(self):
         self.prefix = sys.argv[1] + '_'
-        self.input_data_name = 'gasaerexch_timeconvergence'
+        self.input_data_name = 'gasaerexch_timeconvergence_update'
         data = importlib.import_module('%s%s'%(self.prefix, self.input_data_name))
 
         self.qsoa_aer, self.qso4_aer, self.qso4_gas, self.qsoa_gas = data.output.qsoa_aer_rel,\
@@ -89,7 +90,7 @@ class generate_plot:
                 ax[i,j].set_title('e-folding time of uptake rate[s] of '+mode[n]+' mode')
                 n+=1
 #    ax.set_title('(H2SO4 conc = 5e8/cc)')
-        fig.savefig('e-folding_time_uptk.png')
+        fig.savefig('e-folding_time_uptk_update.png')
 
     def time_series(self):
         print("time series plot.")
@@ -99,7 +100,7 @@ class generate_plot:
         fig, axs = plt.subplots(4, 1,figsize=(8, 10))
         #plt.setp(axs, xticks=x, xticklabels=['1','2','6', '18', '180', '1800', '18000'])
 
-        colors = ['coral', 'deepskyblue', 'red', 'blue']
+
         left  = 0.125  # the left side of the subplots of the figure
         right = 0.9    # the right side of the subplots of the figure
         bottom = 0.1   # the bottom of the subplots of the figure 
@@ -114,23 +115,23 @@ class generate_plot:
         y3 = self.soag[nref]
         y4 = self.soaa[nref]
 
-        lin1, = axs[0].plot(x, y1, color= colors[3])
-        lin2, = axs[1].plot(x, y2, color= colors[1])
-        lin3, = axs[2].plot(x, y3, color= colors[2])
-        lin4, = axs[3].plot(x, y4, color= colors[0])
+        lin1, = axs[0].plot(x, y1, 'r-')
+        lin2, = axs[1].plot(x, y2, 'b-')
+        lin3, = axs[2].plot(x, y3, 'g-')
+        lin4, = axs[3].plot(x, y4, 'y-')
         spec = ["H2SO4 gas", "Sulfate aerosol", "SOA gas","SOA aerosol"]
         for j in range(4):
-            axs[j].set(ylabel = 'mixing ratio', yscale='linear',
-                          xlabel = 'time [s]', xscale ='linear',
+            axs[j].set(ylabel = 'mixing ratio', yscale='log',
+                          xlabel = 'time [s]', xscale ='log',
                            title = spec[j]+' T=298K,P=1000hPa dt=0.1s')
             axs[j].grid()
-            #axs[j].set_ylim(lower, upper)
+            axs[j].set_ylim(lower, upper)
 
 #        fig.legend([lin1, lin2, lin3, lin4],["H2SO4 gas", "Sulfate aerosol", "SOA gas","SOA aerosol"],
 #                  ncol=2,  borderaxespad=0.,
 #                 bbox_to_anchor=(0.7,0.935))
 #        plt.show()
-        fig.savefig('time_series.png')
+        fig.savefig('time_series_update.png')
 
         
     def convergence_sum(self):
@@ -142,8 +143,8 @@ class generate_plot:
         for i in range(self.testnum):
             y1[i] = [abs(a) if a!=-1 else 0. for a in self.qsoa_aer[1+n*i:n+n*i]]
             y2[i] = [abs(a) if a!=-1 else 0. for a in self.qso4_aer[1+n*i:n+n*i]]
-            y3[i] = [abs(a) if a!=-1 else 0. for a in self.qsoa_gas[1+n*i:n+n*i]]
-            y4[i] = [abs(a) if a!=-1 else 0. for a in self.qso4_gas[1+n*i:n+n*i]]
+            y3[i] = [abs(a) if a!=-1 and not math.isnan(a) and a!=np.inf else 0. for a in self.qsoa_gas[1+n*i:n+n*i]]
+            y4[i] = [abs(a) if a!=-1 and not math.isnan(a) and a!=np.inf else 0. for a in self.qso4_gas[1+n*i:n+n*i]]
 
         #err_below = tuple(zip(x, err_below))
         #err_above = tuple(zip(x, err_above))
@@ -225,7 +226,6 @@ class generate_plot:
         plt.autoscale(True)
         plt.xlabel('timestep(s) in 30 min', fontsize=15)
         plt.ylabel('abs(relative error)', fontsize=15)
-
 #        fig.legend([line2, line4],["sulfate aerosol", "sulfuric acid gas"],
 #                  ncol=2,  borderaxespad=0.,
 #                 bbox_to_anchor=(0.75,0.22),frameon=False, prop={'size': 12})
@@ -252,7 +252,7 @@ class generate_plot:
 
 # Display Plot
 #        plt.show()
-        fig.savefig('gasexch_time_nodg_update.png')   
+        fig.savefig('gasexch_time_dg_update.png')   
  
     def convergence(self):
         x = self.nstep[:]
@@ -296,6 +296,7 @@ class generate_plot:
         self.pp.close()
 
 aa= generate_plot()
-aa.contour_uptk()
-aa.time_series()
+#aa.contour_uptk()
+#aa.time_series()
 aa.convergence_sum()
+#aa.convergence()
