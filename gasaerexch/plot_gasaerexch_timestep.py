@@ -203,9 +203,11 @@ class generate_plot:
         slope, intercept, r, p, std_err = stats.linregress(np.log(x[s:e]), np.log(yy4[s:e]))
         print('slope of h2so4 gas result is ', slope)
 
-
+        x0=[1, 10, 100, 1000]
+        y0=[1e-8, 1e-7, 1e-6, 1e-5]
 # plot
         fig, ax = plt.subplots(figsize=(8, 6))
+        line0,=plt.plot(x0, y0, color = 'black',linestyle='dashed', dashes=[10, 5],linewidth=1.0)
         line1,=plt.plot(x, yy1, color= colors[0], linewidth=1.0, marker='.', markersize=10)
         line2,=plt.plot(x, yy2, color=colors[1], linewidth=1.0, marker='.', markersize=10)
         line3,=plt.plot(x, yy3, color=colors[2], linewidth=1.0, marker='.', markersize=10)
@@ -226,13 +228,16 @@ class generate_plot:
         plt.xlabel('timestep(s) in 30 min', fontsize=15)
         plt.ylabel('abs(relative error)', fontsize=15)
 
-#        fig.legend([line2, line4],["sulfate aerosol", "sulfuric acid gas"],
+#        fig.legend([line2, line4,line0],["sulfate aerosol", "sulfuric acid gas", "$O(\Delta t)$"],
 #                  ncol=2,  borderaxespad=0.,
 #                 bbox_to_anchor=(0.75,0.22),frameon=False, prop={'size': 12})
-        fig.legend([line1, line2, line3, line4],["SOA aerosol", "sulfate aerosol", "soa gas","sulfuric acid gas"],
-                  ncol=2,  borderaxespad=0.,
-                 bbox_to_anchor=(0.75,0.22),frameon=False, prop={'size': 12})
-        gv.set_axes_limits_and_ticks(ax, ylim=(1e-18, 1e10))
+#        fig.legend([line1, line3, line0],["SOA aerosol", "SOA gas precursor", "$O(\Delta t)$"],
+#                  ncol=2,  borderaxespad=0.,
+#                 bbox_to_anchor=(0.75,0.22),frameon=False, prop={'size': 12})
+        fig.legend([line1, line2, line3, line4, line0],["SOA aerosol", "sulfate aerosol", "soa gas","sulfuric acid gas", "$O(\Delta t)$"],
+                  ncol=3,  borderaxespad=0.,
+                 bbox_to_anchor=(0.85,0.22),frameon=False, prop={'size': 12})
+        gv.set_axes_limits_and_ticks(ax, ylim=(1e-18, 1e4))
 
 # Use geocat.viz.util convenience function to add minor and major tick lines
         gv.add_major_minor_ticks(ax,
