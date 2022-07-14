@@ -13,7 +13,7 @@ settings.name = 'gas_aer_uptkrates_1box1gas'
 input = Object()
 input.temp = [273, ]
 input.aernum = [[2.25318e+09, 2.25318e+10, 2.25318e+06, 4.50635e+09, ],]
-input.uptkaer = [[0.000284733, 0.000161505, 1.5319e-05, 8.99782e-05, ],]
+input.uptkaer = [[2.8684e-12, 1.627e-13, 1.54323e-10, 4.5322e-13, ],]
 input.lnsg = [[0.587787, 0.470004, 0.587787, 0.470004, ],]
 input.dgncur_awet = [[1.26384e-07, 2.9756e-08, 2.30007e-06, 5.06771e-08, ],]
 
