@@ -3,6 +3,7 @@
 # of Vehkamaki et al (2002).
 
 haero: # settings for Haero
+  function: nucleation_rate
   nucleation_method: 2
   pbl_method: 0
 

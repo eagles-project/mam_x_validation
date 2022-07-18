@@ -1,6 +1,7 @@
 # Output can be compared with Figure 3 of Merikanto et al (2007).
 
 haero: # settings for Haero
+  function: nucleation_rate
   nucleation_method: 3
   pbl_method: 0
 

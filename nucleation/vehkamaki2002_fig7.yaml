@@ -1,6 +1,7 @@
 # Output can be compared with Figure 7 of Vehkamaki et al (2002).
 #
 haero: # settings for Haero
+  function: nucleation_thresh
   nucleation_method: 2
 
 input:

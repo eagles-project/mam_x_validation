@@ -2,6 +2,7 @@
 # and temperature [K]
 
 haero: # settings for Haero
+  function: nucleation_rate
   nucleation_method: 2
   pbl_method: 0
 
