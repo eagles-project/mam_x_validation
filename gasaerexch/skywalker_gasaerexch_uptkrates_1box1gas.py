@@ -8,7 +8,7 @@ class Object(object):
 
 # Settings are stored here.
 settings = Object()
-settings.name = 'gas_aer_uptkrates_1box1gas'
+settings.function = 'gas_aer_uptkrates_1box1gas'
 # Input is stored here.
 input = Object()
 input.temp = [273, ]
