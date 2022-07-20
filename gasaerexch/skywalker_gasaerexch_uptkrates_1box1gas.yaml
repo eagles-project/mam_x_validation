@@ -1,5 +1,5 @@
 settings:
-  name: gas_aer_uptkrates_1box1gas
+  function: gas_aer_uptkrates_1box1gas
 
 input:
   fixed:
