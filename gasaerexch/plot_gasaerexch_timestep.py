@@ -2,7 +2,7 @@ import os, sys, importlib
 import matplotlib.pyplot as plt
 from matplotlib import colors
 import matplotlib.tri as tri
-from matplotlib.backends.backend_pdf import PdfPages
+#from matplotlib.backends.backend_pdf import PdfPages
 import numpy as np
 from scipy import stats
 from matplotlib.ticker import ScalarFormatter
@@ -22,7 +22,33 @@ class generate_plot:
                                                   data.output.qso4_gas_rel, \
                                                   data.output.qsoa_gas_rel
         self.pmid, self.temp, self.dtsubstep = data.input.pmid, data.input.temp,  data.input.dtsubstep
-        
+ 
+        dtrange = set()
+        for time in data.input.dtsubstep:
+            dtrange.add(time) 
+        self.dt_range = []
+        for t in dtrange:
+            self.dt_range.append(t)
+        self.dt_range.sort()	
+
+        temprange = set()
+        for temp in data.input.temp:
+            temprange.add(temp)
+        self.temp_range = []
+        for t in temprange:
+            self.temp_range.append(t)
+        self.temp_range.sort()
+
+        pmidrange = set()
+        for pmid in data.input.pmid:
+            pmidrange.add(pmid)
+        self.pmid_range = []
+        for t in pmidrange:
+            self.pmid_range.append(t)
+        self.pmid_range.sort()
+        print(self.pmid_range) 
+        print(self.temp_range)
+        print(self.dt_range)
         self.uptkait = data.output.uptk_ait
         self.uptkacc = data.output.uptk_acc
         self.uptkcoa = data.output.uptk_coarse
@@ -32,27 +58,21 @@ class generate_plot:
         self.soag = data.output.soag_time
         self.soaa = data.output.soaa_time
 
-        temp_range = [180, 200, 233, 273, 298]
-        pmid_range = [10000, 100000]
-        self.testnum = len(pmid_range)*len(temp_range)
-        #dt_range = [0.1, 0.316, 1, 3.163, 10, 31.579, 100, 300, 900, 1800]
-        self.dt_range = [0.1, 1, 2, 4, 10, 50, 100, 300, 900, 1800]
+        self.testnum = len(self.pmid_range)*len(self.temp_range)
         self.nstep = [1800/n for n in self.dt_range]
-        self.pp = PdfPages(self.prefix + self.input_data_name + '.pdf')
+#        self.pp = PdfPages(self.prefix + self.input_data_name + '.pdf')
 
 
     def contour_uptk(self):
         print("contour plot")
-        temp_range = [180, 200, 233, 273, 298]
-        pmid_range = [10000, 100000]
-        rate_ait = np.zeros((len(pmid_range),len(temp_range)))
-        rate_acc = np.zeros((len(pmid_range),len(temp_range)))
-        rate_pca = np.zeros((len(pmid_range),len(temp_range)))
-        rate_coa = np.zeros((len(pmid_range),len(temp_range)))
-        for i in range(len(temp_range)):
-            for j in range(len(pmid_range)):
+        rate_ait = np.zeros((len(self.pmid_range),len(self.temp_range)))
+        rate_acc = np.zeros((len(self.pmid_range),len(self.temp_range)))
+        rate_pca = np.zeros((len(self.pmid_range),len(self.temp_range)))
+        rate_coa = np.zeros((len(self.pmid_range),len(self.temp_range)))
+        for i in range(len(self.temp_range)):
+            for j in range(len(self.pmid_range)):
                 for k in range(len(self.uptkait)):
-                    if self.temp[k] == temp_range[i] and self.pmid[k]==pmid_range[j] and self.dtsubstep[k] == 0.1:
+                    if self.temp[k] == self.temp_range[i] and self.pmid[k]==self.pmid_range[j] and self.dtsubstep[k] == self.dt_range[0]:
                         rate_ait[j,i]= 1.0/self.uptkait[k]
                         rate_acc[j,i]= 1.0/self.uptkacc[k]
                         rate_pca[j,i]= 1.0/self.uptkpca[k]
@@ -64,20 +84,20 @@ class generate_plot:
         levels_coa = np.arange(np.amin(rate_coa)*0.1, np.amax(rate_coa)*1.5, (np.amax(rate_coa)*1.5-np.amin(rate_coa)*0.1)/20.0)
         #levels = np.power(10., lev_exp)
 
-        ax[0,0].contour(temp_range, pmid_range, rate_ait, levels_ait, colors='k')
-        fills1=ax[0,0].contourf(temp_range, pmid_range, rate_ait, levels_ait, cmap='jet')
+        ax[0,0].contour(self.temp_range, self.pmid_range, rate_ait, levels_ait, colors='k')
+        fills1=ax[0,0].contourf(self.temp_range, self.pmid_range, rate_ait, levels_ait, cmap='jet')
         fig.colorbar(fills1, ax= ax[0,0])
 
-        ax[0,1].contour(temp_range, pmid_range, rate_acc, levels_acc, colors='k')
-        fills2= ax[0,1].contourf(temp_range, pmid_range, rate_acc, levels_acc, cmap='jet')
+        ax[0,1].contour(self.temp_range, self.pmid_range, rate_acc, levels_acc, colors='k')
+        fills2= ax[0,1].contourf(self.temp_range, self.pmid_range, rate_acc, levels_acc, cmap='jet')
         fig.colorbar(fills2, ax= ax[0,1])
 
-        ax[1,0].contour(temp_range, pmid_range, rate_pca, levels_pca, colors='k')
-        fills3=ax[1,0].contourf(temp_range, pmid_range, rate_pca, levels_pca, cmap='jet')
+        ax[1,0].contour(self.temp_range, self.pmid_range, rate_pca, levels_pca, colors='k')
+        fills3=ax[1,0].contourf(self.temp_range, self.pmid_range, rate_pca, levels_pca, cmap='jet')
         fig.colorbar(fills3, ax= ax[1,0])
 
-        ax[1,1].contour(temp_range, pmid_range, rate_coa, levels_coa, colors='k')
-        fills4=ax[1,1].contourf(temp_range, pmid_range, rate_coa, levels_coa, cmap='jet')
+        ax[1,1].contour(self.temp_range, self.pmid_range, rate_coa, levels_coa, colors='k')
+        fills4=ax[1,1].contourf(self.temp_range, self.pmid_range, rate_coa, levels_coa, cmap='jet')
         fig.colorbar(fills4, ax= ax[1,1])
 
         mode = ['Aitken','Accumulation','Primary Carbon','Coarse']
@@ -94,10 +114,10 @@ class generate_plot:
     def time_series(self):
         print("time series plot.")
         n=len(self.dt_range)
-        nref = -n      # T=298K,P=1000hPa dt=0.1s
+        nref = 0      # T=298K,P=1000hPa dt=0.1s
         x = np.arange(0, 1800, self.dt_range[nref])
         fig, axs = plt.subplots(4, 1,figsize=(8, 10))
-        #plt.setp(axs, xticks=x, xticklabels=['1','2','6', '18', '180', '1800', '18000'])
+        #plt.setp(axs, xticks=x)
 
         colors = ['coral', 'deepskyblue', 'red', 'blue']
         left  = 0.125  # the left side of the subplots of the figure
@@ -122,13 +142,9 @@ class generate_plot:
         for j in range(4):
             axs[j].set(ylabel = 'mixing ratio', yscale='linear',
                           xlabel = 'time [s]', xscale ='linear',
-                           title = spec[j]+' T=298K,P=1000hPa dt=0.1s')
+                           title = spec[j]+' T=298K,P=1000hPa dt='+str(self.dt_range[nref])+'s')
             axs[j].grid()
-            #axs[j].set_ylim(lower, upper)
 
-#        fig.legend([lin1, lin2, lin3, lin4],["H2SO4 gas", "Sulfate aerosol", "SOA gas","SOA aerosol"],
-#                  ncol=2,  borderaxespad=0.,
-#                 bbox_to_anchor=(0.7,0.935))
 #        plt.show()
         fig.savefig('time_series.png')
 
@@ -246,7 +262,7 @@ class generate_plot:
                          labelsize=14)
 
 # Use geocat.viz.util convenience function to add title to the plot axis.
-        gv.set_titles_and_labels(ax, maintitle='Relative error of the time convergence test compared to 0.1s timestep',  maintitlefontsize=15)
+        gv.set_titles_and_labels(ax, maintitle='Relative error of the time convergence test compared to '+str(self.dt_range[0])+'s timestep',  maintitlefontsize=15)
 
 # Make both major and minor ticks point inwards towards the plot
         ax.tick_params(direction="in", which='both')
@@ -257,8 +273,9 @@ class generate_plot:
 
 # Display Plot
 #        plt.show()
-        fig.savefig('gasexch_time_nodg_update.png')   
- 
+        fig.savefig('gasexch_time_nodg_update_largealpha.png')   
+
+# each temp and pressure combination will plot 
     def convergence(self):
         x = self.nstep[:]
         fig, axs = plt.subplots(self.testnum, 4,figsize=(2*self.testnum, 16))
@@ -296,9 +313,8 @@ class generate_plot:
         fig.legend([lin1, lin2, lin3, lin4],["asoa", "aso4", "gsoa","gso4"], 
                   ncol=4,  borderaxespad=0.,
                  bbox_to_anchor=(0.7,0.935)) 
- 
-        self.pp.savefig(fig)
-        self.pp.close()
+
+        fig.savefig('convergence.png') 
 
 aa= generate_plot()
 aa.contour_uptk()
