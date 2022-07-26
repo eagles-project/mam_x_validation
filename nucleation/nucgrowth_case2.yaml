@@ -1,3 +1,6 @@
+haero:
+  function: newnuc_cluster_growth
+
 mam_box:
   name: newnuc_cluster_growth
     
