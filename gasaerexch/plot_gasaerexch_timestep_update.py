@@ -26,8 +26,7 @@ class generate_plot:
 
         dtrange = set()
         for time in data.input.dtsubstep:
-            if time not in dtrange:
-               dtrange.add(time)
+            dtrange.add(time)
         self.dt_range = []
         for t in dtrange:
             self.dt_range.append(t)
