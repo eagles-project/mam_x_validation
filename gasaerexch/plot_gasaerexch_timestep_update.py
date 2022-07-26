@@ -35,8 +35,7 @@ class generate_plot:
 
         temprange = set()
         for temp in data.input.temp:
-            if temp not in temprange:
-               temprange.add(temp)
+            temprange.add(temp)
         self.temp_range = []
         for t in temprange:
             self.temp_range.append(t)
@@ -44,8 +43,7 @@ class generate_plot:
 
         pmidrange = set()
         for pmid in data.input.pmid:
-            if pmid not in pmidrange:
-               pmidrange.add(pmid)
+            pmidrange.add(pmid)
         self.pmid_range = []
         for t in pmidrange:
             self.pmid_range.append(t)
