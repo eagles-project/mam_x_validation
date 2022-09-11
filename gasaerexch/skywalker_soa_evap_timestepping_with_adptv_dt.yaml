@@ -3,13 +3,13 @@ mam_box:
 
 input:
  lattice:
-  dt_soa_opt:   [-1, 0] 
-  dt_mam:       [1, 1800]
+  dt_mam:       [300,  1800]
  #dt_mam:       [0.1, 1, 10, 100, 300, 900, 1800]
 
  fixed:
 
-  run_length: 1800.
+  dt_soa_opt:   -1   # use adaptive dt for SOA, with subcyles w.r.t. dt_mam
+  run_length: 1800.  # unit: s
 
   temp: 263.
   pmid: 1.E+5

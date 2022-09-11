@@ -3,23 +3,24 @@ mam_box:
 
 input:
  lattice:
-  dt_soa_opt:   [-1, 0] 
-  dt_mam:       [1,  1800]
+  dt_mam:       [300,  1800]
  #dt_mam:       [0.1, 1, 10, 100, 300, 900, 1800]
 
  fixed:
 
-  run_length: 1800.
+  dt_soa_opt:    0   # use fixed dt for SOA (= dt_mam)
+  run_length: 1800.  # unit: s
 
   temp: 263.
   pmid: 1.E+5
 
-  # SOA gas: 
-  # High initial mixing ratio and high production rate give us
-  # a case of SOAG condensation.
+  # SOA gas 
+  # Initial mixing ratio and production rate are both zero,
+  # but we set SOA (liquid phase) mixing ratios to non-zero.
+  # This gives us a evaporation case.
 
-  qgas_prod_rate_soag:  1.E-14
-  qgas_cur_soag:        1.E-12
+  qgas_prod_rate_soag:  0.
+  qgas_cur_soag:        0.
 
   # H2SO4 gas: 
   # Initial mixing ratio and chem. production are both zero. 
