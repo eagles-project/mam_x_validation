@@ -43,58 +43,49 @@ class generate_plot:
         self.soaa = data.output.soaa_time_series
         self.soag_amb_qsat = data.output.soag_amb_qsat
 
+
     def time_series(self):
 
         print("Plotting time series")
 
-        title      = ["H2SO4 gas", "Sulfate aerosol", "SOA gas","SOA aerosol"]
-        line_color = ["brown",     "red",             "blue",   "green"]
-        nsubplot = len(title)
+        title      = [["H2SO4 gas mixing ratio", "SOA gas mixing ratio"], 
+                      ["SO4 mixing ratio","SOA mixing ratio"]]
+        ncol       = 2
+        nrow       = 2 
 
-        fig, axs = plt.subplots(nsubplot, 1)
-       #fig, axs = plt.subplots(2, 2, figsize=(8, 10))
+        fig, axs = plt.subplots(nrow, ncol, figsize=(8,10))
+        fig.subplots_adjust(left=0.1, bottom=0.1, right=0.9, top=0.9, wspace=0.3, hspace=0.3)
         #plt.setp(axs, xticks=x, xticklabels=['1','2','6', '18', '180', '1800', '18000'])
 
-
-       #left  = 0.125  # the left side of the subplots of the figure
-       #right = 0.9    # the right side of the subplots of the figure
-       #bottom = 0.1   # the bottom of the subplots of the figure 
-       #top = 0.9      # the top of the subplots of the figure
-       #wspace = 0.3   # the amount of width reserved for blank space between subplots
-       #hspace = 0.8   # the amount of height reserved for white space between subplots
-       #fig.subplots_adjust(left, bottom, right, top, wspace, hspace)
-       #upper = 1e0 
-       #lower = 1e-20
-
+        dt_color = ['gold','mediumseagreen','aqua','cornflowerblue','blueviolet','magenta','crimson']
         ndt = len(self.dt)
+        for it in range(ndt):
 
-        x  = self.time[self.ref_dt_idx]
-        nx = len(x)
+            x  = self.time[it]
+            nx = len(x)
 
-        y = [self.so4g[self.ref_dt_idx],
-             self.so4a[self.ref_dt_idx],
-             self.soag[self.ref_dt_idx],
-             self.soaa[self.ref_dt_idx]]
+            y = [ [ self.so4g[it], self.soag[it] ],
+                  [ self.so4a[it], self.soaa[it] ] ]
 
+            for j in range(ncol):
+                for i in range(nrow):
 
-        for j in range(nsubplot):
+                    axs[i,j].plot( x, y[i][j], color=dt_color[it], marker='.', label='dt = '+str(self.dt[it]) )
 
-            axs[j].plot( x, y[j], color='black', marker='o' )
-            axs[j].plot( x, y[j], color=line_color[j] )
+                    axs[i,j].plot( x, y[i][j], color=dt_color[it] )
 
-            axs[j].set(ylabel = '', xlabel = 'Time (s)', title = title[j])
-            axs[j].grid()
-          # axs[j].set_ylim(lower, upper)
+                    axs[i,j].set(ylabel = '', xlabel = 'Time (s)', title = title[i][j] )
+                    axs[i,j].grid()
+                  # axs[i,j].set_ylim(lower, upper)
 
-#        fig.legend([lin1, lin2, lin3, lin4],["H2SO4 gas", "Sulfate aerosol", "SOA gas","SOA aerosol"],
-#                  ncol=2,  borderaxespad=0.,
-#                 bbox_to_anchor=(0.7,0.935))
-#        plt.show()
+                    plt.legend(loc='upper left')
 
-        # Save figure to file
+        #-------------------------------------
+        # Done plotting. Save figure to file
+        #-------------------------------------
         fig.savefig(self.file_basename+'.png')
         print("Plot file:",self.file_basename+'.png')
 
-
+#------------------------------------------------------------
 aa = generate_plot()
 aa.time_series()

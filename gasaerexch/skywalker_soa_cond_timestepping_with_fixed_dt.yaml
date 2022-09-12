@@ -3,8 +3,7 @@ mam_box:
 
 input:
  lattice:
-  dt_mam:       [300,  1800]
- #dt_mam:       [0.1, 1, 10, 100, 300, 900, 1800]
+  dt_mam: [1, 60, 300, 600, 900, 1800] 
 
  fixed:
 
