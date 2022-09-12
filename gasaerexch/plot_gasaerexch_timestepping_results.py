@@ -42,43 +42,61 @@ class generate_plot:
         self.soag = data.output.soag_time_series
         self.soaa = data.output.soaa_time_series
         self.soag_amb_qsat = data.output.soag_amb_qsat
+        self.soag_niter    = data.output.soag_niter
+        self.so4g_ddt_exch = data.output.so4g_ddt_exch
+        self.soag_ddt_exch = data.output.soag_ddt_exch
 
 
     def time_series(self):
 
         print("Plotting time series")
 
-        title      = [["H2SO4 gas mixing ratio", "SOA gas mixing ratio"], 
-                      ["SO4 mixing ratio","SOA mixing ratio"]]
-        ncol       = 2
-        nrow       = 2 
+        title = [["H2SO4 gas mixing ratio", "SOA gas mixing ratio"], 
+                 ["SO4 mixing ratio",       "SOA mixing ratio"],
+                 ["H2SO4 gas cond/evap rate", "SOA gas cond/evap rate"],
+                 ["SOAG gas amb. qsat",       "SOA # of sub-cycles"]] 
+        ncol  = 2
+        nrow  = 4
+
+        it0_arr = [[0,0],[0,0],[1,1],[1,1]]
 
         fig, axs = plt.subplots(nrow, ncol, figsize=(8,10))
-        fig.subplots_adjust(left=0.1, bottom=0.1, right=0.9, top=0.9, wspace=0.3, hspace=0.3)
-        #plt.setp(axs, xticks=x, xticklabels=['1','2','6', '18', '180', '1800', '18000'])
+        fig.subplots_adjust(left=0.1, bottom=0.1, right=0.9, top=0.9, wspace=0.3, hspace=0.55)
 
+        #--------------------------------------------------------------------------------------------
+        # Loop through different runs using different time steps
+        #--------------------------------------------------------------------------------------------
         dt_color = ['gold','mediumseagreen','aqua','cornflowerblue','blueviolet','magenta','crimson']
         ndt = len(self.dt)
-        for it in range(ndt):
 
-            x  = self.time[it]
+        for idt in range(ndt):
+
+            # Time series plot. X axis is model time
+
+            x  = self.time[idt]
             nx = len(x)
 
-            y = [ [ self.so4g[it], self.soag[it] ],
-                  [ self.so4a[it], self.soaa[it] ] ]
+            # Different panels show different quantities
+
+            y = [ [ self.so4g[idt], self.soag[idt] ],
+                  [ self.so4a[idt], self.soaa[idt] ], 
+                  [ self.so4g_ddt_exch[idt], self.soag_ddt_exch[idt] ], 
+                  [ self.soag_amb_qsat[idt], self.soag_niter[idt] ]     ]
 
             for j in range(ncol):
                 for i in range(nrow):
 
-                    axs[i,j].plot( x, y[i][j], color=dt_color[it], marker='.', label='dt = '+str(self.dt[it]) )
+                    it0 = it0_arr[i][j]
 
-                    axs[i,j].plot( x, y[i][j], color=dt_color[it] )
+                    yy = y[i][j] 
+                    axs[i,j].plot( x[it0:], yy[it0:], color=dt_color[idt], marker='.', label='dt = '+str(self.dt[idt]) )
+                    axs[i,j].plot( x[it0:], yy[it0:], color=dt_color[idt] )
 
                     axs[i,j].set(ylabel = '', xlabel = 'Time (s)', title = title[i][j] )
                     axs[i,j].grid()
                   # axs[i,j].set_ylim(lower, upper)
 
-                    plt.legend(loc='upper left')
+                    plt.legend(loc='best',fontsize='x-small')
 
         #-------------------------------------
         # Done plotting. Save figure to file
