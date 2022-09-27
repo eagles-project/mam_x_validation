@@ -9,6 +9,7 @@ input:
 
   dt_soa_opt:    0   # use fixed dt for SOA (= dt_mam)
   run_length: 1800.  # unit: s
+  update_diameter_every_time_step: 1  # recalculate mode diameter every time step
 
   temp: 263.
   pmid: 1.E+5
