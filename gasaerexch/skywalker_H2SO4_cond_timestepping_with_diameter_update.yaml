@@ -1,0 +1,40 @@
+mam_box:
+  mam_subr_name: mam_gasaerexch_1subarea
+
+input:
+ lattice:
+  dt_mam: [1, 60, 300, 600, 900, 1800]
+
+ fixed:
+
+  dt_soa_opt:   -1   # use adaptive dt for SOA, with subcyles w.r.t. dt_mam
+  run_length: 1800.  # unit: s
+  update_diameter_every_time_step: 1  # recalculate mode diameter every time step
+
+  temp: 263.
+  pmid: 1.E+5
+
+  # SOA:
+  # Initial mixing ratio for SOA gas and the other production are both zero. 
+  # No condensation should happen. Below we also set the SOA aerosol
+  # mass mixing ratios to zero, so there should be no evaporation, either.
+
+  qgas_prod_rate_soag:  0.
+  qgas_cur_soag:        0.
+
+  # H2SO4 gas: 
+  # Non-zero initial condition and production rate. 
+  # Condensation will happen. 
+
+  qgas_prod_rate_h2so4: 1.E-14
+  qgas_cur_h2so4:       1.E-12
+
+  # modes:   accum.,   Aitken,  coarse,  PCA,    N/A 
+  qnum_cur: [2.E+9,   2.E+10,  2.E+6,   5.E+9,  0.0]
+  qaer_soa: [0.0,     0.0,     0.0,     0.0,    0.0]
+  qaer_so4: [3.5E-11, 2.5E-12, 1.5E-10, 0.0,    0.0]
+  qaer_pom: [0.9E-11, 0.0,     5.3E-11, 2.E-12, 0.0]
+  qaer_bc : [0.0,     0.0,     0.0,     1.E-10, 0.0]
+  qaer_ncl: [6.8E-11, 6.8E-12, 5.5E-10, 0.0,    0.0]
+  qaer_dst: [0.0,     0.0,     0.0,     0.0,    0.0]
+  qaer_mom: [0.0,     0.0,     0.0,     0.0,    0.0]
