@@ -1,6 +1,6 @@
 # Output can be compared with Figure 4 of Merikanto et al (2007).
 
-haero: # settings for Haero
+mam4xx:
   function: mer07_veh02_wang08_nuc_1box
   newnuc_method_user_choice: 3
   pbl_nuc_wang2008_user_choice: 0

@@ -1,7 +1,7 @@
 # This script generates plots for cross-validating the particle nucleation
 # process. To generate the data needed by the script, run skywalker in the
 # current directory, using nucleation.yaml as input. This writes a file called
-# haero_skywalker.py to the directory, which is then imported as a module.
+# mam4xx_skywalker.py to the directory, which is then imported as a module.
 
 import os, sys, importlib
 import matplotlib.pyplot as plt
@@ -284,7 +284,7 @@ def usage():
     print('computed using a Skywalker-powered driver program. The Python modules')
     print('should be named <prefix>_<figure_name>.py, where <figure_name> is')
     print('the name of a figure as represented by the YAML files in this directory.')
-    print('(e.g. haero_vehkamaki2002_contour.py, for vehkamaki2002_contour.yaml)')
+    print('(e.g. mam4xx_vehkamaki2002_contour.py, for vehkamaki2002_contour.yaml)')
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:

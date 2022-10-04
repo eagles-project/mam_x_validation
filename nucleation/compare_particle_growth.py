@@ -12,9 +12,12 @@ if __name__ == '__main__':
         usage()
         exit(0)
 
+    mod1 = os.path.basename(sys.argv[1].replace('.py', ''))
+    mod2 = os.path.basename(sys.argv[2].replace('.py', ''))
+
     # Import the given data modules.
-    data1 = importlib.import_module(sys.argv[1].replace('.py', ''))
-    data2 = importlib.import_module(sys.argv[2].replace('.py', ''))
+    data1 = importlib.import_module(mod1)
+    data2 = importlib.import_module(mod2)
 
     # Make sure that the input and output names are identical.
     inputs1 = dir(data1.input)
@@ -23,9 +26,9 @@ if __name__ == '__main__':
     inputs2.sort()
     assert(inputs1 == inputs2)
 
-    outputs1 = dir(data1.output1)
+    outputs1 = dir(data1.output)
     outputs1.sort()
-    outputs2 = dir(data2.input)
+    outputs2 = dir(data2.output)
     outputs2.sort()
     assert(outputs1 == outputs2)
 

@@ -2,7 +2,7 @@
 # concentration [molecules/cc] at T = 298K and at two different relative
 # humidities. Output can be compared with Figure 9 of Vehkamaki et al (2002).
 
-haero: # settings for Haero
+mam4xx:
   function: mer07_veh02_wang08_nuc_1box
   newnuc_method_user_choice: 2
   pbl_nuc_wang2008_user_choice: 0
