@@ -1,4 +1,4 @@
-import os, os.path, sys, importlib
+import os, sys, importlib
 
 # Look for data in whatever directory we're running in.
 sys.path.append(os.getcwd())
@@ -12,12 +12,9 @@ if __name__ == '__main__':
         usage()
         exit(0)
 
-    mod1 = os.path.basename(sys.argv[1].replace('.py', ''))
-    mod2 = os.path.basename(sys.argv[2].replace('.py', ''))
-
     # Import the given data modules.
-    data1 = importlib.import_module(mod1)
-    data2 = importlib.import_module(mod2)
+    data1 = importlib.import_module(sys.argv[1].replace('.py', ''))
+    data2 = importlib.import_module(sys.argv[2].replace('.py', ''))
 
     # Make sure that the input and output names are identical.
     inputs1 = dir(data1.input)
