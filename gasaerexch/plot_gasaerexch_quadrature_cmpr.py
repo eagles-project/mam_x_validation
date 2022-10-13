@@ -6,14 +6,20 @@ from matplotlib.backends.backend_pdf import PdfPages
 import numpy as np
 from matplotlib.ticker import ScalarFormatter
 from matplotlib import collections as mc
-import geocat.viz as gv
+#import geocat.viz as gv
+
+'''
+Postprocess script for the test of quadrature in MAM's gas-aerosol exchange parameterization.
+
+Author: Qiyang Yan, PNNL, 2022
+'''
 
 sys.path.append(os.getcwd())
 
 class generate_plot:
     def __init__(self, Dp_opt):
         self.prefix = sys.argv[1] + '_'
-        self.input_data_name = 'uptkrates_1box1gas_4sub'
+        self.input_data_name = sys.argv[2] 
         data = importlib.import_module('%s%s'%(self.prefix, self.input_data_name))
 
         uptk_beta, uptk_direct, uptk_rect, self.ghqp = data.output.uptkaer_beta,\
@@ -92,7 +98,7 @@ class generate_plot:
         self.uptk_meandv_3 = [uptk_meandv[i][2] for i in range(len(uptk_meandv))]
         self.uptk_meandv_4 = [uptk_meandv[i][3] for i in range(len(uptk_meandv))]
 
-        self.pp = PdfPages(self.prefix + self.input_data_name + Dp_opt + '.pdf')
+      # self.pp = PdfPages(self.prefix + self.input_data_name + Dp_opt + '.pdf')
 
     def ghq_beta(self):
         n= self.pmidlen
@@ -138,7 +144,7 @@ class generate_plot:
                 ax[i,j].set_title('beta of '+mode[n]+' mode')
                 ax[i,j].set(yscale='log',ylim=(1e3, 1e5))
                 n+=1
-        fig.savefig('beta_contour.png')
+        fig.savefig('beta_contour.pdf')
 
     def ghq_convergence_dot(self):
         n= self.nghqlen
@@ -255,16 +261,16 @@ class generate_plot:
                    "Using number mean diamater", "Using surface mean diamater","Using volume mean diamater"],
                   ncol=2,  borderaxespad=0.,
                  bbox_to_anchor=(0.80,0.27),frameon=False, prop={'size': 12})
-        gv.set_axes_limits_and_ticks(ax, ylim=(1e-17, 1e0))
+       #gv.set_axes_limits_and_ticks(ax, ylim=(1e-17, 1e0))
 
 # Use geocat.viz.util convenience function to add minor and major tick lines
-        gv.add_major_minor_ticks(ax,
-                         y_minor_per_major=5,
-                         x_minor_per_major=1,
-                         labelsize=14)
+       #gv.add_major_minor_ticks(ax,
+       #                 y_minor_per_major=5,
+       #                 x_minor_per_major=1,
+       #                 labelsize=14)
 
 # Use geocat.viz.util convenience function to add title to the plot axis.
-        gv.set_titles_and_labels(ax, maintitle='Relative error of uptake rates in accumulation mode \n compared to Riemann sum using 6000 points',maintitlefontsize=18)
+       #gv.set_titles_and_labels(ax, maintitle='Relative error of uptake rates in accumulation mode \n compared to Riemann sum using 6000 points',maintitlefontsize=18)
 
 # Make both major and minor ticks point inwards towards the plot
         ax.tick_params(direction="in", which='both')
@@ -274,7 +280,7 @@ class generate_plot:
         ax.xaxis.set_ticks_position('bottom')
 
 # Display Plot
-        fig.savefig('4sub_relerr.png')
+        fig.savefig('gasaerexchage_quadrauture_rel_error.pdf')
 
     def ghq_convergence_box(self):
         """ Plot # of ghq points vs relative error parameter direct ghq, beta ghq and 4-mean using
@@ -348,16 +354,16 @@ class generate_plot:
                    "Using number mean diamater", "Using surface mean diamater","Using volume mean diamater"],
                   ncol=2,  borderaxespad=0.,
                  bbox_to_anchor=(0.7,0.17),frameon=False, prop={'size': 12})
-        gv.set_axes_limits_and_ticks(ax, ylim=(1e-12, 1e2))
+       #gv.set_axes_limits_and_ticks(ax, ylim=(1e-12, 1e2))
 
 # Use geocat.viz.util convenience function to add minor and major tick lines
-        gv.add_major_minor_ticks(ax,
-                         y_minor_per_major=5,
-                         x_minor_per_major=1,
-                         labelsize=14)
+       #gv.add_major_minor_ticks(ax,
+       #                 y_minor_per_major=5,
+       #                 x_minor_per_major=1,
+       #                 labelsize=14)
 
 # Use geocat.viz.util convenience function to add title to the plot axis.
-        gv.set_titles_and_labels(ax, maintitle='Relative error of uptake rates compared to rectangular method using 6000 points')
+       #gv.set_titles_and_labels(ax, maintitle='Relative error of uptake rates compared to rectangular method using 6000 points')
 
 # Make both major and minor ticks point inwards towards the plot
         ax.tick_params(direction="in", which='both')
@@ -368,7 +374,7 @@ class generate_plot:
 
 # Display Plot
         #plt.show()
-        fig.savefig('4sub_relerr.png')
+        fig.savefig('gasaerexchage_quadrauture_rel_error.pdf')
 
     def ghq_convergence_n1(self):
         """ Plot # of ghq points vs uptk rate parameter using direct ghq and beta ghq
