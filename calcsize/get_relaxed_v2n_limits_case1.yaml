@@ -1,0 +1,13 @@
+mam4xx:
+  function: get_relaxed_v2n_limits
+
+mam_box:
+  name: get_relaxed_v2n_limits
+
+input:
+  fixed:
+    do_aitacc_transfer: 0
+    is_aitken_mode: 0
+    is_accum_mode: 0
+    v2nmin: 1.0
+    v2nmax: 1.0 
