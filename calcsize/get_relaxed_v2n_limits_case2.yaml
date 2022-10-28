@@ -9,5 +9,3 @@ input:
     do_aitacc_transfer: 1
     is_aitken_mode: 1
     is_accum_mode: 1
-    v2nmin: 1.0
-    v2nmax: 1.0 

@@ -11,15 +11,13 @@ settings = Object()
 settings.function = 'get_relaxed_v2n_limits'
 # Input is stored here.
 input = Object()
-input.v2nmin = [1, ]
-input.do_aitacc_transfer = [1, ]
-input.v2nmax = [1, ]
-input.is_aitken_mode = [1, ]
 input.is_accum_mode = [1, ]
+input.is_aitken_mode = [1, ]
+input.do_aitacc_transfer = [1, ]
 
 # Output data is stored here.
 output = Object()
-output.v2nmin = [1e-06, ]
-output.v2nmax = [1000000, ]
-output.v2nminrl = [3.703703704e-08, ]
-output.v2nmaxrl = [27000000, ]
+output.v2nmin = [[4.736279937e+12, 5.026599108e+15, 6303988596, 7.067800474e+14, ],]
+output.v2nmaxrl = [[7.113737097e+28, 2.89794599e+31, 1.089329229e+25, 1.908306128e+31, ],]
+output.v2nmax = [[2.634717443e+27, 1.07331333e+30, 4.034552701e+23, 7.067800474e+29, ],]
+output.v2nminrl = [[1.754177754e+11, 1.861703373e+14, 233481059.1, 2.617703879e+13, ],]
