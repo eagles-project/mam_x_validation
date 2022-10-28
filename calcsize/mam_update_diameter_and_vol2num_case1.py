@@ -11,15 +11,15 @@ settings = Object()
 settings.function = 'update_diameter_and_vol2num'
 # Input is stored here.
 input = Object()
-input.dgnmax = [1, ]
+input.dgnmax = [0.001, ]
 input.cmn_factor = [1, ]
 input.drv = [1, ]
-input.v2nmin = [1, ]
+input.v2nmin = [0, ]
 input.v2nmax = [1, ]
-input.num = [1, ]
+input.num = [0.001, ]
 input.dgnmin = [1, ]
 
 # Output data is stored here.
 output = Object()
-output.v2ncur = [nan, ]
-output.dgncur = [nan, ]
+output.dgncur = [10, ]
+output.v2ncur = [0.001, ]

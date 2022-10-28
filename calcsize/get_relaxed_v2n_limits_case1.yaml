@@ -7,5 +7,3 @@ mam_box:
 input:
   fixed:
     do_aitacc_transfer: 0
-    is_aitken_mode: 0
-    is_accum_mode: 0
