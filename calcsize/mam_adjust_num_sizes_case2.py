@@ -23,5 +23,7 @@ input.v2nmin = [[4.736279937e+18, 5.026599108e+15, 6.303988596e+15, 7.067800474e
 
 # Output data is stored here.
 output = Object()
-output.cloudborne_tend = [[0, 0, 0, 0, ],]
 output.interstitial_tend = [[0, 0, 3414175.432, 3719.499849, ],]
+output.cloudborne_tend = [[0, 0, 0, 0, ],]
+output.num_i = [[809835459.7, 44254275.27, 3554259.487, 1382395320, ],]
+output.num_c = [[0, 0, 0, 0, ],]
