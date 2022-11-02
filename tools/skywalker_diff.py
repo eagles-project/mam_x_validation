@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # This script generates norms for cross-validating the particle nucleation
 # process. To generate the data needed by the script, run Skywalker in the
 # current directory, using nucleation.yaml as input. This writes a file called
@@ -32,31 +34,41 @@ def check_lens(f, key, vals1, vals2) :
     N = min(len1, len2)
     return (vals1[:N], vals2[:N])
 
-def check_input(f, key, vals1, vals2) :
+def check_input(f, key, abs_tol, rel_tol, vals1, vals2) :
     dvals = np.subtract(vals1, vals2)
     (L1, L2, Linf) = norms(dvals)
-    if .0000001 < L2.any() :
+    (N1, N2, Ninf) = norms(vals1)
+    if abs_tol < L2.max() and rel_tol < (L2/N2).max():
         f.write ("Warning: Norm for difference of input.{} is:{}\n".format(key,L2))
-        f.write ("     It appears that the input parameters are NOT the same for the two files.\n")
+        f.write ("     It appears that the input parameters are NOT")
+        f.write (" the same for the two files.\n")
+    return False
 
-def check_output(f, key, vals1, vals2) :
+def check_output(f, key, abs_tol, rel_tol, vals1, vals2) :
+    exceeds_tol = False
     dvals = np.subtract(vals1, vals2)
     (L1, L2, Linf) = norms(dvals)
     (N1, N2, Ninf) = norms(vals1)
     if isinstance(L1,(list,np.ndarray)) :
         i = 0
         for (l1,l2,linf, n1,n2,ninf) in zip(L1,L2,Linf, N1,N2,Ninf) :
-            ind = "["+str(i)+"]"
-            f.write ("Norms for difference of output.{}{}:\n".format(key, ind))
-            f.write ("     Absolute:  L1:{:12.6g}  L2:{:12.6g}  Linf:{:12.6g}\n".format(l1, l2, linf))
-            f.write ("     Relative:  L1:{:12.6g}  L2:{:12.6g}  Linf:{:12.6g}\n".format(l1/n1, l2/n2, linf/ninf))
-            i = i + 1
+            if abs_tol < np.hstack((l1, l2, linf)).max() or rel_tol < np.hstack((l1/n1, l2/n2, linf/ninf)).max():
+                exceeds_tol = True
+                ind = "["+str(i)+"]"
+                f.write ("Norms for difference of output.{}{}: given absolute tolerance {} and relative tolerance {}\n".format(key, ind, abs_tol, rel_tol))
+                f.write ("     Absolute:  L1:{:12.6g}  L2:{:12.6g}  Linf:{:12.6g}\n".format(l1, l2, linf))
+                f.write ("     Relative:  L1:{:12.6g}  L2:{:12.6g}  Linf:{:12.6g}\n".format(l1/n1, l2/n2, linf/ninf))
+                i = i + 1
     else :
-        f.write ("Norms for difference of output.{}:\n".format(key))
-        f.write ("     Absolute:  L1:{:12.6g}  L2:{:12.6g}  Linf:{:12.6g}\n".format(L1, L2, Linf))
-        f.write ("     Relative:  L1:{:12.6g}  L2:{:12.6g}  Linf:{:12.6g}\n".format(L1/N1, L2/N2, Linf/Ninf))
+        if abs_tol < np.hstack((l1, l2, linf)).max() or rel_tol < np.hstack((l1/n1, l2/n2, linf/ninf)).max():
+            exceeds_tol = True
+            f.write ("Norms for difference of output.{}: given absolute tolerance {} and relative tolerance {}\n".format(key, abs_tol, rel_tol))
+            f.write ("     Absolute:  L1:{:12.6g}  L2:{:12.6g}  Linf:{:12.6g}\n".format(L1, L2, Linf))
+            f.write ("     Relative:  L1:{:12.6g}  L2:{:12.6g}  Linf:{:12.6g}\n".format(L1/N1, L2/N2, Linf/Ninf))
+    return exceeds_tol
 
-def intersect_vars(f, data1, data2, check_vals) :
+def intersect_vars(f, data1, data2, abs_tol, rel_tol, check_vals) :
+    exceeds_tol = False
     vars1 = vars(data1)
     vars2 = vars(data2)
     keys1 = list(vars1)
@@ -67,7 +79,8 @@ def intersect_vars(f, data1, data2, check_vals) :
         vals2 = np.array(vars2[key])
         (vals1, vals2) = check_lens(f, key, vals1, vals2)
         # check_vals is either the check_input or check_output function
-        check_vals(f, key, vals1, vals2)
+        exceeds_tol = exceeds_tol or check_vals(f, key, abs_tol, rel_tol, vals1, vals2)
+    return exceeds_tol
           
 def parse_args () :
     description = ('Skywalker output difference tool: '+
@@ -77,12 +90,18 @@ def parse_args () :
         help='Search paths for the input module files seperated by ":".')
     parser.add_argument('-o', metavar='file.txt', 
         help='Output file to write results to. Default:stdout')
+    parser.add_argument('-a', metavar='abs_tolerance', default=0.00001,
+                        help='Absolute tolerance to test norms against. Default: 0.00001')
+    parser.add_argument('-r', metavar='rel_tolerance', default=0.00001,
+                        help='Relative tolerance to test norms against. Default: 0.00001')
     parser.add_argument('file1')
     parser.add_argument('file2')
     return parser.parse_args()
 
 if __name__ == '__main__':
     args = parse_args()
+    abs_tol = float(args.a)
+    rel_tol = float(args.r)
 
     # Look for data in whatever directory we're running in.
     sys.path.append(os.getcwd())
@@ -97,8 +116,9 @@ if __name__ == '__main__':
     data1 = importlib.import_module(args.file1) 
     data2 = importlib.import_module(args.file2) 
    
-    intersect_vars(f, data1.input,  data2.input,  check_input)
-    intersect_vars(f, data1.output, data2.output, check_output)
+    intersect_vars(f, data1.input,  data2.input,  abs_tol, rel_tol, check_input)
+    exceeds_tol = intersect_vars(f, data1.output, data2.output, abs_tol, rel_tol, check_output)
 
     f.close()
-
+    if exceeds_tol : sys.exit(1)
+    else           : sys.exit(0)
