@@ -21,5 +21,5 @@ input.interstitial_num = [[629868471.6, 47879046.89, 64725.53148, 732612090.5, ]
 output = Object()
 output.cloud_borne_ptend = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ],]
 output.cloud_borne_ptend_num = [[0, 0, 0, 0, ],]
-output.interstitial_ptend = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ],]
-output.interstitial_ptend_num = [[0, 0, 0, 769.3801887, ],]
+output.interstitial_ptend = [[2.54666494e-18, 0, 1.245061595e-17, 0, 0, 9.705084907e-24, 8.617105683e-24, -2.54666494e-18, -1.245061595e-17, -9.705084907e-24, -8.617105683e-24, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ],]
+output.interstitial_ptend_num = [[4.21018766, -4.21018766, 0, 769.3801887, ],]
