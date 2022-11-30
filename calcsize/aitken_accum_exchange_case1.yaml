@@ -1,6 +1,6 @@
 # Data at lat:-4.98879105856447 and lon:28.00261479688276
 mam4xx:
-  function: aitken_accum_exchange 
+  function: aitken_accum_exchange
 input:
   fixed:
     dt: 3600.00
@@ -8,12 +8,43 @@ input:
     interstitial_num: [ 0.6298684716E+09, 0.4787904689E+08, 0.6472553148E+05, 0.7326120905E+09]
     cloud_borne: [ 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00]
     cloud_borne_num: [ 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00]
-    v2nnom_nmodes: [1,1,1,1,]
-    drv_i_aitsv: 1
+
+    v2nnom_nmodes: [1,1,1,1]
+    v2nmin_nmodes: [1,1,1,1]
+    v2nmax_nmodes: [1,1,1,1]
+
+    dgnnom_nmodes: 1
+    dgnmin_nmodes: 1
+    dgnmax_nmodes: 1
+
+    common_factor_nmodes: 1
+
+    # # full array size = 4 x 7
+    # inv_density1: [1, 1, 1, 1, 1, 1, 1]
+    # inv_density2: [1, 1, 1, 1, 1, 1, 1]
+    # inv_density3: [1, 1, 1, 1, 1, 1, 1]
+    # inv_density4: [1, 1, 1, 1, 1, 1, 1]
+
     num_i_aitsv: 1
-    drv_c_aitsv: 1
     num_c_aitsv: 1
-    drv_i_accsv: 1
     num_i_accsv: 1
-    drv_c_accsv: 1
     num_c_accsv: 1
+    num_i_k_aitsv: 1
+    num_c_k_aitsv: 1
+    num_i_k_accsv: 1
+    num_c_k_accsv: 1
+
+    dryvol_i_aitsv: 1
+    dryvol_c_aitsv: 1
+    dryvol_i_accsv: 1
+    dryvol_c_accsv: 1
+    drv_i_aitsv: 1
+    drv_c_aitsv: 1
+    drv_i_accsv: 1
+    drv_c_accsv: 1
+
+    dgncur_i_k: 1
+    dgncur_c_k: 1
+
+    v2ncur_c_k: 1
+    v2ncur_i_k: 1
