@@ -11,20 +11,38 @@ settings = Object()
 settings.function = 'aitken_accum_exchange'
 # Input is stored here.
 input = Object()
-input.drv_c_accsv = [1, ]
-input.drv_c_aitsv = [1, ]
-input.drv_i_accsv = [1, ]
-input.drv_i_aitsv = [1, ]
-input.dt = [3600, ]
-input.num_c_accsv = [1, ]
-input.num_c_aitsv = [1, ]
-input.num_i_accsv = [1, ]
-input.num_i_aitsv = [1, ]
-input.cloud_borne = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ],]
-input.cloud_borne_num = [[0, 0, 0, 0, ],]
-input.interstitial = [[7.299469308e-10, 1.811687805e-09, 2.991980389e-09, 1.911597588e-10, 1.123090476e-10, 7.563458575e-12, 1.356030726e-12, 2.715374903e-12, 1.327543704e-11, 1.034802167e-17, 9.187966638e-18, 3.683174593e-10, 2.421325192e-11, 1.126298407e-11, 2.008344526e-12, 1.872262953e-11, 3.028730249e-11, 4.394763138e-14, 1.065451952e-09, 1.107541088e-10, 1.828532564e-17, ],]
-input.interstitial_num = [[629868471.6, 47879046.89, 64725.53148, 732612090.5, ],]
-input.v2nnom_nmodes = [[1, 1, 1, 1, ],]
+input.dt = [3600.00, ]
+input.max_k = [0, ]
+input.interstitial = [[ 0.7299469308E-09, 0.1811687805E-08, 0.2991980389E-08, 0.1911597588E-09, 0.1123090476E-09, 0.7563458575E-11, 0.1356030726E-11, 0.2715374903E-11, 0.1327543704E-10, 0.1034802167E-16, 0.9187966638E-17, 0.3683174593E-09, 0.2421325192E-10, 0.1126298407E-10, 0.2008344526E-11, 0.1872262953E-10, 0.3028730249E-10, 0.4394763138E-13, 0.1065451952E-08, 0.1107541088E-09, 0.1828532564E-16, ],]
+input.interstitial_num = [[ 0.6298684716E+09, 0.4787904689E+08, 0.6472553148E+05, 0.7326120905E+09, ],]
+input.cloud_borne = [[ 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, ],]
+input.cloud_borne_num = [[ 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, 0.0000000000E+00, ],]
+
+input.v2nnom_nmodes = [[1.0, 1.0, 1.0, 1.0, ],]
+input.v2nmin_nmodes = [[1.0, 1.0, 1.0, 1.0, ],]
+input.v2nmax_nmodes = [[1.0, 1.0, 1.0, 1.0, ],]
+
+input.dgnnom_nmodes = [[1.0, 1.0, 1.0, 1.0, ],]
+input.dgnmin_nmodes = [[1.0, 1.0, 1.0, 1.0, ],]
+input.dgnmax_nmodes = [[1.0, 1.0, 1.0, 1.0, ],]
+
+input.common_factor_nmodes = [[1.0, 1.0, 1.0, 1.0, ],]
+
+input.num_i_k_aitsv = [1.0, ]
+input.num_c_k_aitsv = [1.0, ]
+input.num_i_k_accsv = [1.0, ]
+input.num_c_k_accsv = [1.0, ]
+
+input.dryvol_i_aitsv = [1.0, ]
+input.dryvol_c_aitsv = [1.0, ]
+input.dryvol_i_accsv = [1.0, ]
+input.dryvol_c_accsv = [1.0, ]
+
+input.dgncur_i_k = [1.0, ]
+input.dgncur_c_k = [1.0, ]
+
+input.v2ncur_c_k = [1.0, ]
+input.v2ncur_i_k = [1.0, ]
 
 # Output data is stored here.
 output = Object()
