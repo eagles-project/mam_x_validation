@@ -1,4 +1,4 @@
-import os, sys, importlib
+import os, sys, importlib, itertools
 import numpy as np
 import numpy.linalg as lin
 
@@ -63,7 +63,18 @@ if __name__ == '__main__':
                     and not o_name.endswith('_')]
 
     for o_name in output_names:
+        pad_token = 0
         o1, o2 = getattr(data1.output, o_name), getattr(data2.output, o_name)
+
+        # There is no requirement for the arrays in Skywalker to be regular. They could
+        # be ragged with each line a different length. But numpy arrays are made of
+        # regular lists. So find a command from Stackoverflow that will fill out
+        # irregular lists and padd with 0's.
+        if type(o1) is list and 0 < len(o1) and type(o1[0]) is list : 
+            o1 = [list(i) for i in zip(*itertools.zip_longest(*o1, fillvalue=pad_token))]
+        if type(o2) is list and 0 < len(o2) and type(o2[0]) is list : 
+            o2 = [list(i) for i in zip(*itertools.zip_longest(*o2, fillvalue=pad_token))]
+
         o1_a= np.array(o1)
         o2_a= np.array(o2)
         L1, L2, Linf = norms(o1_a, o2_a)
