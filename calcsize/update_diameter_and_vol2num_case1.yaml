@@ -1,0 +1,15 @@
+mam4xx:
+  function: update_diameter_and_vol2num
+
+mam_box:
+  name: update_diameter_and_vol2num
+
+input:
+  fixed:
+    drv: 1.0
+    num: 1.e-3
+    v2nmin : 0.0
+    v2nmax : 1.0
+    dgnmin : 1.0
+    dgnmax : 1.0e-3
+    cmn_factor : 1.0
