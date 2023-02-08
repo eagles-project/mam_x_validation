@@ -57,14 +57,23 @@ if __name__ == '__main__':
     output_names = [o_name for o_name in outputs1 \
                     if not o_name.startswith('_') \
                     and not o_name.endswith('_')]
+
+    for o_name in output_names:
+        o1, o2 = np.array(getattr(data1.output, o_name), dtype=np.double), np.array(getattr(data2.output, o_name),dtype=np.double)
+        L1, L2, Linf = norms(o1, o2)
     
-    for o_name in output_names:
-        o1, o2 = getattr(data1.output, o_name), getattr(data2.output, o_name)
-        L1, L2, Linf = norms(o1, o2)
-        print('%s: L1 = %g, L2 = %g, Linf = %g'%(o_name, L1, L2, Linf))
+
+
+        o1, o2 = np.squeeze(o1), np.squeeze(o2)
+        p_error = 100.0 * np.max(np.divide(np.abs(np.subtract(o1, o2)), 
+                                            o2,
+                                            out=np.zeros_like(o1, dtype=np.double), 
+                                            where=o2!=0.0,
+                                            casting='same_kind'))
+        print('%s: L1 = %g, L2 = %g, Linf = %g, Percent Error = %g'%(o_name, L1, L2, Linf, p_error))
         
+        
+
     for o_name in output_names:
         o1, o2 = getattr(data1.output, o_name), getattr(data2.output, o_name)
-        L1, L2, Linf = norms(o1, o2)
-        print(o_name)
         assert(np.allclose(o1, o2))
