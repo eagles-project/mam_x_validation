@@ -1,0 +1,16 @@
+# Data at [lat=   16.7209053140754      , lon=   95.1586611207219      , k=          54 , time step=        1416 ] 
+mam4xx:
+  function: compute_tendencies
+input:
+  fixed:
+    dt:    0.00
+    airtemp: [ 0.2785271976E+03]
+    airprs: [ 0.7455859940E+05]
+    dgatk: [ 0.7185055288E-07]
+    dgacc: [ 0.2076746571E-06]
+    sgatk: [ 0.1600000000E+01]
+    sgacc: [ 0.1800000000E+01]
+    xxlsgat: [ 0.4700036292E+00]
+    xxlsgac: [ 0.5877866649E+00]
+    pdensat: [ 0.1087762736E+04]
+    pdensac: [ 0.1119326722E+04]
