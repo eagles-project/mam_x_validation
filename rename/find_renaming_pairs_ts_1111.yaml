@@ -1,0 +1,8 @@
+# Data at [lat=   16.7209053140754      , lon=   95.1586611207219      , k=          54 , time step=        1111 ] 
+mam4xx:
+  function: find_renaming_pairs
+input:
+  fixed:
+    dt:    0.00
+    nmodes: [         4]
+    dest_mode_of_mode: [         0,         1,         0,         0,         0]
