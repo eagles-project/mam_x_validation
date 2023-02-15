@@ -31,10 +31,21 @@ if __name__ == '__main__':
     # Import the given data modules.
     data1 = importlib.import_module(sys.argv[1].replace('.py', ''))
     data2 = importlib.import_module(sys.argv[2].replace('.py', ''))
-    # Threshold error
-    L1_max=1e-6
-    L2_max=1e-6
-    Linf_max=1e-6
+
+    # arg1 = module 1 
+    # arg2 = module 2
+    # arg3 = check norms (False)
+    # arg4 = error_threshold (1e-6)
+
+    #Default check norms 
+    check_norms=False 
+    if len(sys.argv) > 3:
+        check_norms=eval(sys.argv[3])
+    
+    # Default threshold error
+    error_threshold=1e-6    
+    if len(sys.argv) > 4:
+        error_threshold=float(sys.argv[4])   
 
     # Make sure that the input and output names are identical.
     inputs1 = dir(data1.input)
@@ -77,11 +88,34 @@ if __name__ == '__main__':
 
         o1_a= np.array(o1)
         o2_a= np.array(o2)
+        # make arrays 1D
+        o1_a = o1_a.ravel()
+        o2_a = o2_a.ravel()
         L1, L2, Linf = norms(o1_a, o2_a)
+ 
         print(o_name)
         print('L1',L1)
         print('L2',L2)
-        print('Linf',Linf) 
-        #assert(L1.max() < L1_max)
-        #assert(L2.max() < L2_max)
-        #assert(Linf.max() < Linf_max)   
+        print('Linf',Linf)
+
+        # assume that test passes.  
+        pass_test=True 
+        if check_norms:
+            max_abs_o1_a = abs(o1_a).max()
+            if max_abs_o1_a != 0:
+                if L1 > error_threshold :
+                    print("o1_a", o1_a)
+                    print("o2_a", o2_a)
+                    rel_error = L1/max_abs_o1_a
+                    print("L1 rel_error",rel_error)
+                    if rel_error > error_threshold: pass_test = False
+                if L2 > error_threshold:
+                    rel_error = L2/ max_abs_o1_a
+                    print("L2 rel_error",rel_error)
+                    if rel_error > error_threshold: pass_test = False
+                if Linf > error_threshold:
+                    rel_error = Linf/ max_abs_o1_a
+                    print("Linf rel_error",rel_error)
+                    if rel_error > error_threshold: pass_test = False       
+            assert(pass_test)             
+
