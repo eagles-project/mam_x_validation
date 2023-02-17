@@ -64,13 +64,8 @@ if __name__ == '__main__':
     
 
 
-        o1, o2 = np.squeeze(o1), np.squeeze(o2)
-        p_error = 100.0 * np.max(np.divide(np.abs(np.subtract(o1, o2)), 
-                                            o2,
-                                            out=np.zeros_like(o1, dtype=np.double), 
-                                            where=o2!=0.0,
-                                            casting='same_kind'))
-        print('%s: L1 = %g, L2 = %g, Linf = %g, Percent Error = %g'%(o_name, L1, L2, Linf, p_error))
+
+        print('%s: L1 = %g, L2 = %g, Linf = %g'%(o_name, L1, L2, Linf))
         
         
 
