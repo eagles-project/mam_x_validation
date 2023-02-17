@@ -1,6 +1,6 @@
 # Data at [lat=   16.7209053140754      , lon=   95.1586611207219      , k=          54 , time step=        1416 ] 
 mam4xx:
-  function: compute_tendencies
+  function: coag_num_update
 input:
   fixed:
     dt:    0.00
