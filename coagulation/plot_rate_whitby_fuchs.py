@@ -7,36 +7,36 @@ import numpy as np
 
 sys.path.append(os.getcwd())
 
-def plot_rate_contour(prefix,k,opt):
+
+def plot_rate_contour(prefix, k, opt):
     """Plot the contours of the rate of coagulation as a function of different Diameter pairs"""
 
-    fig_name = 'coag_rate'
-    data = importlib.import_module('%s%s'%(prefix, fig_name))
-    D1, D2 = data.input.dpwet1, \
-               data.input.dpwet2
-    if opt == 'B3ij':
-        if k == 'ghq':
+    fig_name = "coag_rate"
+    data = importlib.import_module("%s%s" % (prefix, fig_name))
+    D1, D2 = data.input.dpwet1, data.input.dpwet2
+    if opt == "B3ij":
+        if k == "ghq":
             RERR = data.output.rel_B3ij_whitby_fuchs_ghq
         else:
             RERR = data.output.rel_B3ij_whitby_fuchs_rect
-    elif opt == 'B0ij':
-        if k == 'ghq':
+    elif opt == "B0ij":
+        if k == "ghq":
             RERR = data.output.rel_B0ij_whitby_fuchs_ghq
         else:
             RERR = data.output.rel_B0ij_whitby_fuchs_rect
-    elif opt == 'B0jj':
-        if k == 'ghq':
+    elif opt == "B0jj":
+        if k == "ghq":
             RERR = data.output.rel_B0jj_whitby_fuchs_ghq
         else:
             RERR = data.output.rel_B0jj_whitby_fuchs_rect
-    elif opt == 'B0ii':
-        if k == 'ghq':
+    elif opt == "B0ii":
+        if k == "ghq":
             RERR = data.output.rel_B0ii_whitby_fuchs_ghq
         else:
             RERR = data.output.rel_B0ii_whitby_fuchs_rect
 
     # Convert relative error to percent.
-    RERR = [100*abs(er) for er in RERR]
+    RERR = [100 * abs(er) for er in RERR]
     nx, ny = 100, 100
     d1 = np.linspace(min(D1), max(D1), nx)
     d2 = np.linspace(min(D2), max(D2), ny)
@@ -45,35 +45,37 @@ def plot_rate_contour(prefix,k,opt):
     Xi, Yi = np.meshgrid(d1, d2)
     Ji = interpolator(Xi, Yi)
 
-    plt.contourf(d1, d2, Ji, cmap='jet')
-    plt.xscale('log')
-    plt.yscale('log')
-    plt.xlabel('D1 [m]')
-    plt.ylabel('D2 [m]')
-#    plt.title('relerror of '+k+' between '+opt+' and rect Whitby rate \n @T=293.15K, P=101325Pa')
+    plt.contourf(d1, d2, Ji, cmap="jet")
+    plt.xscale("log")
+    plt.yscale("log")
+    plt.xlabel("D1 [m]")
+    plt.ylabel("D2 [m]")
+    #    plt.title('relerror of '+k+' between '+opt+' and rect Whitby rate \n @T=293.15K, P=101325Pa')
     cbar = plt.colorbar()
-    cbar.set_label('%')
-    plt.savefig(prefix + fig_name +'_'+k+'_'+opt+ '_whitby_fuchs.png')
+    cbar.set_label("%")
+    plt.savefig(prefix + fig_name + "_" + k + "_" + opt + "_whitby_fuchs.png")
     plt.clf()
 
-def usage():
-    print('usage: python3 plot_*.py <prefix>')
-    print('Here, <prefix> is prepended to each Python module containing data')
-    print('computed using a Skywalker-powered driver program. The Python modules')
-    print('should be named <prefix>_<figure_name>.py, where <figure_name> is')
-    print('the name of a figure as represented by the YAML files in this directory.')
-    print('(e.g. haero_vehkamaki2002_contour.py, for vehkamaki2002_contour.yaml)')
 
-if __name__ == '__main__':
+def usage():
+    print("usage: python3 plot_*.py <prefix>")
+    print("Here, <prefix> is prepended to each Python module containing data")
+    print("computed using a Skywalker-powered driver program. The Python modules")
+    print("should be named <prefix>_<figure_name>.py, where <figure_name> is")
+    print("the name of a figure as represented by the YAML files in this directory.")
+    print("(e.g. haero_vehkamaki2002_contour.py, for vehkamaki2002_contour.yaml)")
+
+
+if __name__ == "__main__":
     if len(sys.argv) < 2:
         usage()
     else:
-        prefix = sys.argv[1] + '_'
-    plot_rate_contour(prefix,'ghq','B0ii');
-    plot_rate_contour(prefix,'rect','B0ii');
-    plot_rate_contour(prefix,'ghq','B0jj');
-    plot_rate_contour(prefix,'rect','B0jj');
-    plot_rate_contour(prefix,'ghq','B0ij');
-    plot_rate_contour(prefix,'rect','B0ij');
-    plot_rate_contour(prefix,'ghq','B3ij');
-    plot_rate_contour(prefix,'rect','B3ij');
+        prefix = sys.argv[1] + "_"
+    plot_rate_contour(prefix, "ghq", "B0ii")
+    plot_rate_contour(prefix, "rect", "B0ii")
+    plot_rate_contour(prefix, "ghq", "B0jj")
+    plot_rate_contour(prefix, "rect", "B0jj")
+    plot_rate_contour(prefix, "ghq", "B0ij")
+    plot_rate_contour(prefix, "rect", "B0ij")
+    plot_rate_contour(prefix, "ghq", "B3ij")
+    plot_rate_contour(prefix, "rect", "B3ij")
