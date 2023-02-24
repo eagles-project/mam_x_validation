@@ -9,9 +9,9 @@ sys.path.append(os.getcwd())
 def usage():
     """Provides usage info."""
     print(
-        "compare_particle_growth.py: compares particle cluster growth rates in Python data modules."
+        "compare_coag_num_update.py: compare validaiton data in Python data modules."
     )
-    print("usage: python3 compare_particle_growth.py <module1.py> <module2.py>")
+    print("usage: python3 compare_coag_validaiton.py <module1.py> <module2.py>")
 
 
 def norms(x_comp, x_ref):
@@ -35,9 +35,6 @@ if __name__ == "__main__":
     # Import the given data modules.
     data1 = importlib.import_module(sys.argv[1].replace(".py", ""))
     data2 = importlib.import_module(sys.argv[2].replace(".py", ""))
-
-    assert "mam_" in sys.argv[2]
-    assert "mam4xx_" in sys.argv[1]
 
     # Make sure that the input and output names are identical.
     inputs1 = dir(data1.input)
@@ -75,21 +72,7 @@ if __name__ == "__main__":
         )
         L1, L2, Linf = norms(o1, o2)
 
-        o1, o2 = np.squeeze(o1), np.squeeze(o2)
-
-        p_error = 100.0 * np.max(
-            np.divide(
-                np.abs(np.subtract(o1, o2)),
-                o2,
-                out=np.zeros_like(o1),
-                where=o2 != 0.0,
-                casting="same_kind",
-            )
-        )
-        print(
-            "%s: L1 = %g, L2 = %g, Linf = %g, Percent Error = %g"
-            % (o_name, L1, L2, Linf, p_error)
-        )
+        print("%s: L1 = %g, L2 = %g, Linf = %g" % (o_name, L1, L2, Linf))
 
     for o_name in output_names:
         o1, o2 = getattr(data1.output, o_name), getattr(data2.output, o_name)
