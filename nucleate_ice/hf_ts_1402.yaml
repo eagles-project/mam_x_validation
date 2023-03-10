@@ -1,0 +1,11 @@
+# Data at [lat=   71.9201421331276      , lon=   71.5690366721838      , k=          64 , time step=        1402 ] 
+mam4xx:
+  function: hf
+input:
+  fixed:
+    dt:    0.00
+    subgrid_in : 4e3
+    Temperature: [-0.3769480152E+02]
+    w_vlc: [ 0.2000000000E+00]
+    RH: [ 0.8382408292E+00]
+    Na: [ 0.6224210438E+02]
