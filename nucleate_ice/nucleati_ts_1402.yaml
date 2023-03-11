@@ -3,6 +3,7 @@ mam4xx:
   function: nucleate_ice
 input:
   fixed:
+    subgrid_in : 4e3
     dt:    0.00
     wbar: [ 0.2000000000E+00]
     tair: [ 0.2378457014E+03]

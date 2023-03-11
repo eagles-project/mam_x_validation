@@ -11,6 +11,7 @@ settings = Object()
 # Input is stored here.
 input = Object()
 input.dt = [    0.00, ]
+input.subgrid_in=[4000] 
 input.wbar=[[ 0.2000000000E+00],]
 input.tair=[[ 0.2378457014E+03],]
 input.pmid=[[ 0.9377624033E+05],]
