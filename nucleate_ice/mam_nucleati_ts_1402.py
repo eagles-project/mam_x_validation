@@ -11,7 +11,6 @@ settings = Object()
 # Input is stored here.
 input = Object()
 input.dt = [    0.00, ]
-input.subgrid_in=[4000] 
 input.wbar=[[ 0.2000000000E+00],]
 input.tair=[[ 0.2378457014E+03],]
 input.pmid=[[ 0.9377624033E+05],]
@@ -20,6 +19,7 @@ input.cldn=[[ 0.9990000000E+00],]
 input.rhoair=[[ 0.1373572514E+01],]
 input.so4_num=[[ 0.6224210438E+02],]
 input.dst3_num=[[ 0.9478315467E-03],]
+input.subgrid=[[ 0.1200000000E+01],]
 # Output data is stored here.
 output = Object()
 output.nuci=[[ 0.1397785118E+05],]
