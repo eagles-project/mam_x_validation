@@ -1,0 +1,12 @@
+# This file was automatically generated using the following command:
+# ./merge_ensembles.py hf_output_ts_1402.py hf_output_ts_1403.py hf_output_ts_1404.py hf_output_ts_1406.py
+mam4xx:
+  function: hf
+input:
+  enumerated:
+    Na: [[62.24210438], [59.01113453], [5.353090275], [5.303462857]]
+    RH: [[0.8382408292], [0.8297163298], [0.7452682855], [0.7628700627]]
+    Temperature: [[-37.69480152], [-36.94781043], [-57.14452694], [-56.92084584]]
+    dt: [0.0, 0.0, 0.0, 0.0]
+    subgrid: [[1.2], [1.2], [1.2], [1.2]]
+    w_vlc: [[0.2], [0.2], [0.2], [0.2]]

@@ -1,0 +1,10 @@
+# This file was automatically generated using the following command:
+# ./merge_ensembles.py hetero_output_ts_1402.py hetero_output_ts_1403.py hetero_output_ts_1410.py hetero_output_ts_1410.py
+mam4xx:
+  function: hetero
+input:
+  enumerated:
+    Ns: [[0.0009478315467], [0.0008633937165], [0.01542388755], [0.01542388755]]
+    Temperature: [[-32.69480152], [-31.94781043], [-35.75495987], [-35.75495987]]
+    dt: [0.0, 0.0, 0.0, 0.0]
+    w_vlc: [[0.2], [0.2], [0.2], [0.2]]
