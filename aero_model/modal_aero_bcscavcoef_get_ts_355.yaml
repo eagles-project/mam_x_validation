@@ -1,0 +1,11 @@
+# Data at [lat=  -13.2292708024991      , lon=   139.817062054960      , k=          53 , time step=         355 ] 
+mam4xx:
+  function: modal_aero_bcscavcoef_get
+input:
+  fixed:
+    dt:    0.00
+    imode: [         1]
+    ncol: [         4]
+    isprx: [         1]
+    dgn_awet: [ 0.1522452427E-06, 0.4627511718E-07, 0.1886138608E-05, 0.9911179496E-07]
+    dgnum_amode: [ 0.1100000000E-06, 0.2600000000E-07, 0.2000000000E-05, 0.5000000058E-07]
