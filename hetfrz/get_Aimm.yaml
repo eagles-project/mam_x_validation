@@ -1,0 +1,8 @@
+mam4xx: 
+  function: get_Aimm
+input:
+  fixed:
+    vwice: 1e-50
+    rgimm: 1e-4
+    temperature: 263.15
+    dg0imm: 2.0
