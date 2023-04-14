@@ -1,0 +1,21 @@
+mam4xx: 
+  function: calculate_collkernel_sub
+input:
+  fixed:
+    latvap: 2.501e6
+    Ktherm_air: 0.237
+    viscos_air: 1.514472e-05
+    Pr: 1.0
+    temperature: 273.15
+    pressure: 8e4
+    rho_air: 0.9
+  
+  lattice: 
+    Ktherm: [4.2, 7.2]
+    log10(r3lx): [-13, -6, 1]
+    log10(lam): [-9, -6, 1]
+    log10(r_a): [-13, -6, 1]
+    log10(Re): [-10, 3, 1]
+    log10(Tdiff): [-10, 1, 1]
+
+
