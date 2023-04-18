@@ -1,0 +1,10 @@
+mam4xx: 
+  function: calculate_rgimm_and_determine_spec_flag
+input:
+  fixed:
+    vwice: 1e-5
+    sigma_iw: 0.75
+    temperature: 253.15
+    aw: 1.1
+    supersatice: 1.2
+    rgimm: 1e-5 
