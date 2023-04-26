@@ -12,6 +12,7 @@ input.bcmac = [1e-06, ]
 input.bcmpc = [2e-06, ]
 input.dmac = [3e-06, ]
 input.dmc = [4e-06, ]
+input.hetraer = [[0, 0, 0, ],]
 input.total_interstitial_aer_num = [[100000, 200000, 300000, ],]
 
 # Output data is stored here.
