@@ -16,3 +16,5 @@ input:
     soamc: 1e-7
     num_coarse: 1e6
     total_interstitial_aer_num: [1e5, 2e5, 3e5]
+    awcam: [0.0, 0.0, 0.0]
+    awfacm: [0.0, 0.0, 0.0]

@@ -20,6 +20,8 @@ input.so4mac = [1e-06, ]
 input.so4mc = [6e-06, ]
 input.soamac = [2e-06, ]
 input.soamc = [1e-07, ]
+input.awcam = [[0, 0, 0, ],]
+input.awfacm = [[0, 0, 0, ],]
 input.total_interstitial_aer_num = [[100000, 200000, 300000, ],]
 
 # Output data is stored here.
