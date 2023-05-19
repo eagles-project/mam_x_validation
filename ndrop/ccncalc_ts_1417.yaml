@@ -1,6 +1,6 @@
 # Data at [lat=   39.0553303768561      , lon=   262.904774388088      , k=          54 , time step=        1417 ] 
 mam4xx:
-  function: ccncalc
+  function: ccncalc_loop
 input:
   fixed:
     pver: [        72]
