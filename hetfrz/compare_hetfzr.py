@@ -55,11 +55,7 @@ if __name__ == "__main__":
     ]
     for i_name in input_names:
         i1, i2 = getattr(data1.input, i_name), getattr(data2.input, i_name)
-        #print(i_name, i1, i2)
-        #assert i1 == i2
-        if i1 != i2:
-            print('Not Equal')
-            print(i_name, "/n",  i1, "/n", i2)
+        assert(i1 == i2)
 
     # Check L1, L2, Linf norms for output data.
     output_names = [
