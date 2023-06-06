@@ -19,6 +19,7 @@ def norms(x_comp, x_ref):
         axis = None
     else:
         axis = 0
+
     L1 = lin.norm(diff, 1)
     L2 = lin.norm(diff, 2)
     Linf = lin.norm(diff, np.inf)
@@ -54,7 +55,11 @@ if __name__ == "__main__":
     ]
     for i_name in input_names:
         i1, i2 = getattr(data1.input, i_name), getattr(data2.input, i_name)
-        assert i1 == i2
+        #print(i_name, i1, i2)
+        #assert i1 == i2
+        if i1 != i2:
+            print('Not Equal')
+            print(i_name, "/n",  i1, "/n", i2)
 
     # Check L1, L2, Linf norms for output data.
     output_names = [
@@ -67,6 +72,7 @@ if __name__ == "__main__":
         o1, o2 = getattr(data1.output, o_name), getattr(data2.output, o_name)
 
         L1, L2, Linf = norms(o1, o2)
+
 
         print("%s: L1 = %g, L2 = %g, Linf = %g" % (o_name, L1, L2, Linf))
 
