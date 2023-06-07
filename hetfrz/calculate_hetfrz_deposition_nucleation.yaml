@@ -12,8 +12,8 @@ input:
       r_bc: 0.067e-6
       r_dust_a1: 0.258e-6
       r_dust_a3: 1.576e-6
-      do_bc: 0
-      do_dst1: 0
-      do_dst3: 0
+      do_bc: 1
+      do_dst1: 1
+      do_dst3: 1
 
 
