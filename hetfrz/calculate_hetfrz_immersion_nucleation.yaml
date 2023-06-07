@@ -18,8 +18,8 @@ input:
       rgimm_bc: 1e-10
       rgimm_dust_a1: 1e-10
       rgimm_dust_a3: 1e-10
-      do_bc: 0
-      do_dst1: 0
-      do_dst3: 0
+      do_bc: 1
+      do_dst1: 1
+      do_dst3: 1
 
 

@@ -9,9 +9,9 @@ class Object(object):
 # Input is stored here.
 input = Object()
 input.deltat = [30, ]
-input.do_bc = [0, ]
-input.do_dst1 = [0, ]
-input.do_dst3 = [0, ]
+input.do_bc = [1, ]
+input.do_dst1 = [1, ]
+input.do_dst3 = [1, ]
 input.eswtr = [1e-06, ]
 input.r_bc = [6.7e-08, ]
 input.r_dust_a1 = [2.58e-07, ]
