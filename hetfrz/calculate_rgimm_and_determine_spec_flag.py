@@ -17,5 +17,5 @@ input.vwice = [1e-05, ]
 
 # Output data is stored here.
 output = Object()
-output.do_spec_flag = [0, ]
+output.do_spec_flag = [1, ]
 output.rgimm = [1.546554152e+16, ]
