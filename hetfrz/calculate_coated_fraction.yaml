@@ -1,0 +1,30 @@
+mam4xx:
+  function:
+    calculate_coated_fraction
+input: 
+  fixed:
+    so4mac: 1e-6
+    pommac: 2e-6
+    mommac: 3e-6
+    soamac: 4e-6
+    dmac: 5e-9
+    bcmac: 6e-6 
+    mommpc: 7e-6
+    pommpc: 8e-6
+    bcmpc: 9e-6
+    so4mc: 1e-5
+    pommc: 2e-5
+    soamc: 3e-5
+    mommc: 4e-5
+    dmc: 5e-9
+    total_cloudborne_aer_num: [1e6, 2e6, 3e6]
+    total_interstitial_aer_num: [4e6, 5e6, 6e6]
+    hetraer: [1e-9, 1e-14, 3e-16]
+    total_aer_num: [0.0, 0.0, 0.0]
+    coated_aer_num: [0.0, 0.0, 0.0]
+    uncoated_aer_num: [0.0, 0.0, 0.0]
+    dstcoat: [0.0, 0.0, 0.0]
+  lattice:
+    air_density: [0.1, 1.2, 0.1]
+
+

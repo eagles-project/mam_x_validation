@@ -1,0 +1,10 @@
+mam4xx: 
+  function: get_temperature_diff
+input:
+  fixed:
+    latvap: 2.501e6
+    Ktherm_air: 0.237
+  lattice: 
+    temperature: [243.15, 313.15, 4]
+    pressure: [10000., 100000., 10000.]
+    log10(eswtr): [-6,-1, 0.5]

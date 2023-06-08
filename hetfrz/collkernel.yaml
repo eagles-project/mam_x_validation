@@ -1,0 +1,12 @@
+mam4xx: 
+  function: collkernel
+input:
+  fixed:
+    r_bc: 0.067e-6
+    r_dust_a1: 0.258e-6
+    r_dust_a3: 1.576e-6
+  lattice:
+    temperature: [243.15, 313.15, 1]
+    log10(pressure): [4, 5, .1]
+    log10(eswtr): [-5, -2, 1]  
+    log10(r3ls): [-16, -12, 1]

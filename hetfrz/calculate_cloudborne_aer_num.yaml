@@ -1,0 +1,21 @@
+mam4xx:
+  function: calculate_cloudborne_aer_num
+input:
+  fixed:
+    ssmac_cb: 2.e-5
+    so4mac_cb: 3.e-5
+    pommac_cb: 5.e-5
+    soamac_cb: 6.e-5
+    mommac_cb: 7.e-5
+    num_accum_cb: 1.e6
+    ssmc_cb: 9.e-5
+    mommc_cb: 9.5e-5
+    bcmc_cb: 9.75e-5
+    pommc_cb: 8.5e-5
+    soamc_cb: 7.75e-5
+    num_coarse_cb: 2.e6
+    total_cloudborne_aer_num: [0.0, 0.0, 0.0]
+  lattice: 
+    bcmac_cb: [0.0, 4.e-5]
+    dmac_cb: [0.0, 1.e-5]
+    dmc_cb: [0.0, 8.e-5]

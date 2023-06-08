@@ -1,0 +1,16 @@
+mam4xx: 
+  function: calculate_interstitial_aer_num
+input:
+  fixed: 
+    bcmac: 1e-5
+    dmac: 2e-5
+    bcmpc: 3e-5
+    ssmc: 5e-5 
+    mommc: 6e-5 
+    bcmc: 7e-5 
+    pommc: 8e-6 
+    soamc: 9e-6 
+    ncoarse: 1e6
+    total_interstitial_aer_num: [0.0, 0.0, 0.0]
+  lattice:
+    dmc: [0.0, 4e-5]

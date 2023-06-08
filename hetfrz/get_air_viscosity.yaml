@@ -1,0 +1,6 @@
+mam4xx: 
+  function: get_air_viscosity 
+input:
+  lattice: 
+    temperature: [-40.0, 40.0, 1]
+

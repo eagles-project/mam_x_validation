@@ -1,0 +1,19 @@
+mam4xx: 
+  function: calculate_hetfrz_deposition_nucleation
+input:
+    fixed:
+      deltat: 30.0
+      temperature: 253.15
+      uncoated_aer_num: [1e3, 1e3, 1e3]
+      sigma_iv: 0.0235
+      eswtr: 1e-6
+      rgdep: 1e-8
+      vwice: 3.251768271930434e-29
+      r_bc: 0.067e-6
+      r_dust_a1: 0.258e-6
+      r_dust_a3: 1.576e-6
+      do_bc: 1
+      do_dst1: 1
+      do_dst3: 1
+
+

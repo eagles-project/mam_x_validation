@@ -1,0 +1,9 @@
+mam4xx:
+  function: calculate_water_activity
+input:
+  fixed:
+    total_interstitial_aer_num: [1e3, 2e3, 3e3]
+    awcam: [1e2, 2e2, 3e2]
+    awfacm: [1e2, 2e2, 3e2]
+    aw: [1.0, 1.0, 1.0]
+    r3lx: 1e-6

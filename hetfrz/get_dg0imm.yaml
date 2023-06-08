@@ -1,0 +1,6 @@
+mam4xx: 
+  function: get_dg0imm
+input:
+  fixed:
+    sigma_iw: 1e-3
+    rgimm: 1e-4

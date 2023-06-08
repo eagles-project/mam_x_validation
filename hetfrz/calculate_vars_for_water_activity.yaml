@@ -1,0 +1,20 @@
+mam4xx:
+  function:
+    calculate_vars_for_water_activity
+input:
+  fixed:
+    so4mac: 1e-6
+    soamac: 2e-6
+    bcmac: 3e-6
+    mommac: 4e-6
+    pommac: 5e-6
+    num_accum: 1e6
+    so4mc: 6e-6
+    mommc: 7e-6
+    bcmc: 8e-6
+    pommc: 9e-6
+    soamc: 1e-7
+    num_coarse: 1e6
+    total_interstitial_aer_num: [1e5, 2e5, 3e5]
+    awcam: [0.0, 0.0, 0.0]
+    awfacm: [0.0, 0.0, 0.0]

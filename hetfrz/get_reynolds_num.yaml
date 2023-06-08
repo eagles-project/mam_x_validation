@@ -1,0 +1,8 @@
+mam4xx:
+  function: get_reynolds_number
+input:
+  fixed:
+    viscos_air: 1.718e-5
+  lattice:
+    log10(r3lx): [-13, -6, 1]
+    rho_air: [0.1, 1.2, 0.1]

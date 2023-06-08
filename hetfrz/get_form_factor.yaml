@@ -1,0 +1,5 @@
+mam4xx: 
+  function: get_form_factor
+input:
+  lattice:
+    alpha: [0.0, 6.283185307179586, .1]

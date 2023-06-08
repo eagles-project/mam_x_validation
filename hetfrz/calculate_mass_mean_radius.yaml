@@ -1,0 +1,10 @@
+mam4xx:
+  function: calculate_mass_mean_radius
+input:
+  fixed:
+    total_interstitial_aer_num: [1e5, 2e5, 3e5]
+    hetraer: [0.0, 0.0, 0.0]
+    bcmac: 1e-6
+    bcmpc: 2e-6
+    dmac: 3e-6 
+    dmc: 4e-6

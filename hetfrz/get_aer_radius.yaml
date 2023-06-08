@@ -1,0 +1,7 @@
+mam4xx:
+  function: get_aer_radius
+input:
+  lattice:
+    specdens: [900.0, 2700.0, 100.0]
+    log10(aermc): [-8, -3, 1]
+    log10(aernum): [3, 8, 1]
