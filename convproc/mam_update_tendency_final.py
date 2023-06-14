@@ -10,7 +10,6 @@ class Object(object):
 settings = Object()
 # Input is stored here.
 input = Object()
-input.dt = [    0.00, ]
 input.ktop=[        48]
 input.kbot_prevap=[        72]
 input.ntsub=[         2]
