@@ -1,8 +1,8 @@
 # This file was automatically generated using the following command:
 # ./merge_ensembles.py dropmixnuc_output_ts_1400.py dropmixnuc_output_ts_1401.py dropmixnuc_output_ts_1402.py dropmixnuc_output_ts_1403.py dropmixnuc_output_ts_1404.py dropmixnuc_output_ts_1405.py dropmixnuc_output_ts_1406.py dropmixnuc_output_ts_1407.py dropmixnuc_output_ts_1408.py dropmixnuc_output_ts_1409.py dropmixnuc_output_ts_1410.py dropmixnuc_output_ts_1411.py dropmixnuc_output_ts_1412.py dropmixnuc_output_ts_1413.py dropmixnuc_output_ts_1414.py dropmixnuc_output_ts_1415.py dropmixnuc_output_ts_1416.py dropmixnuc_output_ts_1417.py
 
-settings:
-
+mam4xx:
+  function: dropmixnuc
 input:
   enumerated:
     alog2: [[0.6931471806], [0.6931471806], [0.6931471806], [0.6931471806], [0.6931471806], [0.6931471806], [0.6931471806], [0.6931471806], [0.6931471806], [0.6931471806], [0.6931471806], [0.6931471806], [0.6931471806], [0.6931471806], [0.6931471806], [0.6931471806], [0.6931471806], [0.6931471806]]

@@ -1,8 +1,8 @@
 # This file was automatically generated using the following command:
 # ./merge_ensembles.py update_from_cldn_profile_output_ts_1400_iact1.py update_from_cldn_profile_output_ts_1401_iact1.py update_from_cldn_profile_output_ts_1402_iact1.py update_from_cldn_profile_output_ts_1403_iact1.py update_from_cldn_profile_output_ts_1404_iact1.py update_from_cldn_profile_output_ts_1405_iact1.py update_from_cldn_profile_output_ts_1406_iact1.py update_from_cldn_profile_output_ts_1410_iact1.py update_from_cldn_profile_output_ts_1415_iact1.py update_from_cldn_profile_output_ts_1416_iact1.py update_from_cldn_profile_output_ts_1417_iact1.py
 
-settings:
-
+mam4xx:
+  function: update_from_cldn_profile
 input:
   enumerated:
     cldn_col_in_kk: [[0.5001783832], [0.3458360202], [0.2779887525], [0.2221484172], [0.157958744], [0.05027804276], [0.022280477], [0.6387835394], [0.9890049963], [0.6833767495], [0.1428994599]]

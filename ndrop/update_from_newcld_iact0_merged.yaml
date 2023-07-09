@@ -1,8 +1,8 @@
 # This file was automatically generated using the following command:
 # ./merge_ensembles.py update_from_newcld_output_ts_1400_iact0.py update_from_newcld_output_ts_1401_iact0.py update_from_newcld_output_ts_1402_iact0.py update_from_newcld_output_ts_1403_iact0.py update_from_newcld_output_ts_1404_iact0.py update_from_newcld_output_ts_1405_iact0.py update_from_newcld_output_ts_1406_iact0.py update_from_newcld_output_ts_1407_iact0.py update_from_newcld_output_ts_1408_iact0.py update_from_newcld_output_ts_1409_iact0.py update_from_newcld_output_ts_1410_iact0.py update_from_newcld_output_ts_1411_iact0.py update_from_newcld_output_ts_1412_iact0.py update_from_newcld_output_ts_1413_iact0.py update_from_newcld_output_ts_1414_iact0.py update_from_newcld_output_ts_1415_iact0.py update_from_newcld_output_ts_1416_iact0.py update_from_newcld_output_ts_1417_iact0.py
 
-settings:
-
+mam4xx:
+  function: update_from_newcld
 input:
   enumerated:
     cldn_col_in: [[0.5001783832], [0.3458360202], [0.2779887525], [0.2221484172], [0.157958744], [0.05027804276], [0.022280477], [0.01039108176], [0.009765641548], [0.1100616471], [0.6387835394], [0.8630285664], [0.9540708903], [0.9783240361], [0.9952246508], [0.9890049963], [0.6833767495], [0.1428994599]]

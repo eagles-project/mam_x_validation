@@ -1,8 +1,8 @@
 # This file was automatically generated using the following command:
 # ./merge_ensembles.py update_from_newcld_output_ts_1400_iact2.py update_from_newcld_output_ts_1401_iact2.py update_from_newcld_output_ts_1402_iact2.py update_from_newcld_output_ts_1403_iact2.py update_from_newcld_output_ts_1404_iact2.py update_from_newcld_output_ts_1405_iact2.py update_from_newcld_output_ts_1406_iact2.py update_from_newcld_output_ts_1407_iact2.py update_from_newcld_output_ts_1408_iact2.py update_from_newcld_output_ts_1411_iact2.py update_from_newcld_output_ts_1412_iact2.py update_from_newcld_output_ts_1413_iact2.py update_from_newcld_output_ts_1414_iact2.py update_from_newcld_output_ts_1416_iact2.py
 
-settings:
-
+mam4xx:
+  function: update_from_newcld
 input:
   enumerated:
     cldn_col_in: [[0.483193706], [0.2801616759], [0.2447410473], [0.1952175118], [0.129218298], [0.04880011703], [0.02266835399], [0.01177494273], [0.01223419135], [0.9926022345], [0.9899049405], [0.9945760968], [0.9957949573], [0.3581542727]]
