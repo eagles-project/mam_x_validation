@@ -1,0 +1,9 @@
+mam4xx:
+  function: gravit_settling_velocity
+input:
+  fixed:
+    particle_radius: 1e-7
+    particle_density: 12.0
+    slip_correction: 1.01
+    dynamic_viscosity: 2e-6
+    particle_sig: 1.0
