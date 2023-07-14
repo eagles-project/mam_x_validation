@@ -8,8 +8,8 @@ sys.path.append(os.getcwd())
 
 def usage():
     """Provides usage info."""
-    print("compare_coag_num_update.py: compare validaiton data in Python data modules.")
-    print("usage: python3 compare_coag_validaiton.py <module1.py> <module2.py>")
+    print("compare_coag_num_update.py: compare validation data in Python data modules.")
+    print("usage: python3 compare_coag_validation.py <module1.py> <module2.py>")
 
 
 def norms(x_comp, x_ref):
