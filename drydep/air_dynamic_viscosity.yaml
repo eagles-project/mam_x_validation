@@ -1,0 +1,5 @@
+mam4xx:
+  function: air_dynamic_viscosity 
+input:
+  fixed:
+    temp: 273.15

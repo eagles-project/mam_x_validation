@@ -1,0 +1,8 @@
+mam4xx:
+  function: slip_correction_factor 
+input:
+  fixed:
+    temp: 273.15
+    pres: 1e5
+    particle_radius: 1e-6
+    dyn_visc: 1e-6
