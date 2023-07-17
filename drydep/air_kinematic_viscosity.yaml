@@ -1,0 +1,6 @@
+mam4xx:
+  function: air_kinematic_viscosity 
+input:
+  fixed:
+    temp: 273.15
+    pres: 1e5

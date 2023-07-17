@@ -1,0 +1,8 @@
+mam4xx:
+  function: radius_for_moment 
+input:
+  fixed:
+    moment: 1.0
+    sig_part: 1.0
+    radius_part: 1e-6
+    radius_max: 1e-5

@@ -1,0 +1,9 @@
+mam4xx:
+  function: schmidt_number 
+input:
+  fixed:
+    temp: 273.15
+    pres: 1e5
+    radius: 1e-6
+    vsc_dyn_atm: 1e-6
+    vsc_knm_atm: 1e-7
