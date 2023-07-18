@@ -1,0 +1,18 @@
+settings:
+  name: agr00_2mode_fig1
+
+input:
+  fixed:
+    temperature: 294 # K
+    pressure: 100000 # Pa
+    vertical_velocity: 0.5 # m/s
+    mode1_radius: 0.05 # micron
+    mode2_radius: 0.05 # micron
+    mode1_std_dev: 2 # unitless
+    mode2_std_dev: 2 # unitless
+    mode1_number_conc: 100 # 1/cc
+    mode1_solubility: 1 # unitless
+    mode2_solubility: 1 # unitless
+
+  enumerated:
+    mode2_number_conc: [0, 5000, 50]
