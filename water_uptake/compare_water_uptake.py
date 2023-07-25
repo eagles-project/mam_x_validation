@@ -67,6 +67,15 @@ if __name__ == "__main__":
     for o_name in output_names:
         o1, o2 = getattr(data1.output, o_name), getattr(data2.output, o_name)
 
+        if o_name == 'imag_cx':
+            # Due to differences in the implementation of raising 
+            # complex numbers to powers between C++ and Fortran, 
+            # we take the absolute value of the imaginary part. 
+            # This is consistent with how imag_cx is used in other parts of mam4xx. 
+
+            o1 = np.abs(o1)
+            o2 = np.abs(o2)
+
         L1, L2, Linf = norms(o1, o2)
 
 
