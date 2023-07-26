@@ -1,0 +1,9 @@
+# Data at [lat=  -13.2292708024991      , lon=   139.817062054960      , k=          51 , time step=         355 ] 
+mam4xx:
+  function: modal_aero_kohler
+input:
+  fixed:
+    dt:    0.00
+    rdry_in: [ 0.1117402402E-06]
+    hygro: [ 0.2052752129E+00]
+    rh: [ 0.7098335324E+00]
