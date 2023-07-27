@@ -1,0 +1,10 @@
+# Data at [lat=  -13.2292708024991      , lon=   139.817062054960      , k=          51 , time step=         355 ] 
+mam4xx:
+  function: compute_evap_frac
+input:
+  fixed:
+    dt:    0.00
+    mam_prevap_resusp_optcc: 130
+    pdel_ik: 0.3395589227E+04
+    evap_ik: 0.7626064109E-09
+    precabx: 0.3168724826E-04
