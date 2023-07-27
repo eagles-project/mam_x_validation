@@ -1,0 +1,10 @@
+# Data at [lat=  -13.2292708024991      , lon=   139.817062054960      , k=          51 , time step=         355 ] 
+mam4xx:
+  function: rain_mix_ratio
+input:
+  fixed:
+    dt:    0.00
+    ncol: 4
+    temperature: 0.2804261386E+03
+    pmid: 0.6753476429E+05
+    sumppr: 0.8324652534E-04
