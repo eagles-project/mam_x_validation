@@ -1,0 +1,17 @@
+# Data at [lat=  -13.2292708024991      , lon=   139.817062054960      , k=          48 , time step=         355 ] 
+mam4xx:
+  function: wetdep_scavenging
+input:
+  fixed:
+    dt:    0.00
+    is_st_cu: 1
+    is_strat_cloudborne: 0
+    deltat: 0.3600000000E+04
+    fracp: 0.1014289501E-01
+    precabx: 0.3161419202E-04
+    cldv_ik: 0.3628401926E+00
+    scavcoef_ik: 0.2523551942E-02
+    sol_factb: 0.3000000000E-01
+    sol_facti: 0.0000000000E+00
+    tracer_1: 0.1508516129E-09
+    tracer_2: 0.1508516129E-09
