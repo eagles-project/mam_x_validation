@@ -1,0 +1,12 @@
+# Data at [lat=  -13.2292708024991      , lon=   139.817062054960      , k=          24 , time step=         355 ] 
+mam4xx:
+  function: wetdep_resusp_noprecip
+input:
+  fixed:
+    dt:    0.00
+    mam_prevap_resusp_optcc: 130
+    is_st_cu: 1
+    precabx_base_old: 0.5636952929E-17
+    precabx_old: 0.5636952929E-17
+    scavabx_old: 0.0000000000E+00
+    precnumx_base_old: 0.0000000000E+00
