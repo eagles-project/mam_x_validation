@@ -1,0 +1,26 @@
+# Data at [lat=  -13.2292708024991      , lon=   139.817062054960      , k=          51 , time step=         355 ] 
+mam4xx:
+  function: update_scavenging
+input:
+  fixed:
+    dt:    0.0
+    mam_prevap_resusp_optcc: 230
+    pdel_ik: 0.3395589227E+04
+    omsm: 0.1000000000E+01
+    srcc: 0.9919389547E-02
+    srcs: 0.9069025923E-02
+    srct: 0.1898841547E-01
+    fins: 0.0000000000E+00
+    finc: 0.0000000000E+00
+    fracev_st: 0.8333589375E-02
+    fracev_cu: 0.8016109779E-01
+    resusp_c: 0.1272242588E+01
+    resusp_s: 0.9306173331E+01
+    precs_ik: 0.0000000000E+00
+    evaps_ik: 0.7626064109E-09
+    cmfdqr_ik: 0.4201774770E-07
+    evapc_ik: 0.8237076572E-08
+    scavabs: 0.0000000000E+00
+    scavabc: 0.0000000000E+00
+    precabc: 0.4727888011E-04
+    precabs: 0.3142317975E-04
