@@ -10,8 +10,8 @@ class Object(object):
 settings = Object()
 # Input is stored here.
 input = Object()
-input.dt = [    0.00, ]
-input.mam_prevap_resusp_optcc=[         0]
+input.dt = [ 0.00, ]
+input.mam_prevap_resusp_optcc=[ 0]
 input.pdel_ik=[ 0.3395589227E+04]
 input.omsm=[ 0.1000000000E+01]
 input.srcc=[ 0.1164821549E-02]

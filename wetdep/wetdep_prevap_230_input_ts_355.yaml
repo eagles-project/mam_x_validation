@@ -1,0 +1,16 @@
+# Data at [lat=  -13.2292708024991      , lon=   139.817062054960      , k=          44 , time step=         355 ] 
+mam4xx:
+  function: wetdep_prevap
+input:
+  fixed:
+    dt:    0.00
+    is_st_cu: 1
+    mam_prevap_resusp_optcc: 230
+    pdel_ik: 0.3378892985E+04
+    pprdx: 0.1283309813E-07
+    srcx: 0.2780869958E-02
+    arainx: 0.1012564869E+00
+    precabx_base_old: 0.1028606769E-04
+    precabx_old: 0.1028603713E-04
+    scavabx_old: 0.0000000000E+00
+    precnumx_base_old: 0.1079751312E+03
