@@ -1,0 +1,10 @@
+# Data at [lat=  -13.2292708024991      , lon=   139.817062054960      , k=          51 , time step=         355 ] 
+mam4xx:
+  function: local_precip_production
+input:
+  fixed:
+    dt: 0.00
+    ncol: 4
+    pdel: 0.3395589227E+04
+    source_term: 0.4201774770E-07
+    sink_term: 0.7626064109E-09
