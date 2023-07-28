@@ -1,0 +1,11 @@
+# Data at [lat=  -13.2292708024991      , lon=   139.817062054960      , k=          51 , time step=         355 ] 
+mam4xx:
+  function: modal_aero_water_uptake_rh_clearair 
+input:
+  fixed:
+    dt:    0.00
+    ncol: [         4]
+    temperature: [ 0.2804261386E+03]
+    pmid: [ 0.6753476429E+05]
+    h2ommr: [ 0.6818013995E-02]
+    cldn: [ 0.4131862680E-01]
