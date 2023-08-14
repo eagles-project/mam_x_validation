@@ -1,6 +1,6 @@
 # Data at [lat=  -13.2292708024991      , lon=   139.817062054960      , k=          51 , time step=         355 ] 
 mam4xx:
-  function: modal_aero_water_uptake_dr_wetdens
+  function: modal_aero_water_uptake_wetdens
 input:
   fixed:
     dt:    0.00
