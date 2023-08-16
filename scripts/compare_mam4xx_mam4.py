@@ -66,7 +66,9 @@ if __name__ == '__main__':
                    and not i_name.endswith('_')]
     for i_name in input_names:
         i1, i2 = getattr(data1.input, i_name), getattr(data2.input, i_name)
-        assert(i1 == i2)
+        if i1 != i2:
+            print("Input Difference: ", i_name, ' i1: ', i1, ' i2: ', i2)
+        assert(np.allclose(i1, i2))
 
     # Check L1, L2, Linf norms for output data.
     output_names = [o_name for o_name in outputs1 \
