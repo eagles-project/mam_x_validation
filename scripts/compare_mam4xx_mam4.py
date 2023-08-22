@@ -104,20 +104,21 @@ if __name__ == '__main__':
         pass_test=True 
         if check_norms:
             max_abs_o1_a = abs(o1_a).max()
-            if max_abs_o1_a != 0:
-                if L1 > error_threshold :
-                    print("o1_a", o1_a)
-                    print("o2_a", o2_a)
-                    rel_error = L1/max_abs_o1_a
-                    print("L1 rel_error",rel_error)
-                    if rel_error > error_threshold: pass_test = False
-                if L2 > error_threshold:
-                    rel_error = L2/ max_abs_o1_a
-                    print("L2 rel_error",rel_error)
-                    if rel_error > error_threshold: pass_test = False
-                if Linf > error_threshold:
-                    rel_error = Linf/ max_abs_o1_a
-                    print("Linf rel_error",rel_error)
-                    if rel_error > error_threshold: pass_test = False       
+            if max_abs_o1_a == 0:
+               max_abs_o1_a = abs(o2_a).max()
+            if L1 > error_threshold :
+                print("o1_a", o1_a)
+                print("o2_a", o2_a)
+                rel_error = L1/max_abs_o1_a
+                print("L1 rel_error",rel_error)
+                if rel_error > error_threshold: pass_test = False
+            if L2 > error_threshold:
+                rel_error = L2/ max_abs_o1_a
+                print("L2 rel_error",rel_error)
+                if rel_error > error_threshold: pass_test = False
+            if Linf > error_threshold:
+                rel_error = Linf/ max_abs_o1_a
+                print("Linf rel_error",rel_error)
+                if rel_error > error_threshold: pass_test = False       
             assert(pass_test)             
 
