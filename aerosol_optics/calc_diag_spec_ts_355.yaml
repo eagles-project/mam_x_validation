@@ -1,0 +1,13 @@
+# Data at [lat=  -13.2292708024991      , lon=   139.817062054960      , k=          51 , time step=         355 ] 
+mam4xx:
+  function: calc_diag_spec
+input:
+  fixed:
+    dt:    0.00
+    ncol: [         4]
+    specmmr_k: [  0.45244286569388789E-009]
+    mass_k: [  0.34389585824000443E+003]
+    vol: [  0.25561743824513439E-012]
+    specrefr: [  0.14303349523758979E+001]
+    specrefi: [  0.99999999392252903E-008]
+    hygro_aer: [  0.50700000000000001E+000]
