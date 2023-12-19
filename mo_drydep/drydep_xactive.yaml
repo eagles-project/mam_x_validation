@@ -1,8 +1,8 @@
 # This file was automatically generated using the following command:
 # ./merge_ensembles drydep_xactive_output_ts_100.py drydep_xactive_output_ts_300.py drydep_xactive_output_ts_300_loc2_has_snow.py drydep_xactive_output_ts_1000_loc3_over_water.py
 
-settings:
-
+mam4xx:
+  function: drydep_xactive
 input:
   enumerated:
     air_temp: [[289.37659487255456], [305.0144969240973], [260.87173391455616], [299.0846416143141]]

@@ -1,8 +1,8 @@
 # This file was automatically generated using the following command:
 # ./merge_ensembles calculate_gas_drydep_vlc_and_flux_output_ts_100.py calculate_gas_drydep_vlc_and_flux_output_ts_300.py calculate_gas_drydep_vlc_and_flux_output_ts_300_loc2_has_snow.py calculate_gas_drydep_vlc_and_flux_output_ts_1000_loc3_over_water.py
 
-settings:
-
+mam4xx:
+  function: calculate_gas_drydep_vlc_and_flux
 input:
   enumerated:
     beglt: [[1], [1], [1], [1]]
