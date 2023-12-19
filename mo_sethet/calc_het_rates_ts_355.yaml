@@ -1,0 +1,12 @@
+# Data at [lat=  -13.2292708024991      , lon=   139.817062054960      , k=          51 , time step=         355 ] 
+mam4xx:
+  function: calc_het_rates
+input:
+  fixed:
+    dt:    0.00
+    satf: [0.1600000000E-001]
+    rain: [0.1111150972E+013]
+    xhen: [0.2996217203E+006]
+    tmp_hetrates: [0.3332681352E-004]
+    work1: [0.7200258296E+014]
+    work2: [0.3871776054E-019]
