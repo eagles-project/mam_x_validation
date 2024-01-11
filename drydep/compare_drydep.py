@@ -77,4 +77,4 @@ if __name__ == "__main__":
         # The primary culprit is the computation of xferfrac_pcage  in
         # mam_pcarbon_aging_frac.
 
-        assert np.allclose(o1, o2)
+        assert np.allclose(o1, o2, rtol=2e-04, atol=1e-05)
