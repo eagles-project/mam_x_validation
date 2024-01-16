@@ -1,6 +1,6 @@
 # Data at [lat=  -4.98879105856447      , lon=   28.0026147968828      , k=          52 , time step=        1400 ] 
 mam4xx:
-  function: aero_model_drydep
+  function: compute_tendencies
 input:
   fixed:
     ntot_amode: [         4]
