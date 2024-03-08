@@ -120,5 +120,7 @@ if __name__ == '__main__':
                 rel_error = Linf/ max_abs_o1_a
                 print("Linf rel_error",rel_error)
                 if rel_error > error_threshold: pass_test = False
+            if np.any(np.isnan([L1, L2, Linf])):
+                print("NaN in results--failing test")
+                pass_test = False
     assert(pass_test)
-
