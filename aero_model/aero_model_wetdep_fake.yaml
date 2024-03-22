@@ -1,0 +1,5 @@
+mam4xx:
+  function: aero_model_wetdep
+input:
+  fixed:
+    dt:    0.00
