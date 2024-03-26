@@ -107,8 +107,6 @@ if __name__ == '__main__':
             if max_abs_o1_a == 0:
                max_abs_o1_a = abs(o2_a).max()
             if L1 > error_threshold :
-                print("o1_a", list(o1_a))
-                print("o2_a", list(o2_a))
                 rel_error = L1/max_abs_o1_a
                 print("L1 rel_error",rel_error)
                 if rel_error > error_threshold: pass_test = False
