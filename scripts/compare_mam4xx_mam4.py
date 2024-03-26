@@ -67,7 +67,10 @@ if __name__ == '__main__':
     for i_name in input_names:
         i1, i2 = getattr(data1.input, i_name), getattr(data2.input, i_name)
         if i1 != i2:
-            print("Input Difference: ", i_name, ' i1: ', i1, ' i2: ', i2)
+            print("Input Difference for variable: ", i_name)
+            # for debugging, but commented out for reasons of verbosity
+            # print("Difference in Inputs: ", i_name, ' i1: ', i1, ' i2: ', i2)
+            # print("Absolute Difference = ", np.abs(np.array(i1) - np.array(i2)))
             assert(np.allclose(i1, i2))
 
     # Check L1, L2, Linf norms for output data.
@@ -107,6 +110,8 @@ if __name__ == '__main__':
             if max_abs_o1_a == 0:
                max_abs_o1_a = abs(o2_a).max()
             if L1 > error_threshold :
+                print("o1_a", list(o1_a))
+                print("o2_a", list(o2_a))
                 rel_error = L1/max_abs_o1_a
                 print("L1 rel_error",rel_error)
                 if rel_error > error_threshold: pass_test = False
