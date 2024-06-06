@@ -75,7 +75,9 @@ if __name__ == '__main__':
                     if not o_name.startswith('_') \
                     and not o_name.endswith('_')]
 
-    for o_name in output_names:
+    # assume that test passes.
+    pass_all_tests = np.full(np.shape(output_names), True)
+    for i_out, o_name in enumerate(output_names):
         pad_token = 0
         o1, o2 = getattr(data1.output, o_name), getattr(data2.output, o_name)
 
@@ -100,8 +102,15 @@ if __name__ == '__main__':
         print('L2',L2)
         print('Linf',Linf)
 
-        # assume that test passes.
-        pass_test=True
+        o1a = np.array(o1_a)
+        o2a = np.array(o2_a)
+        for o1, o2 in zip(o1a, o2a):
+          adiff = np.abs(o1 - o2)
+          if adiff > 1e-10 and (o1 < 1e30 or o2 < 1e30):
+            print(f'abs diff = {adiff}')
+            print(f'o1_a = {o1}')
+            print(f'o2_a = {o2}')
+
         if check_norms:
             max_abs_o1_a = abs(o1_a).max()
             if max_abs_o1_a == 0:
@@ -111,16 +120,17 @@ if __name__ == '__main__':
                 print("o2_a", list(o2_a))
                 rel_error = L1/max_abs_o1_a
                 print("L1 rel_error",rel_error)
-                if rel_error > error_threshold: pass_test = False
+                if rel_error > error_threshold: pass_all_tests[i_out] = False
             if L2 > error_threshold:
                 rel_error = L2/ max_abs_o1_a
                 print("L2 rel_error",rel_error)
-                if rel_error > error_threshold: pass_test = False
+                if rel_error > error_threshold: pass_all_tests[i_out] = False
             if Linf > error_threshold:
                 rel_error = Linf/ max_abs_o1_a
                 print("Linf rel_error",rel_error)
-                if rel_error > error_threshold: pass_test = False
+                if rel_error > error_threshold: pass_all_tests[i_out] = False
             if np.any(np.isnan([L1, L2, Linf])):
                 print("NaN in results--failing test")
-                pass_test = False
-    assert(pass_test)
+                pass_all_tests[i_out] = False
+    print(f'final pass array = {pass_all_tests}')
+    assert(np.all(pass_all_tests))
