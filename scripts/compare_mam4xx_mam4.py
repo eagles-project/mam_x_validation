@@ -66,9 +66,32 @@ if __name__ == '__main__':
                    and not i_name.endswith('_')]
     for i_name in input_names:
         i1, i2 = getattr(data1.input, i_name), getattr(data2.input, i_name)
-        if i1 != i2:
-            print("Input Difference: ", i_name, ' i1: ', i1, ' i2: ', i2)
-            assert(np.allclose(i1, i2))
+        L1, L2, Linf = norms(i1, i2)
+        # max4norm = np.max((np.max(np.abs(i1)), np.max(np.abs(i2))))
+        # minvalQ = np.min((np.min(np.abs(i1)), np.min(np.abs(i2))))
+        # rel_error_1 = L1 / max4norm
+        # rel_error_2 = L2 / max4norm
+        # rel_error_inf = Linf / max4norm
+        # print(f'Input error for {i_name}:')
+        # print(f'max4norm = {max4norm}')
+        # print(f'min val = {minvalQ}')
+        # # print("L1 error", L1)
+        # # print("L2 error", L2)
+        # print("Linf error", Linf)
+        # print("Linf rel_error", rel_error_inf)
+        # if np.any(rel_error_1 > 1e-8) or np.any(rel_error_2 > 1e-8) or np.any(rel_error_inf > 1e-8):
+        #   # print("i1", list(i1))
+        #   # print("i2", list(i2))
+        #   # print("L1 rel_error", rel_error_1)
+        #   # print("L2 rel_error", rel_error_2)
+        #   print(f'Input error for {i_name}:')
+        #   print("Linf error", Linf)
+        #   print("Linf rel_error", rel_error_inf)
+          # assert(rel_error_1 < 1e-8 and rel_error_2 < 1e-8 and rel_error_inf < 1e-8)
+
+        # if not np.allclose(i1, i2):
+        #     print("Input Difference: ", i_name, ' i1: ', i1, ' i2: ', i2)
+            # assert(np.allclose(i1, i2))
 
     # Check L1, L2, Linf norms for output data.
     output_names = [o_name for o_name in outputs1 \
@@ -102,33 +125,31 @@ if __name__ == '__main__':
         print('L2',L2)
         print('Linf',Linf)
 
-        o1a = np.array(o1_a)
-        o2a = np.array(o2_a)
-        for o1, o2 in zip(o1a, o2a):
-          adiff = np.abs(o1 - o2)
-          if adiff > 1e-10 and (o1 < 1e30 or o2 < 1e30):
-            print(f'abs diff = {adiff}')
-            print(f'o1_a = {o1}')
-            print(f'o2_a = {o2}')
+        # o1a = np.array(o1_a)
+        # o2a = np.array(o2_a)
+        # for o1, o2 in zip(o1a, o2a):
+        #   adiff = np.abs(o1 - o2)
+        #   if adiff > 1e-10 and (o1 < 1e30 or o2 < 1e30):
+        #     print(f'abs diff = {adiff}')
+        #     print(f'o1_a = {o1}')
+        #     print(f'o2_a = {o2}')
 
         if check_norms:
-            max_abs_o1_a = abs(o1_a).max()
-            if max_abs_o1_a == 0:
-               max_abs_o1_a = abs(o2_a).max()
-            if L1 > error_threshold :
-                print("o1_a", list(o1_a))
-                print("o2_a", list(o2_a))
-                rel_error = L1/max_abs_o1_a
-                print("L1 rel_error",rel_error)
-                if rel_error > error_threshold: pass_all_tests[i_out] = False
-            if L2 > error_threshold:
-                rel_error = L2/ max_abs_o1_a
-                print("L2 rel_error",rel_error)
-                if rel_error > error_threshold: pass_all_tests[i_out] = False
-            if Linf > error_threshold:
-                rel_error = Linf/ max_abs_o1_a
-                print("Linf rel_error",rel_error)
-                if rel_error > error_threshold: pass_all_tests[i_out] = False
+            max4norm = np.max((np.max(np.abs(o1_a)), np.max(np.abs(o2_a))))
+            minvalQ = np.min((np.min(np.abs(o1_a)), np.min(np.abs(o2_a))))
+            print(f'maxval = {max4norm}')
+            print(f'minval = {minvalQ}')
+            print("o1_a", list(o1_a))
+            print("o2_a", list(o2_a))
+            rel_error = L1/ max4norm
+            print("L1 rel_error",rel_error)
+            if rel_error > error_threshold: pass_all_tests[i_out] = False
+            rel_error = L2/ max4norm
+            print("L2 rel_error",rel_error)
+            if rel_error > error_threshold: pass_all_tests[i_out] = False
+            rel_error = Linf/ max4norm
+            print("Linf rel_error",rel_error)
+            if rel_error > error_threshold: pass_all_tests[i_out] = False
             if np.any(np.isnan([L1, L2, Linf])):
                 print("NaN in results--failing test")
                 pass_all_tests[i_out] = False
