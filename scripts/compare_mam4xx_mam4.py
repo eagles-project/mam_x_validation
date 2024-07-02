@@ -118,6 +118,11 @@ if __name__ == '__main__':
         print('L2',L2)
         print('Linf',Linf)
 
+        # check for the bit-for-bit case because the relative errors will be NaN
+        if L1 == 0 and L2 == 0 and Linf == 0:
+          pass_all_tests[i_out] = True
+          continue
+
         if check_norms:
             max4norm = np.max((np.max(np.abs(o1_a)), np.max(np.abs(o2_a))))
             if verbose_error:
