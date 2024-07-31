@@ -1,5 +1,5 @@
 mam4xx:
-  function: aero_model_emissions
+  function: aero_emissions_smoketest
 input:
   enumerated:
     beglt: [[1], [1], [1], [1]]
