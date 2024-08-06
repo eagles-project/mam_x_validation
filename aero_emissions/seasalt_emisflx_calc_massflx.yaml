@@ -1,6 +1,6 @@
-# Data at [lat=  -5.57727434969463      , lon=   184.674947489650      , k=          72 , time step=         300 ] 
+# Data at [lat=  -5.57727434969463      , lon=   184.674947489650      , k=          72 , time step=         300 ]
 mam4xx:
-  function: seasalt_emisflx_calc
+  function: seasalt_emisflx_calc_massflux
 input:
   fixed:
     ncol: [         4]
