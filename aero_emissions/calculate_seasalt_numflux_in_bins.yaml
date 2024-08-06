@@ -1,0 +1,12 @@
+# Data at [lat=  -5.57727434969463      , lon=   184.674947489650      , k=          72 , time step=         300 ] 
+mam4xx:
+  function: calculate_seasalt_numflux_in_bins
+input:
+  fixed:
+    ncol: [         4]
+    srf_temp: [  0.30196620710190155E+003]
+    ubot: [  0.11242244948168554E+001]
+    vbot: [ -0.80173043241728681E+000]
+    zbot: [  0.13339000183945252E+002]
+    nsections: [        31]
+    z0: [  0.10000000000000000E-003]
