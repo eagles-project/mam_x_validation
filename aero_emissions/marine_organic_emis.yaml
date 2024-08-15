@@ -1,4 +1,4 @@
-# Data at [lat=  -5.57727434969463      , lon=   184.674947489650      , k=          72 , time step=         300 ] 
+# Data at [lat=  -5.57727434969463      , lon=   184.674947489650      , k=          72 , time step=         300 ]
 mam4xx:
   function: marine_organic_emis
 input:
@@ -10,3 +10,6 @@ input:
     emis_scale: [  0.59999999999999998E+000]
     nsections: [        31]
     emit_this_mode: [         1,         1,         0]
+    mpoly: [  0.29462131363967192E+002]
+    mprot: [  0.88386394091901579E+001]
+    mlip: [  0.16230117959603003E-001]
