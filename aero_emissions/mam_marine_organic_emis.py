@@ -27,7 +27,7 @@ output = Object()
 # NOTE: this array was not zeroed out and the only entries of cflx that are
 # operated on in this function are changed within calc_marine_organic_numflux()
 # and calc_marine_organic_massflux(), and the indices are  (fortran indexing):
-# cflx[{22, 23, 27, 28, 39}]
+# cflx[22, 23, 27, 28, 39]
 # see mamcalc_marine_organic_numflux.py and mamcalc_marine_organic_massflux.py
 # for more information
 output.cflx=[0.25949427534039011E-014, 0.40171976403775255E+003, 0.40923591787533519E-017, 0.21605565465020157E+003, 0.0]
