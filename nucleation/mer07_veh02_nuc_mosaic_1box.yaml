@@ -1,0 +1,5 @@
+mam4xx:
+  function: mer07_veh02_nuc_mosaic_1box
+input:
+  fixed:
+    life: [        42]

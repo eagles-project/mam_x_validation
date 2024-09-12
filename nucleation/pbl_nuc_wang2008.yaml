@@ -1,0 +1,5 @@
+mam4xx:
+  function: pbl_nuc_wang2008
+input:
+  fixed:
+    life: [        42]

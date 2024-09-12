@@ -1,0 +1,5 @@
+mam4xx:
+  function: binary_nuc_vehk2002
+input:
+  fixed:
+    life: [        42]
