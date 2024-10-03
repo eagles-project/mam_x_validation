@@ -1,0 +1,8 @@
+# Data at [lat=  -5.57727434969463      , lon=   184.674947489650      , k=          68 , time step=         379 ] 
+mam4xx:
+  function: binary_nuc_vehk2002
+input:
+  fixed:
+    temp: [  0.29775449169937525E+003]
+    rh: [  0.81985597081405814E+000]
+    so4vol: [  0.78776908479016344E+006]

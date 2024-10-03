@@ -1,0 +1,14 @@
+# Data at [lat=  -5.57727434969463      , lon=   184.674947489650      , k=          68 , time step=         379 ] 
+mam4xx:
+  function: pbl_nuc_wang2008
+input:
+  fixed:
+    so4vol: [  0.78776908479016344E+006]
+    newnuc_method_flagaa: [        11]
+    newnuc_method_flagaa2: [         2]
+    ratenucl: [  0.12690084802925376E-071]
+    rateloge: [ -0.16554789082420373E+003]
+    cnum_tot: [  0.12603486825834364E+004]
+    cnum_h2so4: [  0.14414987162270899E+003]
+    cnum_nh3: [  0.00000000000000000E+000]
+    radius_cluster: [  0.21928326134908684E+001]
