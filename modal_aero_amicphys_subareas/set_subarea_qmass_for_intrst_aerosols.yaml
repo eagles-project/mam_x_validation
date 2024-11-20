@@ -1,7 +1,8 @@
 # This file was automatically generated using the following command:
 # ./merge_ensembles.py set_subarea_qmass_for_intrst_aerosols_output_ts_379_ypt2.py set_subarea_qmass_for_intrst_aerosols_output_ts_379_ypt3.py
 
-settings:
+mam4xx:
+  function: set_subarea_qmass_for_intrst_aerosols
 
 input:
   enumerated:

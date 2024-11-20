@@ -1,4 +1,4 @@
-# Data at [lat=  -5.57727434969463      , lon=   184.674947489650      , k=          55 , time step=         379 ] 
+# Data at [lat=  -5.57727434969463      , lon=   184.674947489650      , k=          55 , time step=         379 ]
 mam4xx:
   function: setup_subareas
 input:

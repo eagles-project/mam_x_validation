@@ -1,7 +1,8 @@
 # This file was automatically generated using the following command:
 # ./merge_ensembles.py get_partition_factors_output_ts_379_ypt2_ytype0.py get_partition_factors_output_ts_379_ypt2_ytype1.py get_partition_factors_output_ts_379_ypt3_ytype0.py get_partition_factors_output_ts_379_ypt3_ytype1.py
 
-settings:
+mam4xx:
+  function: get_partition_factors
 
 input:
   enumerated:
