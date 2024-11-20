@@ -1,0 +1,11 @@
+# This file was automatically generated using the following command:
+# ./merge_ensembles.py get_partition_factors_output_ts_379_ypt2_ytype0.py get_partition_factors_output_ts_379_ypt2_ytype1.py get_partition_factors_output_ts_379_ypt3_ytype0.py get_partition_factors_output_ts_379_ypt3_ytype1.py
+
+settings:
+
+input:
+  enumerated:
+    fcldy: [[0.006309453440839437], [0.006309453440839437], [0.006309453440839437], [0.006309453440839437]]
+    fclea: [[0.9936905465591606], [0.9936905465591606], [0.9936905465591606], [0.9936905465591606]]
+    qgcm_cldbrn: [[0.0], [0.0], [0.0], [0.0]]
+    qgcm_intrst: [[5479540603.564191], [2.0917988964487075e-09], [5479540603.564191], [2.0917988964487075e-09]]
