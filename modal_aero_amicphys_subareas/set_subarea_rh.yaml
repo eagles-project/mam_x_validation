@@ -1,0 +1,11 @@
+# Data at [lat=  -5.57727434969463      , lon=   184.674947489650      , k=          55 , time step=         379 ] 
+mam4xx:
+  function: set_subarea_rh
+input:
+  fixed:
+    ncldy_subarea: [         1]
+    jclea: [         1]
+    jcldy: [         2]
+    afracsub: [  0.99369054655916056E+000,  0.63094534408394366E-002]
+    relhumgcm: [  0.89237549945883410E+000]
+    maxsubarea: [         2]
