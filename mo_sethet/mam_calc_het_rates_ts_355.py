@@ -10,13 +10,12 @@ class Object(object):
 settings = Object()
 # Input is stored here.
 input = Object()
-input.dt = [    0.00, ]
-input.satf=[[0.1600000000E-001],]
-input.rain=[[0.1111150972E+013],]
-input.xhen=[[0.2996217203E+006],]
-input.tmp_hetrates=[[0.3332681352E-004],]
-input.work1=[[0.7200258296E+014],]
-input.work2=[[0.3871776054E-019],]
+input.satf=[[  0.16000000000000000E-001],]
+input.rain=[[  0.11111509715919458E+013],]
+input.xhen=[[  0.29962172026848752E+006],]
+input.tmp_hetrates=[[  0.33326813518612723E-004],]
+input.work1=[[  0.72002582959158062E+014],]
+input.work2=[[  0.38717760536287645E-019],]
 # Output data is stored here.
 output = Object()
-output.het_rates=[[0.3534958569E-004],]
+output.het_rates=[[  0.35349585685096047E-004],]
