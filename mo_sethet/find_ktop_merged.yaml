@@ -1,7 +1,8 @@
 # This file was automatically generated using the following command:
 # ./merge_ensembles.py mam_find_ktop_ts_340.py mam_find_ktop_ts_341.py mam_find_ktop_ts_342.py mam_find_ktop_ts_343.py mam_find_ktop_ts_344.py mam_find_ktop_ts_345.py mam_find_ktop_ts_346.py mam_find_ktop_ts_347.py mam_find_ktop_ts_348.py mam_find_ktop_ts_349.py mam_find_ktop_ts_350.py mam_find_ktop_ts_351.py mam_find_ktop_ts_352.py mam_find_ktop_ts_353.py mam_find_ktop_ts_354.py mam_find_ktop_ts_355.py
 
-settings:
+mam4xx:
+  function: find_ktop
 
 input:
   enumerated:
