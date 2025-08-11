@@ -1,6 +1,7 @@
 import os, sys, importlib, itertools
 import numpy as np
 import numpy.linalg as lin
+import argparse
 
 # Look for data in whatever directory we're running in.
 sys.path.append(os.getcwd())
@@ -8,7 +9,7 @@ sys.path.append(os.getcwd())
 def usage():
     """Provides usage info."""
     print('compare_mam4xx_mam4.py: compares values in Python data modules.')
-    print('usage: python3 compare_mam4xx_mam4.py <module1.py> <module2.py>')
+    print('usage: python3 compare_mam4xx_mam4.py <module1.py> <module2.py> [check_norms (bool)] [error_tol] [--verbose_error=(bool)]')
 
 
 def norms(x_comp, x_ref) :
@@ -28,14 +29,26 @@ if __name__ == '__main__':
         usage()
         exit(0)
 
-    # Import the given data modules.
-    data1 = importlib.import_module(sys.argv[1].replace('.py', ''))
-    data2 = importlib.import_module(sys.argv[2].replace('.py', ''))
-
     # arg1 = module 1
     # arg2 = module 2
     # arg3 = check norms (False)
     # arg4 = error_threshold (1e-6)
+    # arg (optional) = verbose_error (False)
+
+    # optional argument for printing full input/output arrays when there is a
+    # diff. uses argparser so it can be optional without interfering with the
+    # presence of the original positional args (1-4, above)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-v', '--verbose_error', required=False, default=False,
+                        help='boolean flag controlling whether input/output'
+                        + 'arrays are printed when diff is detected')
+    args = parser.parse_known_args(args=sys.argv)
+    print(args[0].verbose_error)
+    verbose_error = args[0].verbose_error
+
+    # Import the given data modules.
+    data1 = importlib.import_module(sys.argv[1].replace('.py', ''))
+    data2 = importlib.import_module(sys.argv[2].replace('.py', ''))
 
     #Default check norms
     check_norms=False
@@ -67,7 +80,10 @@ if __name__ == '__main__':
     for i_name in input_names:
         i1, i2 = getattr(data1.input, i_name), getattr(data2.input, i_name)
         if i1 != i2:
-            print("Input Difference: ", i_name, ' i1: ', i1, ' i2: ', i2)
+            print("Input Difference for variable: ", i_name)
+            if verbose_error:
+              print("Input values: ", ' i1: ', i1, ' i2: ', i2)
+              print("Absolute Difference = ", np.abs(np.array(i1) - np.array(i2)))
             assert(np.allclose(i1, i2))
 
     # Check L1, L2, Linf norms for output data.
@@ -102,33 +118,25 @@ if __name__ == '__main__':
         print('L2',L2)
         print('Linf',Linf)
 
-        o1a = np.array(o1_a)
-        o2a = np.array(o2_a)
-        for o1, o2 in zip(o1a, o2a):
-          adiff = np.abs(o1 - o2)
-          if adiff > 1e-10 and (o1 < 1e30 or o2 < 1e30):
-            print(f'abs diff = {adiff}')
-            print(f'o1_a = {o1}')
-            print(f'o2_a = {o2}')
+        # check for the bit-for-bit case because the relative errors will be NaN
+        if L1 == 0 and L2 == 0 and Linf == 0:
+          pass_all_tests[i_out] = True
+          continue
 
         if check_norms:
-            max_abs_o1_a = abs(o1_a).max()
-            if max_abs_o1_a == 0:
-               max_abs_o1_a = abs(o2_a).max()
-            if L1 > error_threshold :
-                print("o1_a", list(o1_a))
-                print("o2_a", list(o2_a))
-                rel_error = L1/max_abs_o1_a
-                print("L1 rel_error",rel_error)
-                if rel_error > error_threshold: pass_all_tests[i_out] = False
-            if L2 > error_threshold:
-                rel_error = L2/ max_abs_o1_a
-                print("L2 rel_error",rel_error)
-                if rel_error > error_threshold: pass_all_tests[i_out] = False
-            if Linf > error_threshold:
-                rel_error = Linf/ max_abs_o1_a
-                print("Linf rel_error",rel_error)
-                if rel_error > error_threshold: pass_all_tests[i_out] = False
+            max4norm = np.max((np.max(np.abs(o1_a)), np.max(np.abs(o2_a))))
+            if verbose_error:
+              print("o1_a", list(o1_a))
+              print("o2_a", list(o2_a))
+            rel_error = L1/ max4norm
+            print("L1 rel_error",rel_error)
+            if rel_error > error_threshold: pass_all_tests[i_out] = False
+            rel_error = L2/ max4norm
+            print("L2 rel_error",rel_error)
+            if rel_error > error_threshold: pass_all_tests[i_out] = False
+            rel_error = Linf/ max4norm
+            print("Linf rel_error",rel_error)
+            if rel_error > error_threshold: pass_all_tests[i_out] = False
             if np.any(np.isnan([L1, L2, Linf])):
                 print("NaN in results--failing test")
                 pass_all_tests[i_out] = False
