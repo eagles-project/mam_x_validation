@@ -14,20 +14,57 @@ def usage():
           '[check_norms (bool)] [error_tol] [--verbose_debug=(bool)] [--concise_debug=(bool)]')
 
 
-def norms(x_comp, x_ref) :
+def norms(x_comp, x_ref):
     """norms(x_comp, x_ref) - Returns L1, L2, and Linf norms for x_comp - x_ref."""
     diff = np.subtract(x_comp, x_ref)
-    if 1 == diff.ndim :
-      axis = None
-    else :
-      axis = 0
-    L1 = lin.norm(diff, 1, axis)
-    L2 = lin.norm(diff, 2, axis)
-    Linf = lin.norm(diff, np.inf, axis)
+    L1 = lin.norm(diff, 1)
+    L2 = lin.norm(diff, 2)
+    Linf = lin.norm(diff, np.inf)
     return (L1, L2, Linf)
 
 
+def norms_absNrel(x_comp, x_ref, qoi=None, inout=None):
+  """
+  We use the 'maximum mean change,' as recommended for comparing floating point
+  values in the following wikipedia article, citing the c-faq page.
+  https://en.wikipedia.org/wiki/Relative_change#Indicators_of_relative_change
+  https://c-faq.com/fp/fpequal.html
+  """
+  L1, L2, Linf = norms(x_comp, x_ref)
+  L11, L21, Linf1 = norms(x_comp, np.zeros_like(x_comp))
+  L12, L22, Linf2 = norms(x_ref, np.zeros_like(x_ref))
+  bL1 = np.max([L11, L12])
+  bL2 = np.max([L21, L22])
+  bLinf = np.max([Linf1, Linf2])
+  # a norm is strictly non-negative, and we take the max, so we only need to
+  # test one.
+  # if true, testing this quantity is potentially vacuous, so issue warning
+  if bL1 == 0:
+    print('!' * pwidth)
+    print(f"Warning! Both the reference and calculated values for {inout} {qoi} are the zero vector.")
+    print("The test passes for this quantity, but the test may be missing something important.")
+    print('!' * pwidth)
+    errvec = [0, 0, 0, 0, 0, 0]
+  else:
+    RL1 = L1 / bL1
+    RL2 = L2 / bL2
+    RLinf = Linf / bLinf
+    errvec = [L1, L2, Linf, RL1, RL2, RLinf]
+  return errvec
+
+
+# desired max width of printed messages
+pwidth = 100
+# define the tabs here for consistency between manual indents and textwrap.fill()
+tsize = 2
+tabvar = ' ' * tsize
+
+
 def print_all_errors(errvec):
+  """
+  take the list of all the errors from above, and maybe booleans for NaN/inf,
+  and print them nicely
+  """
   print_sep(sz=1)
   print(tabvar + f'Error in L1 norm = {errvec[0]}')
   print(tabvar + f'Error in L2 norm = {errvec[1]}')
@@ -37,8 +74,12 @@ def print_all_errors(errvec):
   print(tabvar + f'Relative Error in L2 norm = {errvec[4]}')
   print(tabvar + f'Relative Error in Linf norm = {errvec[5]}')
   print_sep(sz=1)
-  print(tabvar + f'NaN in output = {errvec[6]}')
-  print_sep(sz=1)
+  if len(errvec) > 6:
+    print(tabvar + f'NaN values in output = {errvec[6]}')
+    print_sep(sz=1)
+    if len(errvec) > 7:
+      print(tabvar + f'Infinite values in output = {errvec[7]}')
+      print_sep(sz=1)
 
 
 def flatten_list(list_obj):
@@ -57,12 +98,9 @@ def flatten_list(list_obj):
       else:
         flatter.append(item)
     if done:
-      return np.array(list_obj)
+      return np.array(list_obj).astype(float)
     list_obj = flatter
 
-
-# desired max width of printed messages
-pwidth = 100
 
 def print_sep(n=1, sz=2):
   """
@@ -79,9 +117,6 @@ def print_sep(n=1, sz=2):
     for _ in range(n):
       print('-' * pwidth)
 
-# define the tabs here for consistency between manual indents and textwrap.fill()
-tsize = 2
-tabvar = ' ' * tsize
 
 if __name__ == '__main__':
   if len(sys.argv) < 3:
@@ -104,7 +139,7 @@ if __name__ == '__main__':
   # args (1-4, above)
 
   parser = argparse.ArgumentParser()
-  parser.add_argument('-v', '--verbose_debug', required=False, default=True,
+  parser.add_argument('-v', '--verbose_debug', required=False, default=False,
                       help='boolean flag controlling whether input/output'
                       + 'arrays are printed when diff is detected')
   parser.add_argument('-c', '--concise_debug', required=False, default=False,
@@ -163,19 +198,12 @@ if __name__ == '__main__':
     i1, i2 = getattr(data1.input, i_name), getattr(data2.input, i_name)
     i1 = flatten_list(i1)
     i2 = flatten_list(i2)
-    iL1, iL2, iLinf = norms(i1, i2)
-    bL1, bL2, bLinf = norms(i2, np.zeros_like(i2))
-    if (bL1 == 0) or (bL2 == 0) or (bLinf == 0):
-      bL1, bL2, bLinf = norms(i1, np.zeros_like(i1))
-    if (bL1 == 0) or (bL2 == 0) or (bLinf == 0):
-      continue
-    iL1_rel = iL1 / bL1
-    iL2_rel = iL2 / bL2
-    iLinf_rel = iLinf / bLinf
-    input_diff = np.max((iL1_rel, iL2_rel, iLinf_rel))
+    errvec_i = norms_absNrel(i1, i2, qoi=i_name, inout='input')
+    # we'll choose the max relative error
+    input_diff = np.max(errvec_i[3:])
     # 1e-12 is somewhat arbirtrary, but equality isn't expected, and the only
     # downside of a small tolerance is the potential of extra inputs being
-    # flagged as differing and no effect on pass/fail of test
+    # flagged as differing and then printed with no effect on pass/fail of test
     if (input_diff > 1e-12) and not concise_debug:
       print("Input difference for variable: ", i_name)
       if verbose_debug:
@@ -193,16 +221,21 @@ if __name__ == '__main__':
         print(fill(f"Absolute entry-wise difference = {np.abs(np.array(i1) - np.array(i2))}",
                   width=pwidth, tabsize=2, initial_indent=tabvar * ntabs,
                   subsequent_indent=' ' * subs_ind))
-        print(tabvar + f'Error in L1 norm (input {i_name}) = {iL1}')
-        print(tabvar + f'Error in L2 norm (input {i_name}) = {iL2}')
-        print(tabvar + f'Error in Linf norm (input {i_name}) = {iLinf}')
-        print_sep(sz=1)
-        print(tabvar + f'Relative Error in L1 norm (input {i_name}) = {iL1_rel}')
-        print(tabvar + f'Relative Error in L2 norm (input {i_name}) = {iL2_rel}')
-        print(tabvar + f'Relative Error in Linf norm (input {i_name}) = {iLinf_rel}')
+        print_all_errors(errvec_i)
+      # consider entrywise equality to decide whether to continue
       assert(np.allclose(i1, i2))
+    # we've already verified that they're allclose, so probably don't need all
+    # of these, but let's be extra-safe
+    # TODO: determine if np.allclose(NaN, NaN) or np.allclose(inf, inf)
+    if np.any(np.isnan(i1)):
+      print(f'Warning! Computed solution inputs {i_name} contain NaN values.')
+    if np.any(np.isnan(i2)):
+      print(f'Warning! Reference solution inputs {i_name} contain NaN values.')
+    if np.any(np.isinf(i1)):
+      print(f'Warning! Computed solution inputs {i_name} contain infinite values.')
+    if np.any(np.isinf(i2)):
+      print(f'Warning! Reference solution inputs {i_name} contain infinite values.')
 
-  # Check L1, L2, Linf norms for output data.
   output_names = [o_name for o_name in outputs1 \
                   if not o_name.startswith('_') \
                   and not o_name.endswith('_')]
@@ -211,48 +244,22 @@ if __name__ == '__main__':
   pass_all_tests = np.full(np.shape(output_names), True)
   fail_tests = dict.fromkeys(output_names)
   for i_out, o_name in enumerate(output_names):
-    all_zeros_print = False
     o1, o2 = getattr(data1.output, o_name), getattr(data2.output, o_name)
 
     # There is no requirement for the arrays in Skywalker to be regular and not
     # ragged with different length sub-lists.
     # To handle this, we recursively flatten the list into a 1D numpy array.
-    # This should take care of matters for arbitrarily nested,
+    # NOTE: This should take care of matters for arbitrarily nested,
     # arbitrarily-patterned ragged lists, as long as the entries in the
     # compared arrays correspond when reading from left-to-right,
     # then top-to-bottom.
     # However, it is likely to fail if the arrays have a different number of
     # entries... but that would be very strange and should probably fail anyway.
-
-    # if type(o1) is list and 0 < len(o1) and type(o1[0]) is list:
-    o1_a = flatten_list(o1).astype(float)
-    # if type(o2) is list and 0 < len(o2) and type(o2[0]) is list:
-    o2_a = flatten_list(o2).astype(float)
+    o1_a = flatten_list(o1)
+    o2_a = flatten_list(o2)
 
     # calculate errors
-    L1, L2, Linf = norms(o1_a, o2_a)
-    # try to be smart about how we choose the scaling factor for rel. error
-    if np.all(o2_a == 0) and not np.all(o1_a == 0):
-      print('!' * pwidth)
-      print(f"Warning! Reference solution for {o_name} contains all zeros.")
-      print("As a result, relative error will be calculated via scaling by 1.")
-      print("This will result in relative error that is equal to absolute error.")
-      print("It is recommended to take a closer look at these results.")
-      print('!' * pwidth)
-      L1, L2, Linf = norms(o1_a, np.zeros_like(o1_a))
-      L1_base = 1
-      L2_base = 1
-      Linf_base = 1
-      all_zeros_print = True
-    elif np.all(o1_a == 0) and np.all(o2_a == 0):
-      pass_all_tests[i_out] = True
-      print('!' * pwidth)
-      print("Warning! Both the reference and calculated solutions are entirely zeros.")
-      print("The test passes for this quantity, but the test may be missing something important.")
-      print('!' * pwidth)
-      continue
-    else:
-      L1_base, L2_base, Linf_base = norms(o2_a, np.zeros_like(o2_a))
+    errvec_o = norms_absNrel(o1_a, o2_a, qoi=o_name, inout='output')
 
     if verbose_debug:
       print_sep()
@@ -260,7 +267,7 @@ if __name__ == '__main__':
       print_sep()
 
     # check for the bit-for-bit case to exit early
-    if L1 == 0 and L2 == 0 and Linf == 0:
+    if np.all(errvec_o == 0):
       pass_all_tests[i_out] = True
       print('!' * pwidth)
       print("Good news--answers match to numerical precision!")
@@ -280,22 +287,15 @@ if __name__ == '__main__':
                    initial_indent=tabvar * ntabs,
                    subsequent_indent=' ' * subs_ind))
         print_sep()
-      L1_rel_error = L1 / L1_base
-      if L1_rel_error > error_threshold: pass_all_tests[i_out] = False
-      L2_rel_error = L2 / L2_base
-      if L2_rel_error > error_threshold: pass_all_tests[i_out] = False
-      Linf_rel_error = Linf / Linf_base
-      if Linf_rel_error > error_threshold: pass_all_tests[i_out] = False
-      outputNaN = np.any(np.isnan([L1, L2, Linf]))
-      if outputNaN:
+      if np.any(np.array(errvec_o[3:]) > error_threshold): pass_all_tests[i_out] = False
+      # this should never happen, but might as well
+      output_NaN = np.any(np.isnan(errvec_o))
+      output_inf = np.any(np.isinf(errvec_o))
+      if output_NaN or output_inf:
         pass_all_tests[i_out] = False
       if not pass_all_tests[i_out]:
-        fail_tests[o_name] = (L1, L2, Linf, L1_rel_error, L2_rel_error,
-                              Linf_rel_error, outputNaN)
-      if all_zeros_print:
-        print_sep(sz=1)
-        print(f'Reference solution is all zeros - Printing error')
-        print_all_errors(fail_tests[o_name])
+        # that weird extra comma is required to "append" a scalar to a tuple
+        fail_tests[o_name] = tuple(errvec_o) + (output_NaN, output_inf)
 
   # We collect the errors and print at the end for easier output formatting
   if not concise_debug:
