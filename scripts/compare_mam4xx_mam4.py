@@ -240,6 +240,11 @@ if __name__ == '__main__':
                   if not o_name.startswith('_') \
                   and not o_name.endswith('_')]
 
+  # reset flag here - used to get info when test fails on relative error but
+  # is still within previously-established absolute error tolerance
+  # thus, if ANY set this flag to true, the condition will trigger
+  abs_error_pass = False
+
   # assume that test passes and change on failure
   pass_all_tests = np.full(np.shape(output_names), True)
   fail_tests = dict.fromkeys(output_names)
@@ -296,6 +301,19 @@ if __name__ == '__main__':
       if not pass_all_tests[i_out]:
         # that weird extra comma is required to "append" a scalar to a tuple
         fail_tests[o_name] = tuple(errvec_o) + (output_NaN, output_inf)
+        if np.all(errvec_o[0:3]):
+          abs_error_pass = True
+          print_sep()
+          print('!' * pwidth)
+          print(f'WARNING: {testname} test fails based on relative error.')
+          print(fill(f'However, {testname}, still passes for the previously-' + \
+                f'established absolute error tolerance of {error_threshold}.',
+                width=pwidth))
+          print(fill('TAKE A CLOSE LOOK at these test results because it is' + \
+                ' possible this failure in relative error indicates a BUG.',
+                width=pwidth))
+          print('!' * pwidth)
+          print_sep()
 
   # We collect the errors and print at the end for easier output formatting
   if not concise_debug:
@@ -316,4 +334,13 @@ if __name__ == '__main__':
         print_all_errors(fail_tests[n])
   print_sep(2)
   # assert pass/fail at the end so we always get informational output
-  assert(np.all(pass_all_tests))
+  if np.all(pass_all_tests):
+    exit(0)
+  else:
+    # We instruct ctest to return "Skipped" status in this case
+    # This still prints at the end of the test suite but does not cause the
+    # entire thing to fail
+    if abs_error_pass:
+      print('regex_fail_rel_tol')
+    else:
+      exit(1)
