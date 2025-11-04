@@ -301,7 +301,7 @@ if __name__ == '__main__':
       if not pass_all_tests[i_out]:
         # that weird extra comma is required to "append" a scalar to a tuple
         fail_tests[o_name] = tuple(errvec_o) + (output_NaN, output_inf)
-        if np.all(errvec_o[0:3]):
+        if np.any(np.array(errvec_o[0:3]) < error_threshold):
           abs_error_pass = True
           print_sep()
           print('!' * pwidth)
