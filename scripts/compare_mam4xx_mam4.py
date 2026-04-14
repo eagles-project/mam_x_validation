@@ -285,12 +285,18 @@ if __name__ == '__main__':
     rel_inf = False
     if check_norms:
       if verbose_debug:
-        print(fill(f"o1_a = {list(o1_a)}", width=pwidth, tabsize=2,
-                   initial_indent=tabvar * ntabs,
-                   subsequent_indent=' ' * subs_ind))
-        print(fill(f"o2_a = {list(o2_a)}", width=pwidth, tabsize=2,
-                   initial_indent=tabvar * ntabs,
-                   subsequent_indent=' ' * subs_ind))
+        abs_diff = np.abs(o1_a - o2_a)
+        denom = np.maximum(np.abs(o1_a), np.abs(o2_a))
+        rel_diff = np.where(denom != 0, abs_diff / denom, 0.0)
+        print_sep(sz=1)
+        header = (f"{'idx':>6}  {'o1_a':>20}  {'o2_a':>20}"
+                  f"  {'abs diff':>15}  {'rel diff':>15}")
+        print(tabvar * ntabs + header)
+        print_sep(sz=1)
+        for idx in range(len(o1_a)):
+          row = (f"{idx:>6}  {o1_a[idx]:>20.8e}  {o2_a[idx]:>20.8e}"
+                 f"  {abs_diff[idx]:>15.6e}  {rel_diff[idx]:>15.6e}")
+          print(tabvar * ntabs + row)
         print_sep()
       if np.any(np.array(errvec_o[3:]) > error_threshold): pass_all_tests[i_out] = False
       # this should never happen, but might as well
